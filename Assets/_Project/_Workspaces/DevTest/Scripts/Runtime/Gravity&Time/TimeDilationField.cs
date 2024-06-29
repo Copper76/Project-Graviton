@@ -5,16 +5,10 @@ using UnityEngine.InputSystem;
 
 public class TimeDilationField : MonoBehaviour
 {
-    private InputManager _inputManager;
     [Header("Gravity Field")]
     [SerializeField] private List<Gravity> affectedObjects;
     [SerializeField] private float staticDistance;
     [SerializeField] private float maxSize = 30.0f; //Max Radius
-
-    private void Awake()
-    {
-        _inputManager = FindObjectOfType<InputManager>();
-    }
 
     public void Start()
     {
