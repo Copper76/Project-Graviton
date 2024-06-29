@@ -5,15 +5,20 @@ using UnityEngine.InputSystem;
 
 public class TimeDilationField : MonoBehaviour
 {
+    private InputManager _inputManager;
     [Header("Gravity Field")]
     [SerializeField] private List<Gravity> affectedObjects;
     [SerializeField] private float staticDistance;
     [SerializeField] private float maxSize = 30.0f; //Max Radius
 
+    private void Awake()
+    {
+        _inputManager = FindObjectOfType<InputManager>();
+    }
+
     public void Start()
     {
         staticDistance = 0.5f;
-        maxSize *= 2.0f;
     }
 
     public void Update()
@@ -28,10 +33,7 @@ public class TimeDilationField : MonoBehaviour
 
     public void ResizeGravityField(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            transform.localScale = Vector3.one * Mathf.Clamp(transform.localScale.x + context.ReadValue<Vector2>().y * Time.deltaTime, 0.0f, maxSize);
-        }
+        transform.localScale = Vector3.one * Mathf.Clamp(transform.localScale.x + context.ReadValue<Vector2>().y * Time.deltaTime, 0.0f, maxSize);
     }
 
     public void OnTriggerEnter(Collider other)

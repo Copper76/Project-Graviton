@@ -6,10 +6,12 @@ public class InputManager : MonoBehaviour
 {
     
     [HideInInspector] public PlayerInputActions playerInputActions;
+    private TimeDilationField _timeDilationField;
 
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
+        _timeDilationField = FindObjectOfType<TimeDilationField>();
     }
 
     private void OnEnable()
@@ -19,8 +21,17 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.Jump.Enable();
         playerInputActions.Player.Fire.Enable();
         playerInputActions.Player.DilateTime.Enable();
-        
+        playerInputActions.Player.DilateTime.performed += _timeDilationField.ResizeGravityField;
     }
-    
-    
+
+    private void OnDisable()
+    {
+        playerInputActions.Player.Look.Disable();
+        playerInputActions.Player.Move.Disable();
+        playerInputActions.Player.Jump.Disable();
+        playerInputActions.Player.Fire.Disable();
+        playerInputActions.Player.DilateTime.Disable();
+    }
+
+
 }
