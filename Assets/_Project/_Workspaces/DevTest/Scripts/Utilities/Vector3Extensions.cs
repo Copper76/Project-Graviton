@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public enum Axis
@@ -31,5 +32,15 @@ public static class Vector3Extensions
     {
         return Vector3.one * scale;
     }
+
+    public static Vector3 ClampAxes(this Vector3 vector, Vector3 minVector, Vector3 maxVector)
+    {
+        vector.x = Mathf.Clamp(vector.x, minVector.x, maxVector.x);
+        vector.y = Mathf.Clamp(vector.y, minVector.y, maxVector.y);
+        vector.z = Mathf.Clamp(vector.z, minVector.z, maxVector.z);
+
+        return vector;
+    }
+
 }
 
