@@ -9,7 +9,8 @@ public class Gravity : MonoBehaviour
     [Header("Physics")]
     [SerializeField] private Vector3 gravityDir = Vector3.down;
     [SerializeField] private float gravityStrength = 20f;
-    [SerializeField] private float maxSpeed = 20.0f;
+    [SerializeField] private float maxSpeed = 10.0f;
+    [SerializeField] private float highlightIntensity = 10.0f;
 
     private float _timeMultiplier = 1.0f;
     private float _normalMass;
@@ -78,7 +79,7 @@ public class Gravity : MonoBehaviour
 
     public void LookAtObject()
     {
-        _material.SetFloat("_HighlightIntensity", 3.0f);
+        _material.SetFloat("_HighlightIntensity", highlightIntensity);
         //Activate Arrows here
     }
     public void LookAwayFromObject()
