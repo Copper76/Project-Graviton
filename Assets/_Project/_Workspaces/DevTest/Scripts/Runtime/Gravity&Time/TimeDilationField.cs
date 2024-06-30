@@ -10,11 +10,16 @@ public class TimeDilationField : MonoBehaviour
     [SerializeField] private float staticDistance;
     [SerializeField] private float maxSize = 30.0f; //Max Radius
 
-    [SerializeField] private bool _active = true;
+    [SerializeField] private Material activeMaterial;
+    [SerializeField] private Material inactiveMaterial;
+
+    private MeshRenderer _meshRenderer;
+    private bool _active = true;
 
     public void Start()
     {
         staticDistance = 0.5f;
+        _meshRenderer = GetComponent<MeshRenderer>();
     }
 
     public void Update()
@@ -42,10 +47,15 @@ public class TimeDilationField : MonoBehaviour
         _active = !_active;
         if (!_active)
         {
+            _meshRenderer.material = inactiveMaterial;
             foreach (Gravity gravity in affectedObjects)
             {
                 gravity.ChangeTimeSpeed(1.0f);
             }
+        }
+        else
+        {
+            _meshRenderer.material = activeMaterial;
         }
     }
 
