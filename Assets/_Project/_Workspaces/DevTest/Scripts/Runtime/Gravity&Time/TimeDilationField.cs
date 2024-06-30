@@ -25,17 +25,20 @@ public class TimeDilationField : MonoBehaviour
 
     public void Update()
     {
-        if (_active)
+        UpdateTimeDilation();
+    }
+
+    private void UpdateTimeDilation()
+    {
+        if (!_active) return;
+        
+        float gravityFieldRadius = transform.localScale.x * 0.5f;
+        if (gravityFieldRadius <= 0) return;
+        
+        foreach (Gravity gravity in _affectedObjects)
         {
-            float gravityFieldRadius = transform.localScale.x * 0.5f;
-            if (gravityFieldRadius > 0)
-            {
-                foreach (Gravity gravity in _affectedObjects)
-                {
-                    float dist = Mathf.Clamp(Vector3.Distance(gravity.gameObject.transform.position, transform.position) / gravityFieldRadius, 0.0f, 1.0f);
-                    gravity.ChangeTimeSpeed(timeDilationFieldStrength.Evaluate(dist));
-                }
-            }
+            float dist = Mathf.Clamp(Vector3.Distance(gravity.gameObject.transform.position, transform.position) / gravityFieldRadius, 0.0f, 1.0f);
+            gravity.SetTimeSpeed(timeDilationFieldStrength.Evaluate(dist));
         }
     }
 
@@ -52,7 +55,7 @@ public class TimeDilationField : MonoBehaviour
             _meshRenderer.material = inactiveMaterial;
             foreach (Gravity gravity in _affectedObjects)
             {
-                gravity.ChangeTimeSpeed(1.0f);
+                gravity.SetTimeSpeed(1.0f);
             }
         }
         else
@@ -75,7 +78,7 @@ public class TimeDilationField : MonoBehaviour
         Gravity gravity = other.GetComponent<Gravity>();
         if (gravity != null)
         {
-            gravity.ChangeTimeSpeed(1.0f); //reset the time flow of object to normal
+            gravity.SetTimeSpeed(1.0f); //reset the time flow of object to normal
             _affectedObjects.Remove(gravity);
         }
     }

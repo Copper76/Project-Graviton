@@ -10,27 +10,30 @@ public class GravityGun : MonoBehaviour
     private GameObject _manipulatedObject;
     private Gravity _lookingObject;
 
+    //TODO refactor this
     private void Update()
     {
         RaycastHit hit;
         Debug.DrawRay(transform.position, transform.forward * weaponRange, Color.green);
+        
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange))
         {
-            Gravity hitObject = hit.collider.gameObject.GetComponent<Gravity>();
-            if (hitObject != null)
+            Gravity hitGravityComponet = hit.collider.gameObject.GetComponent<Gravity>();
+            
+            if (hitGravityComponet != null)
             {
                 if (_lookingObject != null)
                 {
-                    if (_lookingObject != hitObject)
+                    if (_lookingObject != hitGravityComponet)
                     {
                         _lookingObject.LookAwayFromObject();
-                        _lookingObject = hitObject;
+                        _lookingObject = hitGravityComponet;
                         _lookingObject.LookAtObject();
                     }
                 }
                 else
                 {
-                    _lookingObject = hitObject;
+                    _lookingObject = hitGravityComponet;
                     _lookingObject.LookAtObject();
                 }
             }
@@ -55,7 +58,7 @@ public class GravityGun : MonoBehaviour
             Gravity hitObject = hit.collider.gameObject.GetComponent<Gravity>();
             if (hitObject != null)
             {
-                hitObject.ChangeGravityDir(new Vector3(0.0f, 1.0f, 0.0f));
+                hitObject.SetGravityDir(new Vector3(0.0f, 1.0f, 0.0f));
                 //Change here after the arrows are implemented
             }
         }

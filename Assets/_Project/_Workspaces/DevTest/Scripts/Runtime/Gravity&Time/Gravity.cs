@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,37 +21,35 @@ public class Gravity : MonoBehaviour
     private Rigidbody _rb;
     private Material _material;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _normalMass = _rb.mass;
         _material = GetComponent<MeshRenderer>().material;
-        Debug.Log(_material);
     }
 
     void FixedUpdate()
     {
         if (!_rb.isKinematic)
         {
-            Vector3 force = gravityDir * gravityStrength * Time.deltaTime * _timeMultiplier * _normalMass; // use normal mass here as we don't need it affected by time
+            Vector3 force = gravityDir * gravityStrength * Time.fixedDeltaTime * _timeMultiplier * _normalMass; // use normal mass here as we don't need it affected by time
             //Debug.Log("The gravitational force is: " + force);
             //_rb.AddForce(force, ForceMode.Impulse);
-            _rb.velocity = Vector3.ClampMagnitude(_rb.velocity + gravityDir * gravityStrength * Time.deltaTime * _timeMultiplier * _normalMass, maxSpeed);
+            _rb.velocity = Vector3.ClampMagnitude(_rb.velocity + gravityDir * gravityStrength * Time.fixedDeltaTime * _timeMultiplier * _normalMass, maxSpeed);
 
             //_rb.velocity = Vector3.ClampMagnitude(_rb.velocity, 30.0f); Maybe?
         }
     }
 
-    public void ChangeGravityDir(Vector3 dir)
+    public void SetGravityDir(Vector3 dir)
     {
         gravityDir = dir;
     }
 
     //Call this function in fixed updates and events as the values will only be useful in physics calculation
-    public void ChangeTimeSpeed(float timeSpeed)
+    public void SetTimeSpeed(float timeSpeed)
     {
-        if (timeSpeed == _timeMultiplier) return; //guard clause to avoid unnecessary calculation
+        if (Math.Abs(timeSpeed - _timeMultiplier) < _epsilon) return;
 
         //reset the values to normal
         if (_timeMultiplier >= _epsilon)
