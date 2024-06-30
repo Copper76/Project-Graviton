@@ -8,6 +8,7 @@ public class TimeDilationField : MonoBehaviour
     [Header("Gravity Field")]
     [SerializeField] private List<Gravity> _affectedObjects;
     [SerializeField] private float maxSize = 30.0f; //Max Radius
+    [SerializeField] private float minSize = 3.0f; //Min Radius
     [SerializeField] private AnimationCurve timeDilationFieldStrength;
 
     [Header("Time Dilation Field Materials")]
@@ -40,7 +41,7 @@ public class TimeDilationField : MonoBehaviour
 
     public void ResizeTimeDilationField(InputAction.CallbackContext context)
     {
-        transform.localScale = Vector3.one * Mathf.Clamp(transform.localScale.x + context.ReadValue<Vector2>().y * Time.deltaTime, 0.0f, maxSize);
+        transform.localScale = Vector3.one * Mathf.Clamp(transform.localScale.x + context.ReadValue<Vector2>().y * Time.deltaTime, minSize, maxSize);
     }
 
     public void ToggleTimeDilationField(InputAction.CallbackContext context)
