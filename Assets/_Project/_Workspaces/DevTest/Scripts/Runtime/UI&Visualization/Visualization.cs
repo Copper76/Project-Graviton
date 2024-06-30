@@ -17,7 +17,11 @@ public class Visualization : MonoBehaviour
 
     [SerializeField] private Transform _selectedUIPref;
 
+
     private GameObject _currUI;
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,12 +45,6 @@ public class Visualization : MonoBehaviour
     {
         Destroy(_currUI.gameObject);
     }
-
-
-
-
-
-
 
 
 }
