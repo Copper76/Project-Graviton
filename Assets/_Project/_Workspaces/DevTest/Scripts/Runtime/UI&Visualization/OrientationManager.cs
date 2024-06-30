@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// Show orientation UI for player to track their looking direction in x,y,z.
+/// </summary>
 public class OrientationManager : MonoBehaviour
 
 {
