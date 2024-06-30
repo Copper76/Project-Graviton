@@ -21,16 +21,23 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.Jump.Enable();
         playerInputActions.Player.Fire.Enable();
         playerInputActions.Player.DilateTime.Enable();
-        playerInputActions.Player.DilateTime.performed += _timeDilationField.ResizeGravityField;
+        playerInputActions.Player.ToggleTimeField.Enable();
+
+        playerInputActions.Player.DilateTime.performed += _timeDilationField.ResizeTimeDilationField;
+        playerInputActions.Player.ToggleTimeField.performed += _timeDilationField.ToggleTimeDilationField;
     }
 
     private void OnDisable()
     {
+        playerInputActions.Player.DilateTime.performed -= _timeDilationField.ResizeTimeDilationField;
+        playerInputActions.Player.ToggleTimeField.performed -= _timeDilationField.ToggleTimeDilationField;
+
         playerInputActions.Player.Look.Disable();
         playerInputActions.Player.Move.Disable();
         playerInputActions.Player.Jump.Disable();
         playerInputActions.Player.Fire.Disable();
         playerInputActions.Player.DilateTime.Disable();
+        playerInputActions.Player.ToggleTimeField.Disable();
     }
 
 

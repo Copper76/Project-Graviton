@@ -64,6 +64,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Toggle Time Field"",
+                    ""type"": ""Button"",
+                    ""id"": ""e3cce56a-c1ec-4305-9328-9d5930c4a5c2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""aa34c167-1ffc-49ba-95ad-d18d2e70713e"",
@@ -322,7 +331,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Dilate Time"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -333,7 +342,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Dilate Time"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -368,6 +377,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7310f27f-7d94-4897-9733-f568cb4bac54"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Toggle Time Field"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -959,6 +979,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_DilateTime = m_Player.FindAction("Dilate Time", throwIfNotFound: true);
+        m_Player_ToggleTimeField = m_Player.FindAction("Toggle Time Field", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -1037,6 +1058,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_DilateTime;
+    private readonly InputAction m_Player_ToggleTimeField;
     private readonly InputAction m_Player_Jump;
     public struct PlayerActions
     {
@@ -1046,6 +1068,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @DilateTime => m_Wrapper.m_Player_DilateTime;
+        public InputAction @ToggleTimeField => m_Wrapper.m_Player_ToggleTimeField;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -1068,6 +1091,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DilateTime.started += instance.OnDilateTime;
             @DilateTime.performed += instance.OnDilateTime;
             @DilateTime.canceled += instance.OnDilateTime;
+            @ToggleTimeField.started += instance.OnToggleTimeField;
+            @ToggleTimeField.performed += instance.OnToggleTimeField;
+            @ToggleTimeField.canceled += instance.OnToggleTimeField;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
@@ -1087,6 +1113,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @DilateTime.started -= instance.OnDilateTime;
             @DilateTime.performed -= instance.OnDilateTime;
             @DilateTime.canceled -= instance.OnDilateTime;
+            @ToggleTimeField.started -= instance.OnToggleTimeField;
+            @ToggleTimeField.performed -= instance.OnToggleTimeField;
+            @ToggleTimeField.canceled -= instance.OnToggleTimeField;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
@@ -1276,6 +1305,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnDilateTime(InputAction.CallbackContext context);
+        void OnToggleTimeField(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
     }
     public interface IUIActions

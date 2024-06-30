@@ -6,7 +6,7 @@ using UnityEngine;
 public class Gravity : MonoBehaviour
 {
     [SerializeField] private Vector3 gravityDir = Vector3.down;
-    [SerializeField] private float gravityStrength = 9.81f;
+    [SerializeField] private float gravityStrength = 20f;
 
     [SerializeField] private float timeMultiplier = 1.0f;
 
@@ -32,9 +32,9 @@ public class Gravity : MonoBehaviour
         {
             //set everything to normal
             rb.isKinematic = false;
-            rb.velocity /= timeMultiplier;
-            rb.angularVelocity /= timeMultiplier;
-            rb.mass = normalMass;
+            //rb.velocity /= timeMultiplier;
+            //rb.angularVelocity /= timeMultiplier;
+            //rb.mass = normalMass;
 
             rb.AddForce(gravityDir * gravityStrength * Time.deltaTime * timeMultiplier * rb.mass, ForceMode.Impulse); // need to take terminal speed into account
 

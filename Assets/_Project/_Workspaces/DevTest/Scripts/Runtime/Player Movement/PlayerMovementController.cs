@@ -81,7 +81,7 @@ public class PlayerMovementController : MonoBehaviour
         _isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, groundDetectionRange, groundLayer);
         Debug.DrawRay(transform.position, Vector3.down * groundDetectionRange, Color.green, Time.fixedDeltaTime);
         
-        Debug.Log(_isGrounded);
+        //Debug.Log(_isGrounded);
         
         if (_isGrounded)
         {
@@ -152,7 +152,7 @@ public class PlayerMovementController : MonoBehaviour
             _coyoteTimeCounter = 0f;
         }
 
-        Debug.Log($"coyote time: {_coyoteTimeCounter}, jump buffer: {_jumpBufferCounter}");
+        //Debug.Log($"coyote time: {_coyoteTimeCounter}, jump buffer: {_jumpBufferCounter}");
     }
     
     

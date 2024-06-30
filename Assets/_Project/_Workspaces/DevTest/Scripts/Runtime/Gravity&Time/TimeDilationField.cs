@@ -10,6 +10,8 @@ public class TimeDilationField : MonoBehaviour
     [SerializeField] private float staticDistance;
     [SerializeField] private float maxSize = 30.0f; //Max Radius
 
+    [SerializeField] private bool _active = true;
+
     public void Start()
     {
         staticDistance = 0.5f;
@@ -17,17 +19,34 @@ public class TimeDilationField : MonoBehaviour
 
     public void Update()
     {
-        float gravityFieldRadius = transform.localScale.x * 0.5f;
-        foreach (Gravity gravity in affectedObjects)
+        if (_active)
         {
-            float dist = Mathf.Clamp(Vector3.Distance(gravity.gameObject.transform.position, transform.position) - staticDistance * gravityFieldRadius, 0.0f, gravityFieldRadius * (1.0f - staticDistance));
-            gravity.ChangeTimeSpeed(dist / (gravityFieldRadius * (1.0f - staticDistance)));
+            float gravityFieldRadius = transform.localScale.x * 0.5f;
+            foreach (Gravity gravity in affectedObjects)
+            {
+                float dist = Mathf.Clamp(Vector3.Distance(gravity.gameObject.transform.position, transform.position) - staticDistance * gravityFieldRadius, 0.0f, gravityFieldRadius * (1.0f - staticDistance));
+                gravity.ChangeTimeSpeed(dist / (gravityFieldRadius * (1.0f - staticDistance)));
+            }
         }
     }
 
-    public void ResizeGravityField(InputAction.CallbackContext context)
+    public void ResizeTimeDilationField(InputAction.CallbackContext context)
     {
         transform.localScale = Vector3.one * Mathf.Clamp(transform.localScale.x + context.ReadValue<Vector2>().y * Time.deltaTime, 0.0f, maxSize);
+    }
+
+    public void ToggleTimeDilationField(InputAction.CallbackContext context)
+    {
+        //Switch the texture
+
+        _active = !_active;
+        if (!_active)
+        {
+            foreach (Gravity gravity in affectedObjects)
+            {
+                gravity.ChangeTimeSpeed(1.0f);
+            }
+        }
     }
 
     public void OnTriggerEnter(Collider other)
