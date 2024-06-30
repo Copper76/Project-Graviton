@@ -4,22 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementController : MonoBehaviour
 {
     private InputManager _inputManager;
     private Vector2 _moveDirection = Vector2.zero;
 
     [Header("Camera")]
-    [SerializeField] private Camera playerCamera;
     [SerializeField] private Vector2 mouseSensitivity;
     [SerializeField] private float tiltAngle = 10f;
     [SerializeField] private float tiltSmooth = 5f;
-    
+
     private Transform _cameraTransform;
     private float _currentTilt = 0f;
 
     [Header("Movement")]
-    [SerializeField] private Vector3 terminalVelocity;
+    [SerializeField] private Vector2 arialTerminalVelocity;
     [SerializeField] private float groundTerminalVelocity;
     [SerializeField] private float groundMoveForce;
     [SerializeField] private float airMoveForce;
@@ -27,7 +27,7 @@ public class PlayerMovementController : MonoBehaviour
     private CapsuleCollider _collider;
     
     [Header("Jumping")]
-    [SerializeField] private float jumpSpeed;
+    [SerializeField] private float initialJumpSpeed;
     [SerializeField] private float coyoteTime;
     [SerializeField] private float jumpBufferTime;
     
@@ -93,13 +93,19 @@ public class PlayerMovementController : MonoBehaviour
     {
         _inputManager = FindObjectOfType<InputManager>();
         _rb = GetComponent<Rigidbody>();
-        _cameraTransform = playerCamera.GetComponent<Transform>();
+        _cameraTransform = Camera.main.transform;
     }
 
     private void LockCursor()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void UnlockCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void ReadInput()
@@ -154,8 +160,8 @@ public class PlayerMovementController : MonoBehaviour
         else
         {
             Vector2 horizontalVelocity = new Vector2(_rb.velocity.x, _rb.velocity.z);
-            horizontalVelocity = Vector2.ClampMagnitude(horizontalVelocity, terminalVelocity.x);
-            float clampedY = Mathf.Clamp(_rb.velocity.y, -terminalVelocity.y, terminalVelocity.y);
+            horizontalVelocity = Vector2.ClampMagnitude(horizontalVelocity, arialTerminalVelocity.x);
+            float clampedY = Mathf.Clamp(_rb.velocity.y, -arialTerminalVelocity.y, arialTerminalVelocity.y);
             _rb.velocity = new Vector3(horizontalVelocity.x, clampedY, horizontalVelocity.y);
         }
     }
@@ -165,7 +171,7 @@ public class PlayerMovementController : MonoBehaviour
         if (direction == Vector2.zero) return;
         
         Vector3 normalizedMoveDirection = new Vector3(direction.x, 0f, direction.y).normalized;
-        float forceStrength = _isGrounded ? groundMoveForce : airMoveForce;
+        float forceStrength = _isGrounded ? groundMoveForce : airMoveForce; //TODO set air relative to ground
         
         _moveForce = normalizedMoveDirection * forceStrength * Time.fixedDeltaTime;
 
@@ -222,7 +228,7 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Jump()
     {
-        _rb.velocity = Vector3.up * jumpSpeed;
+        _rb.velocity += Vector3.up * initialJumpSpeed;
     }
 
     private void Look()
