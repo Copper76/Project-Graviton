@@ -22,7 +22,7 @@ public class TimeDilationField : MonoBehaviour
         _meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
         if (_active)
         {

@@ -11,6 +11,8 @@ public class Gravity : MonoBehaviour
     private float _timeMultiplier = 1.0f;
     private float _normalMass;
 
+    private float _epsilon = 1e-6f;
+
     private Rigidbody _rb;
 
     // Start is called before the first frame update
@@ -27,6 +29,8 @@ public class Gravity : MonoBehaviour
             Vector3 force = gravityDir * gravityStrength * Time.deltaTime * _timeMultiplier * _normalMass; // use normal mass here as we don't need it affected by time
             Debug.Log("The gravitational force is: " + force);
             _rb.AddForce(force, ForceMode.Impulse);
+
+            //_rb.velocity = Vector3.ClampMagnitude(_rb.velocity, 30.0f); Maybe?
         }
     }
 
@@ -41,7 +45,7 @@ public class Gravity : MonoBehaviour
         if (timeSpeed == _timeMultiplier) return; //guard clause to avoid unnecessary calculation
 
         //reset the values to normal
-        if (_timeMultiplier != 0)
+        if (_timeMultiplier >= _epsilon)
         {
             _rb.velocity /= _timeMultiplier;
             _rb.angularVelocity /= _timeMultiplier;
@@ -50,7 +54,7 @@ public class Gravity : MonoBehaviour
 
         _timeMultiplier = timeSpeed;
 
-        if (_timeMultiplier == 0)
+        if (_timeMultiplier < _epsilon)
         {
             _rb.isKinematic = true;
         }
