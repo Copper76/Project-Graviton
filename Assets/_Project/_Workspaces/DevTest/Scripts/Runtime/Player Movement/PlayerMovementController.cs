@@ -113,7 +113,7 @@ public class PlayerMovementController : MonoBehaviour
             _isOnSlope = slopeAngle > 0f && slopeAngle < maxSlopeAngle;
             _slopeNormal = _isOnSlope ? hit.normal : Vector3.up;
             
-            Debug.Log($"On Slope: {_isOnSlope} Slope Angle: {slopeAngle}");
+            //Debug.Log($"On Slope: {_isOnSlope} Slope Angle: {slopeAngle}");
         }
         else
         {

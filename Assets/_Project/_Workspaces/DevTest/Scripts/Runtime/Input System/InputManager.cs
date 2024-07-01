@@ -19,6 +19,18 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.Jump.Enable();
         playerInputActions.Player.Fire.Enable();
         playerInputActions.Player.DilateTime.Enable();
+        playerInputActions.Player.Interact.Enable();
+        
+    }
+    
+    private void OnDisable()
+    {
+        playerInputActions.Player.Look.Disable();
+        playerInputActions.Player.Move.Disable();
+        playerInputActions.Player.Jump.Disable();
+        playerInputActions.Player.Fire.Disable();
+        playerInputActions.Player.DilateTime.Disable();
+        playerInputActions.Player.Interact.Disable();
         
     }
     
