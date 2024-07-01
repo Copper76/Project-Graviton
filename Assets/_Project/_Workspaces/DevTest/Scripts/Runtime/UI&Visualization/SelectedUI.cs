@@ -11,11 +11,11 @@ public class SelectedUI : MonoBehaviour
     /// <summary>
     /// Invisible other gizmo direction UI
     /// </summary>
-    public void OnDirectionPicked(GameObject dir)
+    public void OnDirectionPicked(GameObject dirObject)
     {
         for (int i = 0; i < _Dir.Length; i++)
         {
-            if (_Dir[i] != dir) _Dir[i].gameObject.SetActive(false);
+            if (_Dir[i] != dirObject) _Dir[i].gameObject.SetActive(false);
         }
 
         //TODO: move correspondingly by player interaction

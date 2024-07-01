@@ -14,14 +14,10 @@ public class Visualization : MonoBehaviour
 {
 
     [SerializeField] private GameObject _selectedItem;
-
-    [SerializeField] private Transform _selectedUIPref;
-
-
+    [SerializeField] private GameObject _selectedUIPref;
+    
     private GameObject _currUI;
-
-
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -30,21 +26,21 @@ public class Visualization : MonoBehaviour
         //TEST
         OnSelect(_selectedItem.transform);
         //Invoke("OnDeSelect", 5f);
-
-
         
+        _currUI = Instantiate(_selectedUIPref);
+        _currUI.SetActive(false);
     }
-
 
     public void OnSelect(Transform target)
     {
-        _currUI = Instantiate(_selectedUIPref.gameObject, target);
+        _currUI.SetActive(true);
     }
 
     public void OnDeSelect()
     {
-        Destroy(_currUI.gameObject);
+        _currUI.SetActive(false);
     }
 
+    
 
 }
