@@ -1338,7 +1338,7 @@ MonoBehaviour:
   groundTerminalVelocity: 6
   groundMoveForce: 200
   airMoveForce: 60
-  initialJumpSpeed: 0
+  initialJumpSpeed: 2000
   coyoteTime: 0.5
   jumpBufferTime: 0.2
   groundDetectionRange: 1.05

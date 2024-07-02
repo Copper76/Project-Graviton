@@ -13,30 +13,26 @@ public class GravityGun : MonoBehaviour
     //TODO refactor this
     private void Update()
     {
+        CheckTestObject();
+    }
+
+    private void CheckTestObject()
+    {
         RaycastHit hit;
         Debug.DrawRay(transform.position, transform.forward * weaponRange, Color.green);
-        
-        if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange))
+
+        Gravity hitGravityComponet;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange) && hit.collider.gameObject.TryGetComponent<Gravity>(out hitGravityComponet))
         {
-            Gravity hitGravityComponet = hit.collider.gameObject.GetComponent<Gravity>();
-            
-            if (hitGravityComponet != null)
+            if (_lookingObject == hitGravityComponet) return;
+
+            if (_lookingObject != null)
             {
-                if (_lookingObject != null)
-                {
-                    if (_lookingObject != hitGravityComponet)
-                    {
-                        _lookingObject.LookAwayFromObject();
-                        _lookingObject = hitGravityComponet;
-                        _lookingObject.LookAtObject();
-                    }
-                }
-                else
-                {
-                    _lookingObject = hitGravityComponet;
-                    _lookingObject.LookAtObject();
-                }
+                _lookingObject.LookAwayFromObject();
             }
+
+            _lookingObject = hitGravityComponet;
+            _lookingObject.LookAtObject();
         }
         else
         {
