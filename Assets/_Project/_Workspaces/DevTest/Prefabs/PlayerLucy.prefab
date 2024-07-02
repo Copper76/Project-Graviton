@@ -74,7 +74,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 127
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -111,7 +111,6 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras:
-  - {fileID: 0}
   - {fileID: 560505522446034385}
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -188,7 +187,7 @@ GameObject:
   - component: {fileID: 4174661158918340052}
   m_Layer: 0
   m_Name: PlayerLucy
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -322,15 +321,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b394fe08fa46eb949a426c55a7cb441c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 2960182816628497358}
   mouseSensitivity: {x: 15, y: 15}
   tiltAngle: 1.5
   tiltSmooth: 5
-  terminalVelocity: {x: 6, y: 12, z: 6}
+  arialTerminalVelocity: {x: 0, y: 0}
   groundTerminalVelocity: 6
   groundMoveForce: 200
   airMoveForce: 60
-  jumpSpeed: 10
+  initialJumpSpeed: 0
   coyoteTime: 0.5
   jumpBufferTime: 0.2
   groundDetectionRange: 1.05
@@ -425,7 +423,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

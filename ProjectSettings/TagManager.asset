@@ -3,31 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Ground
+  tags: []
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - Ground
-<<<<<<< HEAD
-<<<<<<< Updated upstream
   - SelectedUI
-  - IgnoreByCamera
-  - RenderOnTop
-=======
-  - IgnoreLight
-  - SelectedUI
-  - 
->>>>>>> Stashed changes
-=======
-  - Arrow
+  - Orientation
   - 
   - 
->>>>>>> master
   - 
   - 
   - 
@@ -51,9 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: SelectedUI
-    uniqueID: 1950345617
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
