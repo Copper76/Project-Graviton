@@ -14,7 +14,7 @@ public class Visualization : MonoBehaviour
 {
 
     
-    [SerializeField] private GameObject _selectedItem;
+    
     [SerializeField] private GameObject _selectedUIPref;
     
     private GameObject _currUI;
@@ -32,8 +32,13 @@ public class Visualization : MonoBehaviour
     Vector3 _currSize;
     Quaternion _currRot;
 
+
+
+    /// ////////////////////////////////////////////////////
     //TEST
     [SerializeField] private GameObject[] _selectedItemTest;
+    [SerializeField] private GameObject _selectedItem;
+    /// ////////////////////////////////////////////////////
 
     private void Awake()
     {
@@ -46,11 +51,15 @@ public class Visualization : MonoBehaviour
         _currUI = Instantiate(_selectedUIPref);
         _currUI.SetActive(false);
 
-
+        ////////////////////////////////////////////////////////////////////
         //TEST
         StartCoroutine(testIt());
-    }
+        
+        ////////////////////////////////////////////////////////////////////
 
+    }
+    ////////////////////////////////////////////////////////////////////
+    //Test
     private IEnumerator testIt()
     {
         
@@ -58,24 +67,27 @@ public class Visualization : MonoBehaviour
         {
 
             OnSelect(_selectedItemTest[i].transform);
+            yield return new WaitForSeconds(2f);
+            _currUI.GetComponent<SelectedUI>().TestMovingDirection(_currTarget, 1f);
 
-            yield return new WaitForSeconds(25f);
+            yield return new WaitForSeconds(28f);
             OnDeSelect();
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
         }
-
-
     }
-
+    ////////////////////////////////////////////////////////////////////
 
 
 
     private void LateUpdate()
     {
         if (!(_currUI.activeSelf) || _currTarget == null) return;
-        //update UI position and size
+
+        //update UI position
         _currUI.transform.position = _currTarget.transform.position;
 
+
+        //when target is selected, check if the target is resized/rotated in order to resize the arrow UI as well.
         if (_currSize != _currTarget.transform.localScale || _currRot != _currTarget.transform.rotation)
         {
             _currUI.GetComponent<SelectedUI>().ResizeUI(GetTargetBoundInfo());
@@ -86,24 +98,22 @@ public class Visualization : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// return a float list with info in order: disToPosX, disToNegX, disToPosY, disToNegY, disToPosZ, disToNegZ
+    /// </summary>
+    /// <returns></returns>
     private float[] GetTargetBoundInfo()
     {
+        //Renderer is being used because i don't know what the collider looks like, Bill talked about add a bigger sphere collider for hover event.
         _targetRenderer = _currTarget.GetComponent<Renderer>();
+
         if (_targetRenderer == null) return null;
 
         _bounds = _targetRenderer.bounds;
         _extents = _bounds.extents;
 
         // Calculate distances from the center to each direction
-        float disToPosX = _extents.x;
-        float disToNegX = -_extents.x;
-        float disToPosY = _extents.y;
-        float disToNegY = -_extents.y;
-        float disToPosZ = _extents.z;
-        float disToNegZ = -_extents.z;
-
-
-        return new float[]{disToPosX, disToNegX, disToPosY, disToNegY, disToPosZ, disToNegZ};
+        return new float[]{ _extents.x, -_extents.x, _extents.y, -_extents.y, _extents.z, -_extents.z};
     }
 
     public void OnSelect(Transform target)
@@ -117,7 +127,7 @@ public class Visualization : MonoBehaviour
         _currUI.GetComponent<SelectedUI>().ResizeUI(GetTargetBoundInfo());
 
         //TEST
-        _currUI.GetComponent<SelectedUI>().TestDirection();
+        //_currUI.GetComponent<SelectedUI>().TestDirection();
 
 
     }
