@@ -374,14 +374,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23038f3cbeb777e419d1ffe1cc23d01b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedItem: {fileID: 1049031330}
-  _selectedUIPref: {fileID: 0}
+  _selectedUIPref: {fileID: 3624672152112117881, guid: 4c8a204f3d0d28c4b9e363d288e9aac0,
+    type: 3}
   _selectedItemTest:
+  - {fileID: 982229363}
   - {fileID: 1049031330}
+  - {fileID: 1307931238}
   - {fileID: 1489283026}
   - {fileID: 1035062804}
-  - {fileID: 1307931238}
-  - {fileID: 982229363}
+  _selectedItem: {fileID: 1049031330}
 --- !u!4 &658368465
 Transform:
   m_ObjectHideFlags: 0

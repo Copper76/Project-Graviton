@@ -157,6 +157,7 @@ public class SelectedUI : MonoBehaviour
         for (int i = 0; i < _OriDirPos.Length; i++)
         {
             _DirTransform[i].localPosition = _OriDirPos[i];
+            _DirTransform[i].localScale = Vector3.one;
         }
     }
 
@@ -172,21 +173,31 @@ public class SelectedUI : MonoBehaviour
         float _offset;
         for (int i = 0; i < _boundInfo.Length; i++)
         {
-            _newDir = _DirTransform[i].position;
 
-            _offset = (i % 2 != 0) ? _boundInfo[i] + 0.5f : _offset = _boundInfo[i] - 0.5f;
+            //Condition the boundDistance < 1, resize arrow instead
+            if (Mathf.Abs(_boundInfo[i]) < 0.5f)
+            {
+                _DirTransform[i].localScale *= Mathf.Abs(_boundInfo[i]) / 0.5f;
+            }
+
+            else
+            {
+                _newDir = _DirTransform[i].position;
+
+                _offset = (i % 2 != 0) ? _boundInfo[i] + 0.5f : _offset = _boundInfo[i] - 0.5f;
 
 
-            if (i < 2)//x
-                _newDir.x += _offset;
-            else if (i < 4)//y
-                _newDir.y += _offset;
-            else//z
-                _newDir.z += _offset;
+                if (i < 2)//x
+                    _newDir.x += _offset;
+                else if (i < 4)//y
+                    _newDir.y += _offset;
+                else//z
+                    _newDir.z += _offset;
 
 
-
-            _DirTransform[i].position = _newDir;
+                _DirTransform[i].position = _newDir;
+            }
+            
 
         }
     }
