@@ -228,15 +228,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b394fe08fa46eb949a426c55a7cb441c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 6652490420467103075}
   mouseSensitivity: {x: 15, y: 15}
   tiltAngle: 1.5
   tiltSmooth: 5
-  terminalVelocity: {x: 6, y: 12, z: 6}
+  arialTerminalVelocity: {x: 0, y: 0}
   groundTerminalVelocity: 6
   groundMoveForce: 200
   airMoveForce: 60
-  jumpSpeed: 10
+  initialJumpSpeed: 0
   coyoteTime: 0.5
   jumpBufferTime: 0.2
   groundDetectionRange: 1.05
@@ -425,7 +424,7 @@ Transform:
   m_GameObject: {fileID: 3633990990606829823}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.290008, y: -5.3, z: 9.321097}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 15, y: 15, z: 15}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -516,6 +515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _affectedObjects: []
   maxSize: 30
+  minSize: 3
   timeDilationFieldStrength:
     serializedVersion: 2
     m_Curve:
