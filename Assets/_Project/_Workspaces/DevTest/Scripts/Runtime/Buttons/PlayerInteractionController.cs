@@ -31,14 +31,14 @@ public class PlayerInteractionController : MonoBehaviour
         bool hitSomething = Physics.SphereCast(origin, interactionRadius, direction, out hit, interactionRange);
         
         IInteractable interactable = hitSomething ? hit.transform.gameObject.GetComponent<IInteractable>() : null;
-
+        
         if (interactable != _currentInteractable)
         {
             _currentInteractable?.OnHoverExit();
             _currentInteractable = interactable;
             _currentInteractable?.OnHover();
         }
-
+        
         if (_currentInteractable != null && _inputManager.playerInputActions.Player.Interact.triggered)
         {
             _currentInteractable.Interact();

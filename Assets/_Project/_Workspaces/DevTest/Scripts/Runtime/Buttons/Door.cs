@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -14,22 +12,28 @@ public class Door : MonoBehaviour
 
     private Vector3 _closedPosition;
     private Vector3 _openPosition;
+    private Vector3 _currentStartPosition;
     private Vector3 _targetPosition;
+    
     private bool _isOpen;
+    private float _animationTime;
 
     private void Start()
     {
         _closedPosition = transform.position;
         _openPosition = _closedPosition + offSet;
-     
+
         _isOpen = false;
         _targetPosition = _closedPosition;
+        _currentStartPosition = _closedPosition;
     }
 
     public void ToggleDoor()
     {
         _isOpen = !_isOpen;
+        _currentStartPosition = transform.position;
         _targetPosition = _isOpen ? _openPosition : _closedPosition;
+        _animationTime = 0f;
     }
 
     private void Update()
@@ -37,7 +41,8 @@ public class Door : MonoBehaviour
         if (Vector3.Distance(transform.position, _targetPosition) < Epsilon)
             return;
 
-        float curveValue = offsetCurve.Evaluate(Time.time);
-        transform.position = Vector3.Lerp(transform.position, _targetPosition, smoothSpeed * curveValue * Time.deltaTime);
+        _animationTime += Time.deltaTime * smoothSpeed;
+        float curveValue = offsetCurve.Evaluate(_animationTime);
+        transform.position = Vector3.Lerp(_currentStartPosition, _targetPosition, curveValue);
     }
 }

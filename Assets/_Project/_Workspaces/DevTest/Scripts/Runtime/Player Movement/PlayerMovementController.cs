@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(InputManager))]
 public class PlayerMovementController : MonoBehaviour
 {
     private InputManager _inputManager;
@@ -39,7 +40,6 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float slopeDetectionRange;
     [SerializeField] private float maxSlopeAngle;
-    [SerializeField] private PhysicMaterial zeroFriction;
     
     private bool _isGrounded;
     private bool _isOnSlope;
@@ -51,17 +51,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private Vector2 _lookDirection;
     private Vector2 _mouseCameraRotation = Vector2.zero;
-
-
     
-
-    public static PlayerMovementController Instance;
-    private void Awake()
-    {
-        Instance = this;
-    }
-    public Vector2 GetCameraRotation() => _mouseCameraRotation;
-
     void Start()
     {
         InitializeComponents();
@@ -81,8 +71,6 @@ public class PlayerMovementController : MonoBehaviour
         DetectGround();
         DetectSlope();
         
-        ZeroFrictionCheck();
-        
         ReadInput();
         JumpCheck();
         Look();
@@ -93,7 +81,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         _inputManager = FindObjectOfType<InputManager>();
         _rb = GetComponent<Rigidbody>();
-        _cameraTransform = Camera.main.transform;
+        _cameraTransform = Camera.main?.transform;
     }
 
     private void LockCursor()
@@ -137,18 +125,6 @@ public class PlayerMovementController : MonoBehaviour
             _slopeNormal = Vector3.up;
         }
         Debug.DrawRay(transform.position, Vector3.down * groundDetectionRange, Color.red, Time.fixedDeltaTime);
-    }
-
-    private void ZeroFrictionCheck()
-    {
-        if (_isGrounded || _isOnSlope)
-        {
-            _collider.material = null;
-        }
-        else
-        {
-            _collider.material = zeroFriction;
-        }
     }
 
     private void EnforceTerminalVelocity()
@@ -228,7 +204,7 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Jump()
     {
-        _rb.velocity += Vector3.up * initialJumpSpeed;
+        _rb.velocity = new Vector3(_rb.velocity.x, initialJumpSpeed, _rb.velocity.z);
     }
 
     private void Look()
@@ -256,7 +232,5 @@ public class PlayerMovementController : MonoBehaviour
         }
         _cameraTransform.rotation = Quaternion.Euler(_mouseCameraRotation.x, _mouseCameraRotation.y, _currentTilt);
 
-
-        OrientationManager.Instance.UpdateOrientation(_cameraTransform.rotation);
     }
 }

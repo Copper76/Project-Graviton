@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         playerInputActions.Player.Look.Enable();
+        playerInputActions.Player.Interact.Enable();
         playerInputActions.Player.Move.Enable();
         playerInputActions.Player.Jump.Enable();
         playerInputActions.Player.Fire.Enable();
@@ -37,6 +38,7 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.ToggleTimeField.performed -= _timeDilationField.ToggleTimeDilationField;
 
         playerInputActions.Player.Look.Disable();
+        playerInputActions.Player.Interact.Disable();
         playerInputActions.Player.Move.Disable();
         playerInputActions.Player.Jump.Disable();
         playerInputActions.Player.Fire.Disable();
