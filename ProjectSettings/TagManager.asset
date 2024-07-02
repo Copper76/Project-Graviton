@@ -12,9 +12,9 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
+  - SelectedUI
+  - IgnoreByCamera
+  - RenderOnTop
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: SelectedUI
+    uniqueID: 1950345617
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
