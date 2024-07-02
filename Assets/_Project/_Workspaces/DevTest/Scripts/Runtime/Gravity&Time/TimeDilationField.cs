@@ -6,31 +6,57 @@ using UnityEngine.InputSystem;
 public class TimeDilationField : MonoBehaviour
 {
     [Header("Gravity Field")]
-    [SerializeField] private List<Gravity> affectedObjects;
-    [SerializeField] private float staticDistance;
+    [SerializeField] private List<Gravity> _affectedObjects;
     [SerializeField] private float maxSize = 30.0f; //Max Radius
+    [SerializeField] private AnimationCurve timeDilationFieldStrength;
+
+    [Header("Time Dilation Field Materials")]
+    [SerializeField] private Material activeMaterial;
+    [SerializeField] private Material inactiveMaterial;
+
+    private MeshRenderer _meshRenderer;
+    private bool _active = true;
 
     public void Start()
     {
-        staticDistance = 0.5f;
-        maxSize *= 2.0f;
+        _meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-        float gravityFieldRadius = transform.localScale.x * 0.5f;
-        foreach (Gravity gravity in affectedObjects)
+        if (_active)
         {
-            float dist = Mathf.Clamp(Vector3.Distance(gravity.gameObject.transform.position, transform.position) - staticDistance * gravityFieldRadius, 0.0f, gravityFieldRadius * (1.0f - staticDistance));
-            gravity.ChangeTimeSpeed(dist / (gravityFieldRadius * (1.0f - staticDistance)));
+            float gravityFieldRadius = transform.localScale.x * 0.5f;
+            if (gravityFieldRadius > 0)
+            {
+                foreach (Gravity gravity in _affectedObjects)
+                {
+                    float dist = Mathf.Clamp(Vector3.Distance(gravity.gameObject.transform.position, transform.position) / gravityFieldRadius, 0.0f, 1.0f);
+                    gravity.ChangeTimeSpeed(timeDilationFieldStrength.Evaluate(dist));
+                }
+            }
         }
     }
 
-    public void ResizeGravityField(InputAction.CallbackContext context)
+    public void ResizeTimeDilationField(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        transform.localScale = Vector3.one * Mathf.Clamp(transform.localScale.x + context.ReadValue<Vector2>().y * Time.deltaTime, 0.0f, maxSize);
+    }
+
+    public void ToggleTimeDilationField(InputAction.CallbackContext context)
+    {
+        _active = !_active;
+        if (!_active)
         {
-            transform.localScale = Vector3.one * Mathf.Clamp(transform.localScale.x + context.ReadValue<Vector2>().y * Time.deltaTime, 0.0f, maxSize);
+            _meshRenderer.material = inactiveMaterial;
+            foreach (Gravity gravity in _affectedObjects)
+            {
+                gravity.ChangeTimeSpeed(1.0f);
+            }
+        }
+        else
+        {
+            _meshRenderer.material = activeMaterial;
         }
     }
 
@@ -39,7 +65,7 @@ public class TimeDilationField : MonoBehaviour
         Gravity gravity = other.GetComponent<Gravity>();
         if (gravity != null)
         {
-            affectedObjects.Add(gravity);
+            _affectedObjects.Add(gravity);
         }
     }
 
@@ -49,7 +75,7 @@ public class TimeDilationField : MonoBehaviour
         if (gravity != null)
         {
             gravity.ChangeTimeSpeed(1.0f); //reset the time flow of object to normal
-            affectedObjects.Remove(gravity);
+            _affectedObjects.Remove(gravity);
         }
     }
 }

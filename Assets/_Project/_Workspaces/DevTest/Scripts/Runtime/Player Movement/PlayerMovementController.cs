@@ -52,6 +52,16 @@ public class PlayerMovementController : MonoBehaviour
     private Vector2 _lookDirection;
     private Vector2 _mouseCameraRotation = Vector2.zero;
 
+
+    
+
+    public static PlayerMovementController Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
+    public Vector2 GetCameraRotation() => _mouseCameraRotation;
+
     void Start()
     {
         InitializeComponents();
@@ -239,5 +249,8 @@ public class PlayerMovementController : MonoBehaviour
             _currentTilt = Mathf.Lerp(_currentTilt, 0f, tiltSmooth * Time.deltaTime);
         }
         _cameraTransform.rotation = Quaternion.Euler(_mouseCameraRotation.x, _mouseCameraRotation.y, _currentTilt);
+
+
+        OrientationManager.Instance.UpdateOrientation(_cameraTransform.rotation);
     }
 }

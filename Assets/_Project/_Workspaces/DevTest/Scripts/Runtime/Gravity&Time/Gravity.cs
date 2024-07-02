@@ -6,42 +6,27 @@ using UnityEngine;
 public class Gravity : MonoBehaviour
 {
     [SerializeField] private Vector3 gravityDir = Vector3.down;
-    [SerializeField] private float gravityStrength = 9.81f;
+    [SerializeField] private float gravityStrength = 20f;
 
-    [SerializeField] private float timeMultiplier = 1.0f;
+    private float _timeMultiplier = 1.0f;
+    private float _normalMass;
 
-    [SerializeField] private float normalMass;
-
-    private Rigidbody rb;
+    private Rigidbody _rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        normalMass = rb.mass;
+        _rb = GetComponent<Rigidbody>();
+        _normalMass = _rb.mass;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        if (timeMultiplier == 0)
+        if (!_rb.isKinematic)
         {
-            rb.isKinematic = true;
-        }
-        else
-        {
-            //set everything to normal
-            rb.isKinematic = false;
-            rb.velocity /= timeMultiplier;
-            rb.angularVelocity /= timeMultiplier;
-            rb.mass = normalMass;
-
-            rb.AddForce(gravityDir * gravityStrength * Time.deltaTime * timeMultiplier * rb.mass, ForceMode.Impulse); // need to take terminal speed into account
-
-            //set eveything to relativistic
-            rb.velocity *= timeMultiplier;
-            rb.angularVelocity *= timeMultiplier;
-            rb.mass = normalMass / timeMultiplier;
+            Vector3 force = gravityDir * gravityStrength * Time.deltaTime * _timeMultiplier * _normalMass; // use normal mass here as we don't need it affected by time
+            Debug.Log("The gravitational force is: " + force);
+            _rb.AddForce(force, ForceMode.Impulse);
         }
     }
 
@@ -50,8 +35,33 @@ public class Gravity : MonoBehaviour
         gravityDir = dir;
     }
 
+    //Call this function in fixed updates and events as the values will only be useful in physics calculation
     public void ChangeTimeSpeed(float timeSpeed)
     {
-        timeMultiplier = timeSpeed;
+        if (timeSpeed == _timeMultiplier) return; //guard clause to avoid unnecessary calculation
+
+        //reset the values to normal
+        if (_timeMultiplier != 0)
+        {
+            _rb.velocity /= _timeMultiplier;
+            _rb.angularVelocity /= _timeMultiplier;
+            _rb.mass = _normalMass * _timeMultiplier;
+        }
+
+        _timeMultiplier = timeSpeed;
+
+        if (_timeMultiplier == 0)
+        {
+            _rb.isKinematic = true;
+        }
+        else
+        {
+            _rb.isKinematic = false;
+
+            //set eveything to relativistic
+            _rb.velocity *= _timeMultiplier;
+            _rb.angularVelocity *= _timeMultiplier;
+            _rb.mass = _normalMass / _timeMultiplier;
+        }
     }
 }

@@ -42,6 +42,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Toggle Time Field",
+                    "type": "Button",
+                    "id": "e3cce56a-c1ec-4305-9328-9d5930c4a5c2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "aa34c167-1ffc-49ba-95ad-d18d2e70713e",
@@ -309,7 +318,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Dilate Time",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -320,7 +329,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Dilate Time",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -364,8 +373,19 @@
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7310f27f-7d94-4897-9733-f568cb4bac54",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Toggle Time Field",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
