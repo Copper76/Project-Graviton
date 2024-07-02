@@ -13,6 +13,7 @@ TagManager:
   - Water
   - UI
   - Ground
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   - SelectedUI
   - IgnoreByCamera
@@ -22,6 +23,11 @@ TagManager:
   - SelectedUI
   - 
 >>>>>>> Stashed changes
+=======
+  - Arrow
+  - 
+  - 
+>>>>>>> master
   - 
   - 
   - 
