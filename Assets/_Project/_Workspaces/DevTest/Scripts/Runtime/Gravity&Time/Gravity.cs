@@ -5,6 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(SphereCollider))]
 public class Gravity : MonoBehaviour
 {
     [Header("Physics")]
@@ -20,12 +21,14 @@ public class Gravity : MonoBehaviour
 
     private Rigidbody _rb;
     private Material _material;
+    private SphereCollider _extendCollider;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _normalMass = _rb.mass;
         _material = GetComponent<MeshRenderer>().material;
+        _extendCollider = GetComponent<SphereCollider>();
     }
 
     void FixedUpdate()
@@ -79,11 +82,13 @@ public class Gravity : MonoBehaviour
     public void LookAtObject()
     {
         _material.SetFloat("_HighlightIntensity", highlightIntensity);
+        _extendCollider.enabled = true;
         //Activate Arrows here
     }
     public void LookAwayFromObject()
     {
         _material.SetFloat("_HighlightIntensity", 1.0f);
+        _extendCollider.enabled = false;
         //Deactivate Arrows here
     }
 
