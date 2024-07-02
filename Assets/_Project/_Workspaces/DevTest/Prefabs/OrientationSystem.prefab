@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2200114341908037639}
   - component: {fileID: 2683003605509358914}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 128
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -301,7 +301,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 314a9d9316f77cc46b357dfdb55ba818,
         type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

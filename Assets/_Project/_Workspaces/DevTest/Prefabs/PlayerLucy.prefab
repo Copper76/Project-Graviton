@@ -112,6 +112,7 @@ MonoBehaviour:
   m_CameraType: 0
   m_Cameras:
   - {fileID: 560505522446034385}
+  - {fileID: 0}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -334,7 +335,7 @@ MonoBehaviour:
   groundDetectionRange: 1.05
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8
   slopeDetectionRange: 1.5
   maxSlopeAngle: 45
   zeroFriction: {fileID: 13400000, guid: ae1fec3ef1887d3459599cb95864b509, type: 2}

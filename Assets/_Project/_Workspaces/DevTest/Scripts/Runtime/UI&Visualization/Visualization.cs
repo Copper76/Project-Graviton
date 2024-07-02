@@ -32,7 +32,9 @@ public class Visualization : MonoBehaviour
     Vector3 _currSize;
     Quaternion _currRot;
 
-
+    //Maintain visual size
+    public Camera mainCamera;
+    public float initialScale = 1f; // Adjust this to the desired size
 
     /// ////////////////////////////////////////////////////
     //TEST
@@ -48,8 +50,16 @@ public class Visualization : MonoBehaviour
     void Start()
     {
         
+
         _currUI = Instantiate(_selectedUIPref);
         _currUI.SetActive(false);
+
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+        
+
 
         ////////////////////////////////////////////////////////////////////
         //TEST
@@ -95,6 +105,12 @@ public class Visualization : MonoBehaviour
             _currRot = _currTarget.transform.rotation;
         }
 
+        //reset size depends on distance to player
+        float distance = Vector3.Distance(transform.position, mainCamera.transform.position);
+        Debug.Log(distance);
+        float scaleFactor = distance; // Adjust the divisor to control the scaling effect
+        //_currUI.transform.localScale = Vector3.one * initialScale * scaleFactor;
+
 
     }
 
@@ -135,6 +151,7 @@ public class Visualization : MonoBehaviour
     public void OnDeSelect()
     {
         _currTarget = null;
+        _currUI.transform.localScale = Vector3.one;
         _currUI.SetActive(false);
     }
 
