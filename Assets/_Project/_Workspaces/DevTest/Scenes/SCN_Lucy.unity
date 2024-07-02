@@ -377,11 +377,11 @@ MonoBehaviour:
   _selectedItem: {fileID: 1049031330}
   _selectedUIPref: {fileID: 2090988398}
   _selectedItemTest:
+  - {fileID: 1049031330}
   - {fileID: 1489283026}
   - {fileID: 1035062804}
   - {fileID: 1307931238}
   - {fileID: 982229363}
-  - {fileID: 1049031330}
 --- !u!4 &658368465
 Transform:
   m_ObjectHideFlags: 0
