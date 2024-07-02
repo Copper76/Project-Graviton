@@ -106,10 +106,9 @@ public class Visualization : MonoBehaviour
         }
 
         //reset size depends on distance to player
-        float distance = Vector3.Distance(transform.position, mainCamera.transform.position);
-        Debug.Log(distance);
-        float scaleFactor = distance; // Adjust the divisor to control the scaling effect
-        //_currUI.transform.localScale = Vector3.one * initialScale * scaleFactor;
+        float distance = Vector3.Distance(_currTarget.transform.position, mainCamera.transform.position);
+        if (distance <= 5) return; //current ratio: length of arrow/5 = new length/curr Distance
+        _currUI.transform.localScale = Vector3.one * initialScale * distance / 5;
 
 
     }
