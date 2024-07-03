@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(InputManager))]
 public class PlayerMovementController : MonoBehaviour
 {
     private InputManager _inputManager;
@@ -23,13 +24,14 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float groundTerminalVelocity;
     [SerializeField] private float groundMoveForce;
     [SerializeField] private float airMoveForce;
-
-    private CapsuleCollider _collider;
+    [Range(0f, 10f)] [SerializeField] private float dampingStrength;
+    [Range(0f, 1f)] [SerializeField] private float airDampingRatio;
     
     [Header("Jumping")]
     [SerializeField] private float initialJumpSpeed;
     [SerializeField] private float coyoteTime;
     [SerializeField] private float jumpBufferTime;
+    [Range(0f, 1f)] [SerializeField] private float slopeJumpNormalBias;
     
     private float _coyoteTimeCounter;
     private float _jumpBufferCounter;
@@ -39,7 +41,6 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float slopeDetectionRange;
     [SerializeField] private float maxSlopeAngle;
-    [SerializeField] private PhysicMaterial zeroFriction;
     
     private bool _isGrounded;
     private bool _isOnSlope;
@@ -51,20 +52,17 @@ public class PlayerMovementController : MonoBehaviour
 
     private Vector2 _lookDirection;
     private Vector2 _mouseCameraRotation = Vector2.zero;
-    
-    public Vector2 GetCameraRotation() => _mouseCameraRotation;
 
     void Start()
     {
         InitializeComponents();
         LockCursor();
-
-        _collider = GetComponent<CapsuleCollider>();
     }
 
     void FixedUpdate()
     {
         Move(_moveDirection);
+        Damping();
         EnforceTerminalVelocity();
     }
 
@@ -72,8 +70,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         DetectGround();
         DetectSlope();
-        
-        ZeroFrictionCheck();
         
         ReadInput();
         JumpCheck();
@@ -85,7 +81,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         _inputManager = FindObjectOfType<InputManager>();
         _rb = GetComponent<Rigidbody>();
-        _cameraTransform = Camera.main.transform;
+        _cameraTransform = Camera.main?.transform;
     }
 
     private void LockCursor()
@@ -103,6 +99,16 @@ public class PlayerMovementController : MonoBehaviour
     private void ReadInput()
     {
         _moveDirection = _inputManager.playerInputActions.Player.Move.ReadValue<Vector2>();
+    }
+
+    private void Damping()
+    {
+        if (_moveDirection != Vector2.zero) return;
+
+        Vector3 horizontalPlaneVelocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+        Vector3 damping = -horizontalPlaneVelocity * dampingStrength * Time.fixedDeltaTime;
+        if (!_isGrounded) damping *= airDampingRatio;
+        _rb.AddForce(damping, ForceMode.VelocityChange);
     }
 
     private void DetectGround()
@@ -131,18 +137,6 @@ public class PlayerMovementController : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.down * groundDetectionRange, Color.red, Time.fixedDeltaTime);
     }
 
-    private void ZeroFrictionCheck()
-    {
-        if (_isGrounded || _isOnSlope)
-        {
-            _collider.material = null;
-        }
-        else
-        {
-            _collider.material = zeroFriction;
-        }
-    }
-
     private void EnforceTerminalVelocity()
     {
         if (_isGrounded)
@@ -167,12 +161,21 @@ public class PlayerMovementController : MonoBehaviour
         
         _moveForce = normalizedMoveDirection * forceStrength * Time.fixedDeltaTime;
 
+        SlopeCompensation();
+
+        _rb.AddRelativeForce(_moveForce, ForceMode.VelocityChange);
+    }
+
+    private void SlopeCompensation()
+    {
         if (_isOnSlope)
         {
             _moveForce = Vector3.ProjectOnPlane(_moveForce, _slopeNormal);
-        }
+            
+            Vector3 slopeParallelGravity = Vector3.Project(Physics.gravity, _slopeNormal);
 
-        _rb.AddRelativeForce(_moveForce, ForceMode.VelocityChange);
+            _rb.AddForce(-slopeParallelGravity, ForceMode.Acceleration);
+        }
     }
 
     private void JumpCheck()
@@ -220,7 +223,10 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Jump()
     {
-        _rb.velocity += Vector3.up * initialJumpSpeed;
+        Vector3 slopeJumpDirection = Vector3.Lerp(Vector3.up, _slopeNormal, slopeJumpNormalBias);
+        Vector3 jumpDirection = _isOnSlope ? slopeJumpDirection : Vector3.up;
+        _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+        _rb.AddForce(jumpDirection * initialJumpSpeed, ForceMode.VelocityChange);
     }
 
     private void Look()
