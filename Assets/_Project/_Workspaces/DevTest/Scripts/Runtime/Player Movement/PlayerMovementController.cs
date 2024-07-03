@@ -24,13 +24,14 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float groundTerminalVelocity;
     [SerializeField] private float groundMoveForce;
     [SerializeField] private float airMoveForce;
-
-    private CapsuleCollider _collider;
+    [Range(0f, 10f)] [SerializeField] private float dampingStrength;
+    [Range(0f, 1f)] [SerializeField] private float airDampingRatio;
     
     [Header("Jumping")]
     [SerializeField] private float initialJumpSpeed;
     [SerializeField] private float coyoteTime;
     [SerializeField] private float jumpBufferTime;
+    [Range(0f, 1f)] [SerializeField] private float slopeJumpNormalBias;
     
     private float _coyoteTimeCounter;
     private float _jumpBufferCounter;
@@ -56,13 +57,12 @@ public class PlayerMovementController : MonoBehaviour
     {
         InitializeComponents();
         LockCursor();
-
-        _collider = GetComponent<CapsuleCollider>();
     }
 
     void FixedUpdate()
     {
         Move(_moveDirection);
+        Damping();
         EnforceTerminalVelocity();
     }
 
@@ -99,6 +99,16 @@ public class PlayerMovementController : MonoBehaviour
     private void ReadInput()
     {
         _moveDirection = _inputManager.playerInputActions.Player.Move.ReadValue<Vector2>();
+    }
+
+    private void Damping()
+    {
+        if (_moveDirection != Vector2.zero) return;
+
+        Vector3 horizontalPlaneVelocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+        Vector3 damping = -horizontalPlaneVelocity * dampingStrength * Time.fixedDeltaTime;
+        if (!_isGrounded) damping *= airDampingRatio;
+        _rb.AddForce(damping, ForceMode.VelocityChange);
     }
 
     private void DetectGround()
@@ -151,12 +161,21 @@ public class PlayerMovementController : MonoBehaviour
         
         _moveForce = normalizedMoveDirection * forceStrength * Time.fixedDeltaTime;
 
+        SlopeCompensation();
+
+        _rb.AddRelativeForce(_moveForce, ForceMode.VelocityChange);
+    }
+
+    private void SlopeCompensation()
+    {
         if (_isOnSlope)
         {
             _moveForce = Vector3.ProjectOnPlane(_moveForce, _slopeNormal);
-        }
+            
+            Vector3 slopeParallelGravity = Vector3.Project(Physics.gravity, _slopeNormal);
 
-        _rb.AddRelativeForce(_moveForce, ForceMode.VelocityChange);
+            _rb.AddForce(-slopeParallelGravity, ForceMode.Acceleration);
+        }
     }
 
     private void JumpCheck()
@@ -204,7 +223,10 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Jump()
     {
-        _rb.velocity = new Vector3(_rb.velocity.x, initialJumpSpeed, _rb.velocity.z);
+        Vector3 slopeJumpDirection = Vector3.Lerp(Vector3.up, _slopeNormal, slopeJumpNormalBias);
+        Vector3 jumpDirection = _isOnSlope ? slopeJumpDirection : Vector3.up;
+        _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+        _rb.AddForce(jumpDirection * initialJumpSpeed, ForceMode.VelocityChange);
     }
 
     private void Look()
@@ -231,6 +253,5 @@ public class PlayerMovementController : MonoBehaviour
             _currentTilt = Mathf.Lerp(_currentTilt, 0f, tiltSmooth * Time.deltaTime);
         }
         _cameraTransform.rotation = Quaternion.Euler(_mouseCameraRotation.x, _mouseCameraRotation.y, _currentTilt);
-
     }
 }
