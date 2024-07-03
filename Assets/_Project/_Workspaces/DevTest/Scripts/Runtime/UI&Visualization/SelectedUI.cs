@@ -4,10 +4,6 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-
-
-
-
 /// <summary>
 /// Control 6 arrows in select/unselect/reposition.
 /// </summary>
@@ -50,7 +46,7 @@ public class SelectedUI : MonoBehaviour
         {
             if (dirTransform[i].gameObject != dirObject)
             {
-                dirTransform[i].gameObject.SetActive(false); //This might be changed
+               /* dirTransform[i].gameObject.SetActive(false);*/ //This might be changed
             }
             else
             {

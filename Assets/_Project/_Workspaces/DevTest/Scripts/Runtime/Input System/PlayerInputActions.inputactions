@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Alt Fire",
+                    "type": "Button",
+                    "id": "fe4062cc-903f-4a6f-a271-c12b5ca04a9a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -386,6 +395,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Toggle Time Field",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e12428d3-0887-4b18-831d-2fec3b863e6f",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Alt Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
