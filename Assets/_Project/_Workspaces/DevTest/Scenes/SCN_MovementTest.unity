@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 436744301}
   - component: {fileID: 436744300}
   - component: {fileID: 436744299}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 628432610}
   - component: {fileID: 628432609}
   - component: {fileID: 628432608}
-  - component: {fileID: 628432607}
+  - component: {fileID: 628432612}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -751,34 +751,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &628432607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 628432606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46337f795abefaa4484a2d8fa2c71f3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onHoverMaterial: {fileID: 2100000, guid: 5424ef54a9bcb4046b1023016f34c31e, type: 2}
-  triggeredEvents:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 349287953}
-        m_TargetAssemblyTypeName: Door, Assembly-CSharp
-        m_MethodName: ToggleDoor
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!65 &628432608
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -865,6 +837,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &628432612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628432606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46337f795abefaa4484a2d8fa2c71f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHoverMaterial: {fileID: 2100000, guid: 0f5f4da2a2bbfa9488d3b012b5ef7846, type: 2}
+  triggeredEvents:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 349287953}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
+        m_MethodName: ToggleDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &758276625
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,7 +877,7 @@ GameObject:
   - component: {fileID: 758276628}
   - component: {fileID: 758276627}
   - component: {fileID: 758276626}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -964,7 +964,7 @@ Transform:
   m_GameObject: {fileID: 758276625}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.26304227, w: 0.9647843}
-  m_LocalPosition: {x: -2.61, y: 1.17, z: 5.75}
+  m_LocalPosition: {x: -2.69, y: 1.3, z: 5.75}
   m_LocalScale: {x: 4.1694, y: 0.31216, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1031,7 +1031,7 @@ GameObject:
   - component: {fileID: 905339564}
   - component: {fileID: 905339563}
   - component: {fileID: 905339562}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1301,7 +1301,7 @@ GameObject:
   - component: {fileID: 1112856388}
   - component: {fileID: 1112856387}
   - component: {fileID: 1112856386}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1407,7 +1407,7 @@ GameObject:
   - component: {fileID: 1349394117}
   - component: {fileID: 1349394116}
   - component: {fileID: 1349394115}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1574,7 +1574,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687410871}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.55, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1738,7 +1738,7 @@ MonoBehaviour:
   groundDetectionRange: 1.05
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8
   slopeDetectionRange: 1.5
   maxSlopeAngle: 45
 --- !u!114 &1903959285
