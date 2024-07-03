@@ -105,8 +105,8 @@ public class Visualization : MonoBehaviour
         _currUI.gameObject.SetActive(false);
     }
 
-    public Vector3 GetArrowDir(GameObject dirObject)
+    public Vector3 GetArrowDir(GameObject dirObject, bool opposite = false)
     {
-        return _currUI.OnDirectionPicked(dirObject);
+        return _currUI.OnDirectionPicked(dirObject, opposite);
     }
 }
