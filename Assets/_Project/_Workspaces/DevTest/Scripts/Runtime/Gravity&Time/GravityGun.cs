@@ -7,11 +7,14 @@ using UnityEngine.InputSystem;
 public class GravityGun : MonoBehaviour
 {
     [SerializeField] private float weaponRange = 30.0f;
+    [SerializeField] private LayerMask arrowMask;
+    [SerializeField] private LayerMask noArrowMask;
 
     private Gravity _lookingObject;
     private Visualization _visualization;
-    [SerializeField] private LayerMask arrowMask;
-    [SerializeField] private LayerMask noArrowMask;
+
+    [SerializeField] private float _fireRate = 1.0f;
+    private float _fireRateCounter = 0.0f;
 
     private void Awake()
     {
@@ -22,6 +25,14 @@ public class GravityGun : MonoBehaviour
     private void Update()
     {
         CheckTestObject();
+        if (_fireRateCounter > 0.0f)
+        {
+            _fireRateCounter -= Time.deltaTime;
+        }
+        else
+        {
+            _fireRateCounter = 0.0f;
+        }
     }
 
     private void CheckTestObject()
@@ -55,21 +66,26 @@ public class GravityGun : MonoBehaviour
 
     public void Fire(InputAction.CallbackContext context)
     {
+        if (_fireRateCounter > 0.0f) return;
+
         Debug.Log("Fired");
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
         {
+            Debug.Log(hit.collider.gameObject);
             _lookingObject.SetGravityDir(_visualization.GetArrowDir(hit.collider.gameObject));
         }
     }
 
     public void AltFire(InputAction.CallbackContext context)
     {
+        if (_fireRateCounter > 0.0f) return;
+
         Debug.Log("Alt Fired");
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
         {
-            _lookingObject.SetGravityDir(_visualization.GetArrowDir(hit.collider.gameObject) * -1.0f);
+            _lookingObject.SetGravityDir(_visualization.GetArrowDir(hit.collider.gameObject, true) * -1.0f);
         }
     }
 }
