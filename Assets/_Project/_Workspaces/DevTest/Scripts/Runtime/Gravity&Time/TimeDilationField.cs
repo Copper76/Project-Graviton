@@ -31,10 +31,10 @@ public class TimeDilationField : MonoBehaviour
     private void UpdateTimeDilation()
     {
         if (!_active) return;
-        
+
         float gravityFieldRadius = transform.localScale.x * 0.5f;
         if (gravityFieldRadius <= 0) return;
-        
+
         foreach (Gravity gravity in _affectedObjects)
         {
             float dist = Mathf.Clamp(Vector3.Distance(gravity.gameObject.transform.position, transform.position) / gravityFieldRadius, 0.0f, 1.0f);
