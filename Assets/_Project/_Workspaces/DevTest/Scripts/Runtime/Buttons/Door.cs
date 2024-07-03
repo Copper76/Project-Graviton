@@ -17,6 +17,9 @@ public class Door : MonoBehaviour
     
     private bool _isOpen;
     private float _animationTime;
+    
+    private RelativeTime _relativeTime;
+    private bool _useRelativeTime;
 
     private void Start()
     {
@@ -26,6 +29,14 @@ public class Door : MonoBehaviour
         _isOpen = false;
         _targetPosition = _closedPosition;
         _currentStartPosition = _closedPosition;
+
+        _useRelativeTime = false;
+        
+        if (TryGetComponent(out RelativeTime relativeTime))
+        {
+            _relativeTime = relativeTime;
+            _useRelativeTime = true;
+        }
     }
 
     public void ToggleDoor()
@@ -41,7 +52,8 @@ public class Door : MonoBehaviour
         if (Vector3.Distance(transform.position, _targetPosition) < Epsilon)
             return;
 
-        _animationTime += Time.deltaTime * smoothSpeed;
+        float deltaTime = _useRelativeTime ? _relativeTime.DeltaTime() : Time.deltaTime;
+        _animationTime += deltaTime * smoothSpeed;
         float curveValue = offsetCurve.Evaluate(_animationTime);
         transform.position = Vector3.Lerp(_currentStartPosition, _targetPosition, curveValue);
     }

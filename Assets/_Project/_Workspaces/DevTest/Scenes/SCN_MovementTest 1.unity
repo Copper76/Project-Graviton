@@ -1832,6 +1832,7 @@ MonoBehaviour:
   noArrowMask:
     serializedVersion: 2
     m_Bits: 0
+  _fireRate: 1
 --- !u!136 &1903959289
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1867,7 +1868,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23038f3cbeb777e419d1ffe1cc23d01b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedUIPref: {fileID: 0}
+  selectedUIPref: {fileID: 3624672152112117881, guid: 4c8a204f3d0d28c4b9e363d288e9aac0,
+    type: 3}
   mainCamera: {fileID: 0}
   initialScale: 1
 --- !u!1660057539 &9223372036854775807
