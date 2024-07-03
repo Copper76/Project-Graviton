@@ -711,8 +711,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityDir: {x: 0, y: -1, z: 0}
-  gravityStrength: 5
-  maxSpeed: 20
+  gravityStrength: 10
+  maxSpeed: 10
   highlightIntensity: 10
 --- !u!54 &1250435595
 Rigidbody:
@@ -897,8 +897,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityDir: {x: 0, y: -1, z: 0}
-  gravityStrength: 5
-  maxSpeed: 20
+  gravityStrength: 10
+  maxSpeed: 10
   highlightIntensity: 10
 --- !u!54 &1378749689
 Rigidbody:
@@ -1955,6 +1955,7 @@ MonoBehaviour:
   noArrowMask:
     serializedVersion: 2
     m_Bits: 191
+  _fireRate: 0
 --- !u!114 &7014909988003546799
 MonoBehaviour:
   m_ObjectHideFlags: 0

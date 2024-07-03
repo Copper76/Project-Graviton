@@ -13,11 +13,8 @@ public class PlayerMovementController : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private Vector2 mouseSensitivity;
-    [SerializeField] private float tiltAngle = 10f;
-    [SerializeField] private float tiltSmooth = 5f;
 
     private Transform _cameraTransform;
-    private float _currentTilt = 0f;
 
     [Header("Movement")]
     [SerializeField] private Vector2 arialTerminalVelocity;
@@ -41,9 +38,20 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float slopeDetectionRange;
     [SerializeField] private float maxSlopeAngle;
-    
+
+    [Header("Camera Shake")]
+    [SerializeField] private float cameraShakeMultiplier = 1.0f;
+    [SerializeField] private float cameraSmoothSpeed = 1.0f;
+    [SerializeField] private AnimationCurve cameraShakeCurve;
+    [SerializeField] private Vector3[] _cameraShakeTargets = new Vector3[] { new Vector3(-2.0f, -1.0f, 0.0f), Vector3.up, new Vector3(2.0f, -1.0f, 0.0f), Vector3.up };
+    private Vector3 _cameraOffset;
+    private Vector3 _cameraTargetPosition = Vector3.zero;
+    private int _nextCameraShakeIndex = 0;
+    private float _cameraShakeTime = 0.0f;
+
     private bool _isGrounded;
     private bool _isOnSlope;
+    private bool _isSteepSlope;
     private Vector3 _slopeNormal;
 
     private Rigidbody _rb;
@@ -53,15 +61,23 @@ public class PlayerMovementController : MonoBehaviour
     private Vector2 _lookDirection;
     private Vector2 _mouseCameraRotation = Vector2.zero;
 
+    private const float Epsilon = 1e-6f;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
+
     void Start()
     {
+        _cameraOffset = Camera.main.transform.localPosition;
         InitializeComponents();
         LockCursor();
     }
 
     void FixedUpdate()
     {
-        Move(_moveDirection);
+        Move();
         Damping();
         EnforceTerminalVelocity();
     }
@@ -74,13 +90,12 @@ public class PlayerMovementController : MonoBehaviour
         ReadInput();
         JumpCheck();
         Look();
-        TiltCamera(_moveDirection);
+        CameraShake();
     }
 
     private void InitializeComponents()
     {
         _inputManager = FindObjectOfType<InputManager>();
-        _rb = GetComponent<Rigidbody>();
         _cameraTransform = Camera.main?.transform;
     }
 
@@ -121,12 +136,14 @@ public class PlayerMovementController : MonoBehaviour
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, slopeDetectionRange, groundLayer))
+        //if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, groundLayer))
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-            
+
+            _isSteepSlope = slopeAngle > maxSlopeAngle;
             _isOnSlope = slopeAngle > 0f && slopeAngle < maxSlopeAngle;
             _slopeNormal = _isOnSlope ? hit.normal : Vector3.up;
-            
+
             Debug.Log($"On Slope: {_isOnSlope} Slope Angle: {slopeAngle}");
         }
         else
@@ -139,7 +156,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void EnforceTerminalVelocity()
     {
-        if (_isGrounded)
+        if (_isGrounded || _isOnSlope)
         {
             _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, groundTerminalVelocity);
         }
@@ -152,18 +169,20 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    public void Move(Vector2 direction)
+    public void Move()
     {
-        if (direction == Vector2.zero) return;
+        if (_moveDirection == Vector2.zero) return;
+
+        if (_isSteepSlope) return;
         
-        Vector3 normalizedMoveDirection = new Vector3(direction.x, 0f, direction.y).normalized;
+        Vector3 normalizedMoveDirection = new Vector3(_moveDirection.x, 0f, _moveDirection.y).normalized;
         float forceStrength = _isGrounded ? groundMoveForce : airMoveForce; //TODO set air relative to ground
         
-        _moveForce = normalizedMoveDirection * forceStrength * Time.fixedDeltaTime;
+        _moveForce = transform.TransformDirection(normalizedMoveDirection * forceStrength * Time.fixedDeltaTime); // Made this global
 
         SlopeCompensation();
 
-        _rb.AddRelativeForce(_moveForce, ForceMode.VelocityChange);
+        _rb.AddForce(_moveForce, ForceMode.VelocityChange);
     }
 
     private void SlopeCompensation()
@@ -171,10 +190,10 @@ public class PlayerMovementController : MonoBehaviour
         if (_isOnSlope)
         {
             _moveForce = Vector3.ProjectOnPlane(_moveForce, _slopeNormal);
-            
-            Vector3 slopeParallelGravity = Vector3.Project(Physics.gravity, _slopeNormal);
 
-            _rb.AddForce(-slopeParallelGravity, ForceMode.Acceleration);
+            //Vector3 slopeParallelGravity = Vector3.Project(Physics.gravity, _slopeNormal);
+
+            //_rb.AddForce(-slopeParallelGravity, ForceMode.Acceleration); // removed negative sign
         }
     }
 
@@ -223,6 +242,7 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Jump()
     {
+        if (_isSteepSlope) return;
         Vector3 slopeJumpDirection = Vector3.Lerp(Vector3.up, _slopeNormal, slopeJumpNormalBias);
         Vector3 jumpDirection = _isOnSlope ? slopeJumpDirection : Vector3.up;
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
@@ -238,20 +258,31 @@ public class PlayerMovementController : MonoBehaviour
 
         _mouseCameraRotation.x = Mathf.Clamp(_mouseCameraRotation.x, -90f, 90f);
 
-        transform.rotation = Quaternion.Euler(0, _mouseCameraRotation.y, 0);
+        transform.rotation = Quaternion.Euler(0.0f, _mouseCameraRotation.y, 0);
+        _cameraTransform.rotation = Quaternion.Euler(_mouseCameraRotation.x, _mouseCameraRotation.y, 0.0f);
     }
 
-    private void TiltCamera(Vector2 direction)
+    private void CameraShake()
     {
-        if (_isGrounded)
+        if (_moveDirection == Vector2.zero)
         {
-            float targetTilt = direction.x == 0 ? 0f : (direction.x < 0 ? tiltAngle : -tiltAngle);
-            _currentTilt = Mathf.Lerp(_currentTilt, targetTilt, tiltSmooth * Time.deltaTime);
+            _cameraTargetPosition = _cameraOffset;
+            _nextCameraShakeIndex = 0;
+            _cameraShakeTime = 0.0f;
+        }
+
+        if (Vector3.Distance(Camera.main.transform.localPosition, _cameraTargetPosition) < Epsilon)
+        {
+            Camera.main.transform.localPosition = _cameraTargetPosition;
+            _nextCameraShakeIndex = (_nextCameraShakeIndex + 1) % _cameraShakeTargets.Length;
+            _cameraTargetPosition = _cameraShakeTargets[_nextCameraShakeIndex] * cameraShakeMultiplier + _cameraOffset;
+            _cameraShakeTime = 0.0f;
         }
         else
         {
-            _currentTilt = Mathf.Lerp(_currentTilt, 0f, tiltSmooth * Time.deltaTime);
+            _cameraShakeTime += Time.deltaTime * cameraSmoothSpeed;
+            float curveValue = cameraShakeCurve.Evaluate(_cameraShakeTime);
+            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, _cameraTargetPosition, curveValue);
         }
-        _cameraTransform.rotation = Quaternion.Euler(_mouseCameraRotation.x, _mouseCameraRotation.y, _currentTilt);
     }
 }

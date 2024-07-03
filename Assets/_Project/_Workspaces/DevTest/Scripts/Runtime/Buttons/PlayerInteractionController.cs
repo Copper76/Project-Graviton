@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteractionController : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class PlayerInteractionController : MonoBehaviour
         Vector3 origin = _mainCamera.transform.position;
         Vector3 direction = _mainCamera.transform.forward;
 
-        bool hitSomething = Physics.SphereCast(origin, interactionRadius, direction, out hit, interactionRange); //TODO use raycast
+        bool hitSomething = Physics.Raycast(origin, direction, out hit, interactionRange);
         
         IInteractable interactable = hitSomething ? hit.transform.gameObject.GetComponent<IInteractable>() : null;
         
@@ -38,8 +39,11 @@ public class PlayerInteractionController : MonoBehaviour
             _currentInteractable = interactable;
             _currentInteractable?.OnHover();
         }
-        
-        if (_currentInteractable != null && _inputManager.playerInputActions.Player.Interact.triggered) //TODO convert triggered to an event
+    }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (_currentInteractable != null)
         {
             _currentInteractable.Interact();
         }
