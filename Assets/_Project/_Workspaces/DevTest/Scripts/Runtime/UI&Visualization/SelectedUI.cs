@@ -1,4 +1,6 @@
 using System.Collections;
+using TMPro;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -23,128 +25,57 @@ public class SelectedUI : MonoBehaviour
         NegZ,
     }
 
-
-    private int _selectedDirectionIndex;
-    private GameObject _currDirObject;
-    private Vector3 _movingDirection;
-    private GameObject _currentTarget;
-    private float _movingSpeed;
-    private Vector3 _targetPos;
-
-    [SerializeField] private Transform[] _DirTransform;//in order same as enum Direction
+    [SerializeField] private Transform[] dirTransform;//in order same as enum Direction
 
     private Vector3[] _OriDirPos;
 
     private void Awake()
     {
-        _OriDirPos = new Vector3[_DirTransform.Length];
-        _movingDirection = Vector3.zero;
+        _OriDirPos = new Vector3[dirTransform.Length];
         //Store original arrows position for the use of ResetPos()
         for (int i = 0; i < _OriDirPos.Length; i++)
         {
-            _OriDirPos[i] = _DirTransform[i].localPosition;
+            _OriDirPos[i] = dirTransform[i].localPosition;
         }
     }
 
-    private void Update()
-    {
-        if (_movingDirection == Vector3.zero) return;
-        MovingTarget();
-    }
-
-    private void MovingTarget()
-    {
-        _targetPos = _currentTarget.transform.position;
-        _targetPos += _movingDirection * _movingSpeed * Time.deltaTime;
-        _currentTarget.transform.position = _targetPos;
-    }
-    ////////////////////////////////////////////////////////////////////
-    //Test
-    public void TestMovingDirection(GameObject _target, float movingSpeed)
-    {
-        //TEST
-        StartCoroutine(testIt(_target, movingSpeed));
-        
-    }
-    //Test if pick, unpick, resizing is working
-    private IEnumerator testIt(GameObject _target, float movingSpeed)
-    {
-        for (int i = 0; i < _DirTransform.Length; i++)
-        {
-            yield return new WaitForSeconds(2f);
-            OnDirectionPicked(_DirTransform[i].gameObject, _target, true, movingSpeed);
-            
-            yield return new WaitForSeconds(2f);
-            OnDirectionUnPicked();
-        }
-    }
-    ////////////////////////////////////////////////////////////////////
     /// <summary>
     /// Invisible other gizmo direction UI
     /// </summary>
-    public void OnDirectionPicked(GameObject _dirObject,GameObject _target, bool _sameDir, float movingSpeed)
+    public Vector3 OnDirectionPicked(GameObject dirObject)
     {
-        _currentTarget = _target;
-        _currDirObject = _dirObject;
-        _movingSpeed = movingSpeed;
-
+        int selectedDirectionIndex = 0;
         //set unselect axis invisible
-        for (int i = 0; i < _DirTransform.Length; i++)
+        for (int i = 0; i < dirTransform.Length; i++)
         {
-
-            if (_DirTransform[i].gameObject != _dirObject)
+            if (dirTransform[i].gameObject != dirObject)
             {
-                _DirTransform[i].gameObject.SetActive(false);
+                dirTransform[i].gameObject.SetActive(false); //This might be changed
             }
-
             else
             {
-                _selectedDirectionIndex = i;
+                selectedDirectionIndex = i;
             }
-
         }
 
-        //TODO: move correspondingly by player interaction
-        if (!_sameDir) _selectedDirectionIndex += 1;
-
-        switch ((Direction)_selectedDirectionIndex)
+        switch ((Direction)selectedDirectionIndex)
         {
             case Direction.PosX:
-                _movingDirection = Vector3.right;
-                break;
+                return Vector3.right;
             case Direction.NegX:
-                _movingDirection = Vector3.left;
-                break;
+                return Vector3.left;
             case Direction.PosY:
-                _movingDirection = Vector3.up;
-                break;
+                return Vector3.up;
             case Direction.NegY:
-                _movingDirection = Vector3.down;
-                break;
+                return Vector3.down;
             case Direction.PosZ:
-                _movingDirection = Vector3.forward;
-                break;
+                return Vector3.forward;
             case Direction.NegZ:
-                _movingDirection = Vector3.back;
-                break;
+                return Vector3.back;
+            default:
+                Debug.Log("Unsupported direciton");
+                return Vector3.zero;
         }
-
-
-
-    }
-
-    public void OnDirectionUnPicked()
-    {
-        _movingDirection = Vector3.zero;
-        _currentTarget = null;
-        _currDirObject = null;
-
-        //Set all the axis visible
-        for (int i = 0; i < _DirTransform.Length; i++)
-        {
-            if (_DirTransform[i] != _currDirObject) _DirTransform[i].gameObject.SetActive(true);
-        }
-
     }
 
     /// <summary>
@@ -156,8 +87,8 @@ public class SelectedUI : MonoBehaviour
         //Reset the position first in case it has been resize
         for (int i = 0; i < _OriDirPos.Length; i++)
         {
-            _DirTransform[i].localPosition = _OriDirPos[i];
-            _DirTransform[i].localScale = Vector3.one;
+            dirTransform[i].localPosition = _OriDirPos[i];
+            dirTransform[i].localScale = Vector3.one;
         }
     }
 
@@ -177,14 +108,14 @@ public class SelectedUI : MonoBehaviour
             //Condition the boundDistance < 1, resize arrow instead
             if (Mathf.Abs(_boundInfo[i]) < 0.5f)
             {
-                _DirTransform[i].localScale *= Mathf.Abs(_boundInfo[i]) / 0.5f;
+                dirTransform[i].localScale = Vector3.one * Mathf.Abs(_boundInfo[i]) / 0.5f;
             }
 
             else
             {
-                _newDir = _DirTransform[i].position;
+                _newDir = dirTransform[i].position;
 
-                _offset = (i % 2 != 0) ? _boundInfo[i] + 0.5f : _offset = _boundInfo[i] - 0.5f;
+                _offset = (i % 2 != 0) ? _boundInfo[i] + 0.5f : _boundInfo[i] - 0.5f;
 
 
                 if (i < 2)//x
@@ -194,11 +125,8 @@ public class SelectedUI : MonoBehaviour
                 else//z
                     _newDir.z += _offset;
 
-
-                _DirTransform[i].position = _newDir;
+                dirTransform[i].position = _newDir;
             }
-            
-
         }
     }
 }

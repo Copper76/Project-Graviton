@@ -8,9 +8,6 @@ using UnityEngine;
 /// </summary>
 public class OrientationManager : MonoBehaviour
 {
-    private Vector3 _pos;
-    private Quaternion _rotateOffset;
-
     private Camera _mainCamera;
 
     private void Start()
