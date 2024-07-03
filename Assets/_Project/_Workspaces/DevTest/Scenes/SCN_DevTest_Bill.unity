@@ -1852,7 +1852,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   activeMaterial: {fileID: 2100000, guid: 8cca03cfd8cb61b4c84a806f6644b586, type: 2}
-  inactiveMaterial: {fileID: 2100000, guid: 344c1e3458300c14eac77ef9bbb7bb7b, type: 2}
+  inactiveMaterial: {fileID: 2100000, guid: 5b9117a5e849bf84aaee576320911f0a, type: 2}
 --- !u!136 &6173041987074555941
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1958,6 +1958,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponRange: 30
+  arrowMask:
+    serializedVersion: 2
+    m_Bits: 64
+  noArrowMask:
+    serializedVersion: 2
+    m_Bits: 191
 --- !u!114 &7014909988003546799
 MonoBehaviour:
   m_ObjectHideFlags: 0
