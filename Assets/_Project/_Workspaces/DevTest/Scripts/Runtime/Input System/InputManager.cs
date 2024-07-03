@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,18 @@ public class InputManager : MonoBehaviour
 {
     
     [HideInInspector] public PlayerInputActions playerInputActions;
+    private GravityGun _gravityGun;
+    private TimeDilationField _timeDilationField;
 
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
+    }
+
+    private void Start()
+    {
+        _gravityGun = FindObjectOfType<GravityGun>();
+        _timeDilationField = FindObjectOfType<TimeDilationField>();
     }
 
     private void OnEnable()

@@ -350,8 +350,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
-<<<<<<< HEAD
-=======
 --- !u!1 &3633990990606829823
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,4 +614,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6480738486043315492}
   m_PrefabAsset: {fileID: 0}
->>>>>>> master
