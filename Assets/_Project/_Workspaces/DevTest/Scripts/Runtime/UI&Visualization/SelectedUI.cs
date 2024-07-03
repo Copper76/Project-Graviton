@@ -1,11 +1,4 @@
-using System.Collections;
-using TMPro;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
-
-
 
 
 /// <summary>
@@ -29,6 +22,9 @@ public class SelectedUI : MonoBehaviour
 
     private Vector3[] _OriDirPos;
 
+    private Color[] _origColors;
+    private Color[] _currColors;
+
     private void Awake()
     {
         _OriDirPos = new Vector3[dirTransform.Length];
@@ -36,6 +32,8 @@ public class SelectedUI : MonoBehaviour
         for (int i = 0; i < _OriDirPos.Length; i++)
         {
             _OriDirPos[i] = dirTransform[i].localPosition;
+            _origColors[i] = dirTransform[i].gameObject.GetComponent<MeshRenderer>().material.color;
+            _currColors[i] = _origColors[i];
         }
     }
 
@@ -45,16 +43,20 @@ public class SelectedUI : MonoBehaviour
     public Vector3 OnDirectionPicked(GameObject dirObject)
     {
         int selectedDirectionIndex = 0;
+        
         //set unselect axis invisible
         for (int i = 0; i < dirTransform.Length; i++)
         {
             if (dirTransform[i].gameObject != dirObject)
             {
-                dirTransform[i].gameObject.SetActive(false); //This might be changed
+                //dirTransform[i].gameObject.SetActive(false); //This might be changed
+                GhostArrow(i);
             }
             else
             {
                 selectedDirectionIndex = i;
+                HighlightArrow(selectedDirectionIndex);
+
             }
         }
 
@@ -73,9 +75,23 @@ public class SelectedUI : MonoBehaviour
             case Direction.NegZ:
                 return Vector3.back;
             default:
-                Debug.Log("Unsupported direciton");
+                Debug.Log("Unsupported direction");
                 return Vector3.zero;
         }
+    }
+
+    private void HighlightArrow(int selectedDirectionIndex)
+    {
+        _currColors[selectedDirectionIndex] = Color.yellow;
+    }
+    private void UnHighlightArrow(int selectedDirectionIndex)
+    {
+        _currColors[selectedDirectionIndex] = _origColors[selectedDirectionIndex];
+    }
+
+    private void GhostArrow(int index)
+    {
+        _origColors[index].a = 0.5f;
     }
 
     /// <summary>

@@ -374,17 +374,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23038f3cbeb777e419d1ffe1cc23d01b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedUIPref: {fileID: 3624672152112117881, guid: 4c8a204f3d0d28c4b9e363d288e9aac0,
-    type: 3}
+  selectedUIPref: {fileID: 0}
   mainCamera: {fileID: 0}
   initialScale: 1
-  _selectedItemTest:
-  - {fileID: 1489283026}
-  - {fileID: 982229363}
-  - {fileID: 1049031330}
-  - {fileID: 1307931238}
-  - {fileID: 1035062804}
-  _selectedItem: {fileID: 1049031330}
 --- !u!4 &658368465
 Transform:
   m_ObjectHideFlags: 0
@@ -1089,17 +1081,17 @@ PrefabInstance:
     - target: {fileID: 3423601040280732209, guid: 4c8a204f3d0d28c4b9e363d288e9aac0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.099
       objectReference: {fileID: 0}
     - target: {fileID: 3423601040280732209, guid: 4c8a204f3d0d28c4b9e363d288e9aac0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.782
       objectReference: {fileID: 0}
     - target: {fileID: 3423601040280732209, guid: 4c8a204f3d0d28c4b9e363d288e9aac0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.614
       objectReference: {fileID: 0}
     - target: {fileID: 3423601040280732209, guid: 4c8a204f3d0d28c4b9e363d288e9aac0,
         type: 3}
@@ -1144,7 +1136,7 @@ PrefabInstance:
     - target: {fileID: 3624672152112117881, guid: 4c8a204f3d0d28c4b9e363d288e9aac0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
