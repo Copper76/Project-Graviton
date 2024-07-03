@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using static UnityEngine.GraphicsBuffer;
 
 /// <summary>
 /// Control 6 arrows in select/unselect/reposition.
@@ -19,41 +19,46 @@ public class SelectedUI : MonoBehaviour
     }
 
     [SerializeField] private Transform[] dirTransform;//in order same as enum Direction
+    [SerializeField] private float highlightIntensity;
 
-    private Vector3[] _OriDirPos;
+    private Vector3[] _oriDirPos;
+    private Material[] _materials;
 
     private Color[] _origColors;
     private Color[] _currColors;
 
     private void Awake()
     {
-        _OriDirPos = new Vector3[dirTransform.Length];
+        _oriDirPos = new Vector3[dirTransform.Length];
+        _materials = new Material[dirTransform.Length];
         //Store original arrows position for the use of ResetPos()
-        for (int i = 0; i < _OriDirPos.Length; i++)
+        for (int i = 0; i < _oriDirPos.Length; i++)
         {
-            _OriDirPos[i] = dirTransform[i].localPosition;
-            _origColors[i] = dirTransform[i].gameObject.GetComponent<MeshRenderer>().material.color;
-            _currColors[i] = _origColors[i];
+            _oriDirPos[i] = dirTransform[i].localPosition;
+            _materials[i] = dirTransform[i].GetComponent<MeshRenderer>().material;
         }
     }
 
     /// <summary>
     /// Invisible other gizmo direction UI
     /// </summary>
-    public Vector3 OnDirectionPicked(GameObject dirObject)
+    public Vector3 OnDirectionPicked(GameObject dirObject, bool opposite)
     {
+        Debug.Log("Called");
         int selectedDirectionIndex = 0;
-        
+        Debug.Log(_materials.Length);
         //set unselect axis invisible
         for (int i = 0; i < dirTransform.Length; i++)
         {
             if (dirTransform[i].gameObject != dirObject)
             {
-                //dirTransform[i].gameObject.SetActive(false); //This might be changed
+                UnHighlightArrow(i);
                 GhostArrow(i);
             }
             else
             {
+                HighlightArrow(i);
+                ResetGhostArrow(i);
                 selectedDirectionIndex = i;
                 HighlightArrow(selectedDirectionIndex);
 
@@ -79,6 +84,25 @@ public class SelectedUI : MonoBehaviour
                 return Vector3.zero;
         }
     }
+    private void HighlightArrow(int selectedDirectionIndex)
+    {
+        _materials[selectedDirectionIndex].SetFloat("_HighlightIntensity", highlightIntensity);
+    }
+
+    private void UnHighlightArrow(int selectedDirectionIndex)
+    {
+        _materials[selectedDirectionIndex].SetFloat("_HighlightIntensity", 1.0f);
+    }
+
+    private void GhostArrow(int index)
+    {
+        _materials[index].SetFloat("_Alpha", 0.3f);
+    }
+
+    private void ResetGhostArrow(int index)
+    {
+        _materials[index].SetFloat("_Alpha", 1.0f);
+    }
 
     private void HighlightArrow(int selectedDirectionIndex)
     {
@@ -101,9 +125,9 @@ public class SelectedUI : MonoBehaviour
     public void ResetPos()
     {
         //Reset the position first in case it has been resize
-        for (int i = 0; i < _OriDirPos.Length; i++)
+        for (int i = 0; i < _oriDirPos.Length; i++)
         {
-            dirTransform[i].localPosition = _OriDirPos[i];
+            dirTransform[i].localPosition = _oriDirPos[i];
             dirTransform[i].localScale = Vector3.one;
         }
     }

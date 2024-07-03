@@ -28,7 +28,7 @@ public class PlayerInteractionController : MonoBehaviour
         Vector3 origin = _mainCamera.transform.position;
         Vector3 direction = _mainCamera.transform.forward;
 
-        bool hitSomething = Physics.SphereCast(origin, interactionRadius, direction, out hit, interactionRange);
+        bool hitSomething = Physics.SphereCast(origin, interactionRadius, direction, out hit, interactionRange); //TODO use raycast
         
         IInteractable interactable = hitSomething ? hit.transform.gameObject.GetComponent<IInteractable>() : null;
         
@@ -39,7 +39,7 @@ public class PlayerInteractionController : MonoBehaviour
             _currentInteractable?.OnHover();
         }
         
-        if (_currentInteractable != null && _inputManager.playerInputActions.Player.Interact.triggered)
+        if (_currentInteractable != null && _inputManager.playerInputActions.Player.Interact.triggered) //TODO convert triggered to an event
         {
             _currentInteractable.Interact();
         }

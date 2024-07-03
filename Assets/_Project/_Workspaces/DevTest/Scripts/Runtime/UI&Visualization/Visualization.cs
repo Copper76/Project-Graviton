@@ -96,8 +96,6 @@ public class Visualization : MonoBehaviour
 
         //TEST
         //_currUI.GetComponent<SelectedUI>().TestDirection();
-
-
     }
 
     public void OnDeSelect()
@@ -105,5 +103,10 @@ public class Visualization : MonoBehaviour
         //_currTarget = null;
         //_currUI.transform.localScale = Vector3.one;
         _currUI.gameObject.SetActive(false);
+    }
+
+    public Vector3 GetArrowDir(GameObject dirObject, bool opposite = false)
+    {
+        return _currUI.OnDirectionPicked(dirObject, opposite);
     }
 }

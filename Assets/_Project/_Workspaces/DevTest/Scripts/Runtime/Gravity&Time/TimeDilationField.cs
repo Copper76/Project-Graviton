@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public class TimeDilationField : MonoBehaviour
 {
-    [Header("Gravity Field")]
-    [SerializeField] private List<Gravity> _affectedObjects;
+    [Header("Time Dilation Field")]
+    [SerializeField] private List<RelativeTime> _affectedObjects;
     [SerializeField] private float maxSize = 30.0f; //Max Radius
     [SerializeField] private float minSize = 3.0f; //Min Radius
     [SerializeField] private AnimationCurve timeDilationFieldStrength;
@@ -32,13 +32,13 @@ public class TimeDilationField : MonoBehaviour
     {
         if (!_active) return;
 
-        float gravityFieldRadius = transform.localScale.x * 0.5f;
-        if (gravityFieldRadius <= 0) return;
+        float timeFieldRadius = transform.localScale.x * 0.5f;
+        if (timeFieldRadius <= 0) return;
 
-        foreach (Gravity gravity in _affectedObjects)
+        foreach (RelativeTime time in _affectedObjects)
         {
-            float dist = Mathf.Clamp(Vector3.Distance(gravity.gameObject.transform.position, transform.position) / gravityFieldRadius, 0.0f, 1.0f);
-            gravity.SetTimeSpeed(timeDilationFieldStrength.Evaluate(dist));
+            float dist = Mathf.Clamp(Vector3.Distance(time.gameObject.transform.position, transform.position) / timeFieldRadius, 0.0f, 1.0f);
+            time.SetTimeMultiplier(timeDilationFieldStrength.Evaluate(dist));
         }
     }
 
@@ -49,13 +49,14 @@ public class TimeDilationField : MonoBehaviour
 
     public void ToggleTimeDilationField(InputAction.CallbackContext context)
     {
+        Debug.Log("Toggling");
         _active = !_active;
         if (!_active)
         {
             _meshRenderer.material = inactiveMaterial;
-            foreach (Gravity gravity in _affectedObjects)
+            foreach (RelativeTime time in _affectedObjects)
             {
-                gravity.SetTimeSpeed(1.0f);
+                time.SetTimeMultiplier(1.0f);
             }
         }
         else
@@ -66,20 +67,20 @@ public class TimeDilationField : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Gravity gravity = other.GetComponent<Gravity>();
-        if (gravity != null)
+        RelativeTime time = other.GetComponent<RelativeTime>();
+        if (time != null)
         {
-            _affectedObjects.Add(gravity);
+            _affectedObjects.Add(time);
         }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        Gravity gravity = other.GetComponent<Gravity>();
-        if (gravity != null)
+        RelativeTime time = other.GetComponent<RelativeTime>();
+        if (time != null)
         {
-            gravity.SetTimeSpeed(1.0f); //reset the time flow of object to normal
-            _affectedObjects.Remove(gravity);
+            time.SetTimeMultiplier(1.0f); //reset the time flow of object to normal
+            _affectedObjects.Remove(time);
         }
     }
 }

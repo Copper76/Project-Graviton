@@ -72,7 +72,7 @@ public class PressurePlate : MonoBehaviour
 
     private void Update()
     {
-        if (_depressionTime >= 1f) return;
+        if (_depressionTime > 1f) return;
 
         _depressionTime += Time.deltaTime * depressionSpeed;
         float curveValue = depressionCurve.Evaluate(_depressionTime);
