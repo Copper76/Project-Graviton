@@ -27,6 +27,8 @@
                         <ui:Label tabindex="-1" text="Look" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="PauseMenuList" class="pause-menu-list" style="flex-grow: 1; align-items: stretch; justify-content: flex-start; align-self: auto; margin-right: -460px; margin-left: -460px;">
                 <ui:VisualElement name="JumpSection" class="pause-section" style="flex-grow: 0; width: 200px; height: 200px; align-items: center; justify-content: flex-start; align-self: center;">
                     <ui:VisualElement name="UISection" style="flex-grow: 0; height: 70%; top: auto; width: 90%; background-color: rgba(97, 114, 152, 0); align-self: center; justify-content: center; background-image: none; align-items: stretch; -unity-text-align: middle-center;">
                         <ui:VisualElement name="Space" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/External%20Assets/kenney_input-prompts/Keyboard%20&amp;%20Mouse/Double/keyboard_space.png?fileID=2800000&amp;guid=bea26253a0a8031468783117d261ffc5&amp;type=3#keyboard_space&quot;); width: 128px; height: 128px; align-items: stretch; justify-content: center; align-self: center;" />
@@ -35,22 +37,40 @@
                         <ui:Label tabindex="-1" text="Jump" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="InteractSection" class="pause-section" style="flex-grow: 0; width: 200px; height: 200px; align-items: center; justify-content: flex-start; align-self: center;">
+                    <ui:VisualElement name="UISection" style="flex-grow: 0; height: 70%; top: auto; width: 90%; background-color: rgba(97, 114, 152, 0); align-self: center; justify-content: center; background-image: none; align-items: stretch; -unity-text-align: middle-center;">
+                        <ui:VisualElement name="F" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/External%20Assets/kenney_input-prompts/Keyboard%20&amp;%20Mouse/Double/keyboard_f.png?fileID=2800000&amp;guid=e8a458111397cd54db04713ea44a4794&amp;type=3#keyboard_f&quot;); width: 128px; height: 128px; align-items: stretch; justify-content: center; align-self: center;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="TextHolder" style="flex-grow: 0; -unity-text-align: middle-center; justify-content: center; align-self: center; color: rgb(255, 255, 255); font-size: 30px; -unity-font-style: bold; align-items: center;">
+                        <ui:Label tabindex="-1" text="Interact" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="PauseMenuList" class="pause-menu-list" style="flex-grow: 1; margin-right: -460px; margin-left: -460px;">
+            <ui:VisualElement name="PauseMenuList" class="pause-menu-list" style="flex-grow: 1; align-items: stretch; justify-content: flex-start; align-self: auto; margin-right: -460px; margin-left: -460px;">
+                <ui:VisualElement name="ToggleSection" class="pause-section" style="flex-grow: 0; width: 200px; height: 200px; align-items: center; justify-content: flex-start; align-self: center;">
+                    <ui:VisualElement name="UISection" style="flex-grow: 0; height: 70%; top: auto; width: 90%; background-color: rgba(97, 114, 152, 0); align-self: center; justify-content: center; background-image: none; align-items: stretch; -unity-text-align: middle-center;">
+                        <ui:VisualElement name="Space" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/External%20Assets/kenney_input-prompts/Keyboard%20&amp;%20Mouse/Double/keyboard_r.png?fileID=2800000&amp;guid=028747406b281cf45aa5f8979e30284a&amp;type=3#keyboard_r&quot;); width: 128px; height: 128px; align-items: stretch; justify-content: center; align-self: center;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="TextHolder" style="flex-grow: 0; -unity-text-align: middle-center; justify-content: center; align-self: center; color: rgb(255, 255, 255); font-size: 30px; -unity-font-style: bold; align-items: center;">
+                        <ui:Label tabindex="-1" text="Time Field" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
                 <ui:VisualElement name="DilationSection" class="pause-section" style="flex-grow: 0; width: 200px; height: 200px; align-items: center; justify-content: flex-start; align-self: center;">
                     <ui:VisualElement name="UISection" style="flex-grow: 0; height: 70%; top: auto; width: 90%; background-color: rgba(97, 114, 152, 0); align-self: center; justify-content: center; background-image: none; align-items: stretch; -unity-text-align: middle-center;">
                         <ui:VisualElement name="MouseScroll" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/External%20Assets/kenney_input-prompts/Keyboard%20&amp;%20Mouse/Double/mouse_scroll_vertical.png?fileID=2800000&amp;guid=b3e26e8ed1e69714e87dcf0d126e640f&amp;type=3#mouse_scroll_vertical&quot;); width: 128px; height: 128px; align-items: stretch; justify-content: center; align-self: center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="TextHolder" style="flex-grow: 0; -unity-text-align: middle-center; justify-content: center; align-self: center; color: rgb(255, 255, 255); font-size: 30px; -unity-font-style: bold; align-items: center;">
-                        <ui:Label tabindex="-1" text="Dilation" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
+                        <ui:Label tabindex="-1" text="Time Field Size" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="PauseMenuList" class="pause-menu-list" style="flex-grow: 1; margin-right: -460px; margin-left: -460px;">
                 <ui:VisualElement name="GravityForwardSection" class="pause-section" style="flex-grow: 0; width: 200px; height: 200px; align-items: center; justify-content: flex-start; align-self: center;">
                     <ui:VisualElement name="UISection" style="flex-grow: 0; height: 70%; top: auto; width: 90%; background-color: rgba(97, 114, 152, 0); align-self: center; justify-content: center; background-image: none; align-items: stretch; -unity-text-align: middle-center;">
                         <ui:VisualElement name="LeftClick" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/External%20Assets/kenney_input-prompts/Keyboard%20&amp;%20Mouse/Default/mouse_left.png?fileID=2800000&amp;guid=da0cae735803d7b408d26fa7ab778afd&amp;type=3#mouse_left&quot;); width: 128px; height: 128px; align-items: stretch; justify-content: center; align-self: center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="TextHolder" style="flex-grow: 0; -unity-text-align: middle-center; justify-content: center; align-self: center; color: rgb(255, 255, 255); font-size: 30px; -unity-font-style: bold; align-items: center;">
-                        <ui:Label tabindex="-1" text="Change Gravity Forward" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
+                        <ui:Label tabindex="-1" text="Gravity Forward" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="GracityBackwardSection" class="pause-section" style="flex-grow: 0; width: 200px; height: 200px; align-items: center; justify-content: flex-start; align-self: center;">
@@ -58,7 +78,7 @@
                         <ui:VisualElement name="RightClick" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/External%20Assets/kenney_input-prompts/Keyboard%20&amp;%20Mouse/Double/mouse_right.png?fileID=2800000&amp;guid=a958a788e9b63fb4a992d96dcb2a3a75&amp;type=3#mouse_right&quot;); width: 128px; height: 128px; align-items: stretch; justify-content: center; align-self: center;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="TextHolder" style="flex-grow: 0; -unity-text-align: middle-center; justify-content: center; align-self: center; color: rgb(255, 255, 255); font-size: 30px; -unity-font-style: bold; align-items: center;">
-                        <ui:Label tabindex="-1" text="Change Gravity Backward" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
+                        <ui:Label tabindex="-1" text="Gravity Backward" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-self: center; justify-content: center; flex-direction: row; flex-shrink: 1;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
