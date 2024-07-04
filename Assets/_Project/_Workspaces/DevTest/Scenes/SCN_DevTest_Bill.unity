@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a991ba07d3f5146bee63545c28899d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTransform: {fileID: 0}
+  spawnTransform: {fileID: 1077784866}
   spawnPrefab: {fileID: 1378749687}
   limitedSpawns: 1
   maxSpawnedObjects: 3

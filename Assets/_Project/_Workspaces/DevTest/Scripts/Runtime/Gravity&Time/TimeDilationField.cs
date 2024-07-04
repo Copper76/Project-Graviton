@@ -42,6 +42,14 @@ public class TimeDilationField : MonoBehaviour
         float timeFieldRadius = transform.localScale.x * 0.5f;
         if (timeFieldRadius <= 0) return;
 
+        for (int i = _affectedObjects.Count - 1; i >= 0; i--)
+        {
+            if (_affectedObjects[i] == null)
+            {
+                _affectedObjects.RemoveAt(i);
+            }
+        }
+
         foreach (RelativeTime time in _affectedObjects)
         {
             float dist = Mathf.Clamp(Vector3.Distance(time.gameObject.transform.position, transform.position) / timeFieldRadius, 0.0f, 1.0f);
