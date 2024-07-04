@@ -9,14 +9,18 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public PlayerInputActions playerInputActions;
     private GravityGun _gravityGun;
     private TimeDilationField _timeDilationField;
-    private PlayerInteractionController _interactionController;
 
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
         _gravityGun = FindObjectOfType<GravityGun>();
         _timeDilationField = FindObjectOfType<TimeDilationField>();
-        _interactionController = FindAnyObjectByType<PlayerInteractionController>();
+    }
+
+    private void Start()
+    {
+        //_gravityGun = FindObjectOfType<GravityGun>();
+        //_timeDilationField = FindObjectOfType<TimeDilationField>();
     }
 
     private void OnEnable()
@@ -30,7 +34,6 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.DilateTime.Enable();
         playerInputActions.Player.ToggleTimeField.Enable();
 
-        playerInputActions.Player.Interact.performed += _interactionController.Interact;
         playerInputActions.Player.Fire.performed += _gravityGun.Fire;
         playerInputActions.Player.AltFire.performed += _gravityGun.AltFire;
         playerInputActions.Player.DilateTime.performed += _timeDilationField.ResizeTimeDilationField;
@@ -40,7 +43,6 @@ public class InputManager : MonoBehaviour
 
     private void OnDisable()
     {
-        playerInputActions.Player.Interact.performed -= _interactionController.Interact;
         playerInputActions.Player.Fire.performed -= _gravityGun.Fire;
         playerInputActions.Player.AltFire.performed -= _gravityGun.AltFire;
         playerInputActions.Player.DilateTime.performed -= _timeDilationField.ResizeTimeDilationField;

@@ -13,8 +13,11 @@ public class PlayerMovementController : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private Vector2 mouseSensitivity;
+    [SerializeField] private float tiltAngle = 10f;
+    [SerializeField] private float tiltSmooth = 5f;
 
     private Transform _cameraTransform;
+    private float _currentTilt = 0f;
 
     [Header("Movement")]
     [SerializeField] private Vector2 arialTerminalVelocity;
@@ -29,8 +32,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float coyoteTime;
     [SerializeField] private float jumpBufferTime;
     [Range(0f, 1f)] [SerializeField] private float slopeJumpNormalBias;
-
-    private bool _readyToJump = false;
+    
     private float _coyoteTimeCounter;
     private float _jumpBufferCounter;
     
@@ -39,10 +41,9 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float slopeDetectionRange;
     [SerializeField] private float maxSlopeAngle;
-
+    
     private bool _isGrounded;
     private bool _isOnSlope;
-    private bool _isSteepSlope;
     private Vector3 _slopeNormal;
 
     private Rigidbody _rb;
@@ -52,13 +53,6 @@ public class PlayerMovementController : MonoBehaviour
     private Vector2 _lookDirection;
     private Vector2 _mouseCameraRotation = Vector2.zero;
 
-    private const float Epsilon = 1e-3f;
-
-    private void Awake()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
-
     void Start()
     {
         InitializeComponents();
@@ -67,8 +61,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
-        Jump();
+        Move(_moveDirection);
         Damping();
         EnforceTerminalVelocity();
     }
@@ -81,11 +74,13 @@ public class PlayerMovementController : MonoBehaviour
         ReadInput();
         JumpCheck();
         Look();
+        TiltCamera(_moveDirection);
     }
 
     private void InitializeComponents()
     {
         _inputManager = FindObjectOfType<InputManager>();
+        _rb = GetComponent<Rigidbody>();
         _cameraTransform = Camera.main?.transform;
     }
 
@@ -118,17 +113,6 @@ public class PlayerMovementController : MonoBehaviour
 
     private void DetectGround()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundDetectionRange, groundLayer))
-        {
-            _isGrounded = true;
-            transform.parent = hit.transform;
-        }
-        else
-        {
-            _isGrounded = false;
-            transform.parent = null;
-        }
         _isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDetectionRange, groundLayer);
         Debug.DrawRay(transform.position, Vector3.down * groundDetectionRange, Color.green, Time.fixedDeltaTime);
     }
@@ -139,11 +123,10 @@ public class PlayerMovementController : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.down, out hit, slopeDetectionRange, groundLayer))
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-
-            _isSteepSlope = slopeAngle > maxSlopeAngle;
+            
             _isOnSlope = slopeAngle > 0f && slopeAngle < maxSlopeAngle;
             _slopeNormal = _isOnSlope ? hit.normal : Vector3.up;
-
+            
             Debug.Log($"On Slope: {_isOnSlope} Slope Angle: {slopeAngle}");
         }
         else
@@ -156,7 +139,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void EnforceTerminalVelocity()
     {
-        if (_isGrounded || _isOnSlope)
+        if (_isGrounded)
         {
             _rb.velocity = Vector3.ClampMagnitude(_rb.velocity, groundTerminalVelocity);
         }
@@ -169,20 +152,18 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    public void Move()
+    public void Move(Vector2 direction)
     {
-        if (_moveDirection == Vector2.zero) return;
-
-        if (_isSteepSlope) return;
+        if (direction == Vector2.zero) return;
         
-        Vector3 normalizedMoveDirection = new Vector3(_moveDirection.x, 0f, _moveDirection.y).normalized;
-        float forceStrength = _isGrounded ? groundMoveForce : airMoveForce;
+        Vector3 normalizedMoveDirection = new Vector3(direction.x, 0f, direction.y).normalized;
+        float forceStrength = _isGrounded ? groundMoveForce : airMoveForce; //TODO set air relative to ground
         
-        _moveForce = transform.TransformDirection(normalizedMoveDirection * forceStrength * Time.fixedDeltaTime);
+        _moveForce = normalizedMoveDirection * forceStrength * Time.fixedDeltaTime;
 
         SlopeCompensation();
 
-        _rb.AddForce(_moveForce, ForceMode.VelocityChange);
+        _rb.AddRelativeForce(_moveForce, ForceMode.VelocityChange);
     }
 
     private void SlopeCompensation()
@@ -190,7 +171,7 @@ public class PlayerMovementController : MonoBehaviour
         if (_isOnSlope)
         {
             _moveForce = Vector3.ProjectOnPlane(_moveForce, _slopeNormal);
-
+            
             Vector3 slopeParallelGravity = Vector3.Project(Physics.gravity, _slopeNormal);
 
             _rb.AddForce(-slopeParallelGravity, ForceMode.Acceleration);
@@ -204,7 +185,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f)
         {
-            _readyToJump = true;
+            Jump();
             _jumpBufferCounter = 0f;
         }
 
@@ -242,15 +223,10 @@ public class PlayerMovementController : MonoBehaviour
 
     public void Jump()
     {
-        if (_isSteepSlope) return;
-        if (!_readyToJump) return;
-
         Vector3 slopeJumpDirection = Vector3.Lerp(Vector3.up, _slopeNormal, slopeJumpNormalBias);
         Vector3 jumpDirection = _isOnSlope ? slopeJumpDirection : Vector3.up;
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
         _rb.AddForce(jumpDirection * initialJumpSpeed, ForceMode.VelocityChange);
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Jump", GetComponent<Transform>().position);
-        _readyToJump = false;
     }
 
     private void Look()
@@ -262,7 +238,20 @@ public class PlayerMovementController : MonoBehaviour
 
         _mouseCameraRotation.x = Mathf.Clamp(_mouseCameraRotation.x, -90f, 90f);
 
-        transform.rotation = Quaternion.Euler(0.0f, _mouseCameraRotation.y, 0);
-        _cameraTransform.rotation = Quaternion.Euler(_mouseCameraRotation.x, _mouseCameraRotation.y, 0.0f);
+        transform.rotation = Quaternion.Euler(0, _mouseCameraRotation.y, 0);
+    }
+
+    private void TiltCamera(Vector2 direction)
+    {
+        if (_isGrounded)
+        {
+            float targetTilt = direction.x == 0 ? 0f : (direction.x < 0 ? tiltAngle : -tiltAngle);
+            _currentTilt = Mathf.Lerp(_currentTilt, targetTilt, tiltSmooth * Time.deltaTime);
+        }
+        else
+        {
+            _currentTilt = Mathf.Lerp(_currentTilt, 0f, tiltSmooth * Time.deltaTime);
+        }
+        _cameraTransform.rotation = Quaternion.Euler(_mouseCameraRotation.x, _mouseCameraRotation.y, _currentTilt);
     }
 }

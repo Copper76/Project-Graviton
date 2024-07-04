@@ -1,8 +1,3 @@
-
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -11,14 +6,26 @@ using static UnityEngine.GraphicsBuffer;
 /// </summary>
 public class SelectedUI : MonoBehaviour
 {
+
+    //Not been used for now
+    private enum Direction
+    {
+        PosX,
+        NegX,
+        PosY,
+        NegY,
+        PosZ,
+        NegZ,
+    }
+
     [SerializeField] private Transform[] dirTransform;//in order same as enum Direction
     [SerializeField] private float highlightIntensity;
 
     private Vector3[] _oriDirPos;
     private Material[] _materials;
 
-
-    private Dictionary<Vector3, int> _dirIndexByVector;
+    private Color[] _origColors;
+    private Color[] _currColors;
 
     private void Awake()
     {
@@ -30,29 +37,20 @@ public class SelectedUI : MonoBehaviour
             _oriDirPos[i] = dirTransform[i].localPosition;
             _materials[i] = dirTransform[i].GetComponent<MeshRenderer>().material;
         }
-
-        _dirIndexByVector = new Dictionary<Vector3, int>
-        {
-            { Vector3.right, 0},
-            { Vector3.left, 1},
-            { Vector3.up, 2},
-            { Vector3.down, 3},
-            { Vector3.forward, 4},
-            { Vector3.back, 5},
-        };
     }
 
-    public void UpdateArrowVisual(Vector3 gravityDir)
+    /// <summary>
+    /// Invisible other gizmo direction UI
+    /// </summary>
+    public Vector3 OnDirectionPicked(GameObject dirObject, bool opposite)
     {
-        UpdateArrowVisual(_dirIndexByVector[gravityDir]);
-    }
-
-
-    private void UpdateArrowVisual(int dirIndex)
-    {
+        Debug.Log("Called");
+        int selectedDirectionIndex = 0;
+        Debug.Log(_materials.Length);
+        //set unselect axis invisible
         for (int i = 0; i < dirTransform.Length; i++)
         {
-            if (dirIndex != i)
+            if (dirTransform[i].gameObject != dirObject)
             {
                 UnHighlightArrow(i);
                 GhostArrow(i);
@@ -61,12 +59,31 @@ public class SelectedUI : MonoBehaviour
             {
                 HighlightArrow(i);
                 ResetGhostArrow(i);
+                selectedDirectionIndex = i;
+                HighlightArrow(selectedDirectionIndex);
 
             }
         }
 
+        switch ((Direction)selectedDirectionIndex)
+        {
+            case Direction.PosX:
+                return Vector3.right;
+            case Direction.NegX:
+                return Vector3.left;
+            case Direction.PosY:
+                return Vector3.up;
+            case Direction.NegY:
+                return Vector3.down;
+            case Direction.PosZ:
+                return Vector3.forward;
+            case Direction.NegZ:
+                return Vector3.back;
+            default:
+                Debug.Log("Unsupported direction");
+                return Vector3.zero;
+        }
     }
-
     private void HighlightArrow(int selectedDirectionIndex)
     {
         _materials[selectedDirectionIndex].SetFloat("_HighlightIntensity", highlightIntensity);
@@ -74,7 +91,7 @@ public class SelectedUI : MonoBehaviour
 
     private void UnHighlightArrow(int selectedDirectionIndex)
     {
-        _materials[selectedDirectionIndex].SetFloat("_HighlightIntensity", 0.0f);
+        _materials[selectedDirectionIndex].SetFloat("_HighlightIntensity", 1.0f);
     }
 
     private void GhostArrow(int index)
