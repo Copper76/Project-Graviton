@@ -54,9 +54,9 @@ public class Gravity : MonoBehaviour
         gravityDir = dir;
     }
 
-    public void ResizeSphereCollider(float dsitance)
+    public Vector3 GetGravityDir()
     {
-        //Fix this in the morning
+        return gravityDir;
     }
 
     public void ResetProperties(float currentTime)
@@ -87,13 +87,11 @@ public class Gravity : MonoBehaviour
     {
         _material.SetFloat("_HighlightIntensity", highlightIntensity);
         _extendCollider.enabled = true;
-        //Activate Arrows here
     }
     public void LookAwayFromObject()
     {
         _material.SetFloat("_HighlightIntensity", 1.0f);
         _extendCollider.enabled = false;
-        //Deactivate Arrows here
     }
 
 }

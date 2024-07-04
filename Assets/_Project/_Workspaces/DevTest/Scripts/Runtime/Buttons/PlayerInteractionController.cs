@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerInteractionController : MonoBehaviour
 {
     [SerializeField] private float interactionRange = 5f;
-    [SerializeField] private float interactionRadius = 0.5f;
 
     private InputManager _inputManager;
     private Camera _mainCamera;

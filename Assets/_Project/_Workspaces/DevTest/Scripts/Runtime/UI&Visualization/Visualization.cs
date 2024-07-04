@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -28,13 +29,12 @@ public class Visualization : MonoBehaviour
 
     private void Awake()
     {
-
+        _currUI = Instantiate(selectedUIPref).GetComponent<SelectedUI>();
+        _currUI.gameObject.SetActive(false);
     }
 
     void Start()
     {
-        _currUI = Instantiate(selectedUIPref).GetComponent<SelectedUI>();
-        _currUI.gameObject.SetActive(false);
 
         if (mainCamera == null)
         {
@@ -45,6 +45,11 @@ public class Visualization : MonoBehaviour
     private void LateUpdate()
     {
         SelectedUITransformUpdate();
+    }
+
+    public SelectedUI GetSelectedUI()
+    {
+        return _currUI;
     }
 
     private void SelectedUITransformUpdate()
@@ -100,8 +105,8 @@ public class Visualization : MonoBehaviour
         _currUI.gameObject.SetActive(false);
     }
 
-    public Vector3 GetArrowDir(int dirIndex)
+    public void UpdateArrowVisual(Vector3 gravityDir)
     {
-        return _currUI.OnDirectionPicked(dirIndex);
+        _currUI.UpdateArrowVisual(gravityDir);
     }
 }

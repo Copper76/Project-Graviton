@@ -235,8 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d6487e1003cf540afe91d388b7746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positiveDirIndex: 4
-  negativeDirIndex: 5
+  positiveDir: {x: 0, y: 0, z: 1}
+  negativeDir: {x: 0, y: 0, z: -1}
 --- !u!4 &837734462069201570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5105d42a1d15d0a4b9c27b100b5885d6,
@@ -388,8 +388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d6487e1003cf540afe91d388b7746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positiveDirIndex: 0
-  negativeDirIndex: 1
+  positiveDir: {x: 1, y: 0, z: 0}
+  negativeDir: {x: -1, y: 0, z: 0}
 --- !u!4 &2130504937747052091 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5105d42a1d15d0a4b9c27b100b5885d6,
@@ -547,8 +547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d6487e1003cf540afe91d388b7746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positiveDirIndex: 3
-  negativeDirIndex: 2
+  positiveDir: {x: 0, y: -1, z: 0}
+  negativeDir: {x: 0, y: 1, z: 0}
 --- !u!1001 &5835719236968232729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -700,8 +700,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d6487e1003cf540afe91d388b7746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positiveDirIndex: 1
-  negativeDirIndex: 0
+  positiveDir: {x: -1, y: 0, z: 0}
+  negativeDir: {x: 1, y: 0, z: 0}
 --- !u!1001 &7487004859650060669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -853,8 +853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d6487e1003cf540afe91d388b7746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positiveDirIndex: 5
-  negativeDirIndex: 4
+  positiveDir: {x: 0, y: 0, z: -1}
+  negativeDir: {x: 0, y: 0, z: 1}
 --- !u!1001 &8486226902709239547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1006,5 +1006,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d6487e1003cf540afe91d388b7746a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positiveDirIndex: 2
-  negativeDirIndex: 3
+  positiveDir: {x: 0, y: 1, z: 0}
+  negativeDir: {x: 0, y: -1, z: 0}

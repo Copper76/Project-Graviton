@@ -25,6 +25,11 @@ public class GravityGun : MonoBehaviour
     private void Update()
     {
         CheckTestObject();
+        UpdateFireTimer();
+    }
+
+    private void UpdateFireTimer()
+    {
         if (_fireRateCounter > 0.0f)
         {
             _fireRateCounter -= Time.deltaTime;
@@ -42,11 +47,7 @@ public class GravityGun : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, noArrowMask) && hit.collider.gameObject.TryGetComponent<Gravity>(out Gravity hitGravityComponet))
         {
-            if (_lookingObject == hitGravityComponet)
-            {
-                _lookingObject.ResizeSphereCollider(hit.distance);
-                return;
-            }
+            if (_lookingObject == hitGravityComponet) return;
 
             if (_lookingObject != null)
             {
@@ -55,8 +56,8 @@ public class GravityGun : MonoBehaviour
             }
             _lookingObject = hitGravityComponet;
             _lookingObject.LookAtObject();
+            _visualization.UpdateArrowVisual(_lookingObject.GetGravityDir());
             _visualization.OnSelect(_lookingObject.transform);
-            _lookingObject.ResizeSphereCollider(hit.distance);
         }
         else
         {
@@ -73,12 +74,12 @@ public class GravityGun : MonoBehaviour
     {
         if (_fireRateCounter > 0.0f) return;
 
-        Debug.Log("Fired");
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
         {
-            Debug.Log(hit.collider.gameObject);
-            _lookingObject.SetGravityDir(_visualization.GetArrowDir(hit.transform.GetComponent<GravityDirection>().GetPositiveDirIndex()));
+            Vector3 gravityDir = hit.transform.GetComponent<GravityDirection>().GetPositiveDir();
+            _lookingObject.SetGravityDir(gravityDir);
+            _visualization.UpdateArrowVisual(gravityDir);
         }
     }
 
@@ -86,11 +87,12 @@ public class GravityGun : MonoBehaviour
     {
         if (_fireRateCounter > 0.0f) return;
 
-        Debug.Log("Alt Fired");
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
         {
-            _lookingObject.SetGravityDir(_visualization.GetArrowDir(hit.transform.GetComponent<GravityDirection>().GetNegativeDirIndex()));
+            Vector3 gravityDir = hit.transform.GetComponent<GravityDirection>().GetNegativeDir();
+            _lookingObject.SetGravityDir(gravityDir);
+            _visualization.UpdateArrowVisual(gravityDir);
         }
     }
 }

@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class GravityDirection : MonoBehaviour
 {
-    [SerializeField] private int positiveDirIndex;
-    [SerializeField] private int negativeDirIndex;
+    [SerializeField] private Vector3 positiveDir;
+    [SerializeField] private Vector3 negativeDir;
 
-    public int GetPositiveDirIndex()
+    public Vector3 GetPositiveDir()
     { 
-        return positiveDirIndex;
+        return positiveDir;
     }
 
-    public int GetNegativeDirIndex()
+    public Vector3 GetNegativeDir()
     {
-        return negativeDirIndex;
+        return negativeDir;
     }
 }
