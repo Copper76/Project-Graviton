@@ -155,7 +155,7 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 46ed9eb5f60db1347a92292cd6b3f066,
     type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!4 &344091049
 Transform:
   m_ObjectHideFlags: 0
