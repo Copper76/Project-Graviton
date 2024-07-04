@@ -30,7 +30,7 @@ public class Door : MonoBehaviour
     {
         DoorOpeningSound = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/GeneralEnvironment/DoorOpening");
         DoorOpeningSound.setParameterByName("DoorFullClosed", 20f);
-        DoorOpeningSound.setParameterByName("TimeDilation", 0f);
+        DoorOpeningSound.setParameterByName("TimeDilation", _relativeTime.GetTimeMultiplier());
 
         _closedPosition = transform.position;
         _openPosition = _closedPosition + offSet;
@@ -56,14 +56,19 @@ public class Door : MonoBehaviour
         _currentStartPosition = transform.position;
         _targetPosition = _isOpen ? _openPosition : _closedPosition;
         _animationTime = 0f;
-        DoorOpeningSound.release();
+        
 
     }
 
     private void Update()
     {
         if (Vector3.Distance(transform.position, _targetPosition) < Epsilon)
+        {
+            DoorOpeningSound.setParameterByName("DoorFullClosed", 20f);
+            DoorOpeningSound.release();
             return;
+        }
+
         DoorOpeningSound.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject.transform));
 
         float deltaTime = _useRelativeTime ? _relativeTime.DeltaTime() : Time.deltaTime;
