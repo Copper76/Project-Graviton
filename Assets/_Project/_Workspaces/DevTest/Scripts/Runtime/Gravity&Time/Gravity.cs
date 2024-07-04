@@ -52,38 +52,13 @@ public class Gravity : MonoBehaviour
     public void SetGravityDir(Vector3 dir)
     {
         gravityDir = dir;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/ShapeBeginMove", GetComponent<Transform>().position);
     }
 
-    ////Call this function in fixed updates and events as the values will only be useful in physics calculation
-    //public void SetTimeSpeed(float timeSpeed)
-    //{
-    //    float timeMultiplier = _relativeTime.GetTimeMultiplier();
-    //    if (Mathf.Abs(timeSpeed - timeMultiplier) < Epsilon) return;
-
-    //    //reset the values to normal
-    //    if (timeMultiplier >= Epsilon)
-    //    {
-    //        _rb.velocity /= timeMultiplier;
-    //        _rb.angularVelocity /= timeMultiplier;
-    //        _rb.mass = _normalMass * timeMultiplier;
-    //    }
-
-    //    _relativeTime.SetTimeMultiplier(timeSpeed);
-
-    //    if (timeSpeed < Epsilon)
-    //    {
-    //        _rb.isKinematic = true;
-    //    }
-    //    else
-    //    {
-    //        _rb.isKinematic = false;
-
-    //        //set eveything to relativistic
-    //        _rb.velocity *= timeSpeed;
-    //        _rb.angularVelocity *= timeSpeed;
-    //        _rb.mass = _normalMass / timeSpeed;
-    //    }
-    //}
+    public Vector3 GetGravityDir()
+    {
+        return gravityDir;
+    }
 
     public void ResetProperties(float currentTime)
     {
@@ -113,13 +88,11 @@ public class Gravity : MonoBehaviour
     {
         _material.SetFloat("_HighlightIntensity", highlightIntensity);
         _extendCollider.enabled = true;
-        //Activate Arrows here
     }
     public void LookAwayFromObject()
     {
         _material.SetFloat("_HighlightIntensity", 1.0f);
         _extendCollider.enabled = false;
-        //Deactivate Arrows here
     }
 
 }

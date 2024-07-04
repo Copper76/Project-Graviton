@@ -21,11 +21,13 @@ public class Button : MonoBehaviour, IInteractable
     public void OnHover()
     {
         _meshRenderer.material = onHoverMaterial;
+        
     }
 
     public void Interact()
     {
         triggeredEvents.Invoke();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/ButtonsAndPressurePlates/ButtonPushed", GetComponent<Transform>().position);
     }
 
     public void OnHoverExit()
