@@ -81,6 +81,7 @@ crashlytics-build.properties
 !/[Aa]ssets/Gizmos/FMOD/*
 !/[Aa]ssets/Editor Default Resources/FMOD/*
 
+
 # Ignore the Cache folder since it is updated locally.
 /[Aa]ssets/Plugins/FMOD/Cache/*
 
@@ -90,8 +91,5 @@ crashlytics-build.properties
 
 # If the source bank files are kept outside of the StreamingAssets folder then these can be ignored.
 # Log files can be ignored.
-<<<<<<< HEAD
+
 fmod_editor.log
-=======
-fmod_editor.log
->>>>>>> Bill
