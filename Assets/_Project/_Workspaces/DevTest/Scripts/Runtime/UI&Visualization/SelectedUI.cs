@@ -104,19 +104,6 @@ public class SelectedUI : MonoBehaviour
         _materials[index].SetFloat("_Alpha", 1.0f);
     }
 
-    private void HighlightArrow(int selectedDirectionIndex)
-    {
-        _currColors[selectedDirectionIndex] = Color.yellow;
-    }
-    private void UnHighlightArrow(int selectedDirectionIndex)
-    {
-        _currColors[selectedDirectionIndex] = _origColors[selectedDirectionIndex];
-    }
-
-    private void GhostArrow(int index)
-    {
-        _origColors[index].a = 0.5f;
-    }
 
     /// <summary>
     /// Reset arrows position on selected object.

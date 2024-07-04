@@ -34,3 +34,40 @@
     padding-bottom: 16px;
     padding-left: 40px;
 }
+
+.main-menu--hidden {
+    display: none;
+}
+
+.CreditTitleContainer {
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    width: 100px;
+    height: 100px;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-self: center;
+    background-color: rgba(233, 39, 39, 0.57);
+}
+
+.CreditSectionHolder {
+    -unity-text-align: upper-center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.credit-name {
+}
+
+.Credit-List {
+}
+
+.CreditSection {
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+}
+
+.button-main-menu {
+}
