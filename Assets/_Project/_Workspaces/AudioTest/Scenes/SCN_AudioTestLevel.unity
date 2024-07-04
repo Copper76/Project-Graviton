@@ -388,9 +388,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5040929300183070189, guid: e9f5c00cfba4f3245957588484fe32bc,
         type: 3}
+      propertyPath: triggeredEvents.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040929300183070189, guid: e9f5c00cfba4f3245957588484fe32bc,
+        type: 3}
+      propertyPath: triggeredEvents.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040929300183070189, guid: e9f5c00cfba4f3245957588484fe32bc,
+        type: 3}
       propertyPath: triggeredEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1062541999}
+    - target: {fileID: 5040929300183070189, guid: e9f5c00cfba4f3245957588484fe32bc,
+        type: 3}
+      propertyPath: triggeredEvents.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1062541999}
+    - target: {fileID: 5040929300183070189, guid: e9f5c00cfba4f3245957588484fe32bc,
+        type: 3}
+      propertyPath: triggeredEvents.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040929300183070189, guid: e9f5c00cfba4f3245957588484fe32bc,
+        type: 3}
+      propertyPath: triggeredEvents.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040929300183070189, guid: e9f5c00cfba4f3245957588484fe32bc,
+        type: 3}
+      propertyPath: triggeredEvents.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Door, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5040929300183070189, guid: e9f5c00cfba4f3245957588484fe32bc,
+        type: 3}
+      propertyPath: triggeredEvents.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -541,7 +576,7 @@ GameObject:
   - component: {fileID: 295373118}
   m_Layer: 3
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: TheMapItself
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1819,11 +1854,37 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3782006706110258038, guid: 8be2ce3f65796f542b4a6ae4b9551008,
+        type: 3}
+      propertyPath: m_TagString
+      value: TheMapItself
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8be2ce3f65796f542b4a6ae4b9551008, type: 3}
+--- !u!1 &372752753 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4406812543440192624, guid: efba0f89495033f4290b454ddf82dd1f,
+    type: 3}
+  m_PrefabInstance: {fileID: 438167655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &372752761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372752753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cae5ecf48b1c4fe38ad336e420aa6d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputSound: event:/SFX/Player/Footsteps
+  playerismoving: 1
+  movementspeed: 0.3
 --- !u!1001 &438167655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1936,6 +1997,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4406812543440192624, guid: efba0f89495033f4290b454ddf82dd1f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 372752761}
     - targetCorrespondingSourceObject: {fileID: 4559702748086920047, guid: efba0f89495033f4290b454ddf82dd1f,
         type: 3}
       insertIndex: -1
@@ -2025,15 +2090,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollisionTag: 
   Event: event:/TestEvent
-  PlayEvent: 1
-  StopEvent: 2
+  PlayEvent: 0
+  StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1001 &1062541998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2737,7 +2802,7 @@ GameObject:
   - component: {fileID: 1734769928}
   m_Layer: 3
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: TheMapItself
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

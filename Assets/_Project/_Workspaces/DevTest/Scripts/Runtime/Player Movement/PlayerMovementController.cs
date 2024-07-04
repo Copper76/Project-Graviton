@@ -186,6 +186,7 @@ public class PlayerMovementController : MonoBehaviour
         if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f)
         {
             Jump();
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Jump", GetComponent<Transform>().position);
             _jumpBufferCounter = 0f;
         }
 
