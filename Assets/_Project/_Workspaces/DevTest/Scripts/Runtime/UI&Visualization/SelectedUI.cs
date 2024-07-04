@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,7 @@ public class SelectedUI : MonoBehaviour
 
     private Vector3[] _oriDirPos;
     private Material[] _materials;
+
 
     private Dictionary<Vector3, int> _dirIndexByVector;
 
@@ -59,8 +61,10 @@ public class SelectedUI : MonoBehaviour
             {
                 HighlightArrow(i);
                 ResetGhostArrow(i);
+
             }
         }
+
     }
 
     private void HighlightArrow(int selectedDirectionIndex)
@@ -82,6 +86,7 @@ public class SelectedUI : MonoBehaviour
     {
         _materials[index].SetFloat("_Alpha", 1.0f);
     }
+
 
     /// <summary>
     /// Reset arrows position on selected object.
