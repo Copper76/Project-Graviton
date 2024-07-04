@@ -39,6 +39,12 @@ public class MenuUI : MonoBehaviour
 
     private void Awake()
     {
+        if (_uiDocument == null || _creditsScreenUIDocument == null)
+        {
+            Debug.LogError("UIDocument references are not assigned.");
+            return;
+        }
+
         _root = _uiDocument.rootVisualElement;
         _mainMenu = _root.Q<VisualElement>(className: UIClassNames.MAIN_MENU);
         _startButton = _root.Q<UIButton>(UINames.START_BUTTON);
