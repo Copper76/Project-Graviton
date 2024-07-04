@@ -35,10 +35,18 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
                             <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Concept Level Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Producer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="Jack Mulford" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
+                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
+                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
