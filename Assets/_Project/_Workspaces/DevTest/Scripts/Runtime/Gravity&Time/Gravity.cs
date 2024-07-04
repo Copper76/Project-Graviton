@@ -52,6 +52,7 @@ public class Gravity : MonoBehaviour
     public void SetGravityDir(Vector3 dir)
     {
         gravityDir = dir;
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/ShapeBeginMove", GetComponent<Transform>().position);
     }
 
     ////Call this function in fixed updates and events as the values will only be useful in physics calculation
