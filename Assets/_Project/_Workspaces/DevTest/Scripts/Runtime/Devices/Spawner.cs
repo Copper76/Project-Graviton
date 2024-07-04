@@ -5,20 +5,17 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Vector3 spawnOffset;
-    [SerializeField] private Vector3 rotationOffsetEuler;
+    [SerializeField] private Transform spawnTransform;
     [SerializeField] private GameObject spawnPrefab;
 
     [SerializeField] private bool limitedSpawns = false;
     [SerializeField] private int maxSpawnedObjects = 1;
 
     private List<GameObject> spawnedObjects;
-    private Quaternion _rotationOffset;
 
     private void Awake()
     {
         spawnedObjects = new List<GameObject>();
-        _rotationOffset = Quaternion.Euler(rotationOffsetEuler);
     }
 
     public void Spawn()
@@ -33,12 +30,12 @@ public class Spawner : MonoBehaviour
                 Destroy(spawnedObjects[0]); // Take the object that was the spawned first
                 spawnedObjects.RemoveAt(0);
             }
-            newObject = Instantiate(spawnPrefab, gameObject.transform.position + spawnOffset, gameObject.transform.rotation * _rotationOffset);
+            newObject = Instantiate(spawnPrefab, spawnTransform.position, spawnTransform.rotation);
             spawnedObjects.Add(newObject);
         }
         else
         {
-            Instantiate(spawnPrefab, gameObject.transform.position + spawnOffset, gameObject.transform.rotation * _rotationOffset);
+            Instantiate(spawnPrefab, spawnTransform.position, spawnTransform.rotation);
         }
     }
 
