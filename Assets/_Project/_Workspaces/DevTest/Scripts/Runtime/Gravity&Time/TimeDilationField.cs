@@ -61,7 +61,8 @@ public class TimeDilationField : MonoBehaviour
         if (!_active)
         {
             TimeFieldSound.setParameterByName("FieldOff", 20f);
-            TimeFieldSound.triggerCue();
+            //TimeFieldSound.triggerCue();
+            TimeFieldSound.keyOff();
 
             _meshRenderer.material = inactiveMaterial;
             foreach (RelativeTime time in _affectedObjects)

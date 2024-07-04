@@ -52,8 +52,11 @@ public class Gravity : MonoBehaviour
         if (gravityDir == dir) return;
 
         gravityDir = dir;
-        _rb.velocity = Vector3.zero; //reset velocity?
-        _rb.angularVelocity = Vector3.zero;
+        if (!_rb.isKinematic)
+        {
+            _rb.velocity = Vector3.zero; //reset velocity?
+            _rb.angularVelocity = Vector3.zero;
+        }
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/ShapeBeginMove", GetComponent<Transform>().position);
     }
 
