@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Project/_Workspaces/DevTest/UIToolKit/main-menu.uss?fileID=7433441132597879392&amp;guid=79ee94520522b4d40b5304a7cd4b7481&amp;type=3#main-menu" />
+    <ui:VisualElement name="MainMenu" class="main-menu" style="flex-grow: 1;">
+        <ui:VisualElement name="Title" style="flex-grow: 0; justify-content: center; align-self: center; width: 1000px; height: 800px; top: 84px; background-color: rgb(118, 118, 118);" />
+        <ui:VisualElement name="Buttons" class="main-menu-buttons" style="flex-grow: 0; position: absolute; bottom: 64px; flex-direction: row; align-self: center; justify-content: center;">
+            <ui:Button text="START" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StartButton" class="button-main-menu" />
+            <ui:Button text="CREDIT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CreditButton" class="button-main-menu" />
+            <ui:Button text="EXIT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ExitButton" class="button-main-menu" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
