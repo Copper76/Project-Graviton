@@ -26,6 +26,7 @@
     -unity-slice-bottom: -1;
     width: 220px;
     margin-right: 20px;
+    background-image: url("project://database/Assets/External%20Assets/kenney_ui-pack/PNG/Extra/Double/input_rectangle.png?fileID=2800000&guid=7460e88ee6e50cd429a6b660b5fa2dbf&type=3#input_rectangle");
 }
 
 .button {
@@ -70,6 +71,8 @@
 }
 
 .button-main-menu {
+    background-image: url("project://database/Assets/External%20Assets/kenney_ui-pack/PNG/Extra/Double/input_rectangle.png?fileID=2800000&guid=7460e88ee6e50cd429a6b660b5fa2dbf&type=3#input_rectangle");
+    -unity-background-image-tint-color: rgb(112, 169, 27);
 }
 
 .pause-UI-text {
