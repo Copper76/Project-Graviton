@@ -249,6 +249,7 @@ public class PlayerMovementController : MonoBehaviour
         Vector3 jumpDirection = _isOnSlope ? slopeJumpDirection : Vector3.up;
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
         _rb.AddForce(jumpDirection * initialJumpSpeed, ForceMode.VelocityChange);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Jump", GetComponent<Transform>().position);
         _readyToJump = false;
     }
 

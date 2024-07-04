@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using FMODUnity;
 
 public class TimeDilationField : MonoBehaviour
 {
@@ -15,17 +16,23 @@ public class TimeDilationField : MonoBehaviour
     [SerializeField] private Material activeMaterial;
     [SerializeField] private Material inactiveMaterial;
 
+    private FMOD.Studio.EventInstance TimeFieldSound;
+
     private MeshRenderer _meshRenderer;
     private bool _active = true;
 
     public void Start()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
+        TimeFieldSound = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/TimeField/TimeField");
+        TimeFieldSound.setParameterByName("FieldOff", 60.0f);
     }
 
     public void Update()
     {
         UpdateTimeDilation();
+        TimeFieldSound.setParameterByName("FieldSize", gameObject.transform.localScale.x);
+        
     }
 
     private void UpdateTimeDilation()
@@ -53,15 +60,23 @@ public class TimeDilationField : MonoBehaviour
         _active = !_active;
         if (!_active)
         {
+            TimeFieldSound.setParameterByName("FieldOff", 20f);
+            TimeFieldSound.triggerCue();
+
             _meshRenderer.material = inactiveMaterial;
             foreach (RelativeTime time in _affectedObjects)
             {
                 time.SetTimeMultiplier(1.0f);
             }
+           
         }
         else
         {
+            TimeFieldSound.setParameterByName("FieldOff", 60.0f);
+            TimeFieldSound.start();
+
             _meshRenderer.material = activeMaterial;
+            
         }
     }
 
