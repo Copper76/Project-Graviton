@@ -10,6 +10,7 @@ public class PressurePlate : MonoBehaviour
     [SerializeField] private AnimationCurve depressionCurve;
     [SerializeField] private Transform plateTransform;
 
+    [SerializeField] private bool singleUse = false;
     [SerializeField] private bool triggersOnExit;
     [SerializeField] private UnityEvent triggeredEvents;
 
@@ -60,6 +61,7 @@ public class PressurePlate : MonoBehaviour
     private void Interact()
     {
         triggeredEvents.Invoke();
+        if (singleUse) Destroy(this);
     }
 
     private void SetDepressionDepth(bool isDepressed)
