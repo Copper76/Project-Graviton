@@ -7,20 +7,20 @@ public class SceneController : MonoBehaviour
 {
     public void ReloadScene(float delay)
     {
-        LoadSceneByIndex(SceneManager.GetActiveScene().buildIndex, delay);
+        StartCoroutine(Co_LoadSceneByIndex(SceneManager.GetActiveScene().buildIndex, delay));
     }
 
     public void LoadNextScene(float delay)
     {
-        LoadSceneByIndex(SceneManager.GetActiveScene().buildIndex + 1, delay);
+        StartCoroutine(Co_LoadSceneByIndex(SceneManager.GetActiveScene().buildIndex + 1, delay));
     }
 
     public void LoadPreviousScene(float delay)
     {
-        LoadSceneByIndex(SceneManager.GetActiveScene().buildIndex - 1, delay);
+        StartCoroutine(Co_LoadSceneByIndex(SceneManager.GetActiveScene().buildIndex - 1, delay));
     }
 
-    public IEnumerator LoadSceneByIndex(int sceneIndex, float delay)
+    private IEnumerator Co_LoadSceneByIndex(int sceneIndex, float delay)
     {
         yield return new WaitForSeconds(delay);
         

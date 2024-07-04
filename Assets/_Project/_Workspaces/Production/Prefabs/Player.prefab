@@ -375,7 +375,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 771686326948236114}
@@ -480,12 +480,12 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 2.9879546
-      outSlope: 2.9879546
+      value: 0.5
+      inSlope: 1.6259428
+      outSlope: 1.6259428
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.020857453
+      inWeight: 0.034762442
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
