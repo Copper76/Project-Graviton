@@ -70,7 +70,7 @@ public class SelectedUI : MonoBehaviour
 
     private void UnHighlightArrow(int selectedDirectionIndex)
     {
-        _materials[selectedDirectionIndex].SetFloat("_HighlightIntensity", 1.0f);
+        _materials[selectedDirectionIndex].SetFloat("_HighlightIntensity", 0.0f);
     }
 
     private void GhostArrow(int index)
