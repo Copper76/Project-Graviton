@@ -85,6 +85,8 @@ public class GravityGun : MonoBehaviour
     {
         if (_fireRateCounter > 0.0f) return;
 
+        _fireRateCounter = _fireRate;
+
         if (_lookingArrow)
         {
             Vector3 gravityDir = _lookingArrow.GetComponent<GravityDirection>().GetPositiveDir();
@@ -96,6 +98,8 @@ public class GravityGun : MonoBehaviour
     public void AltFire(InputAction.CallbackContext context)
     {
         if (_fireRateCounter > 0.0f) return;
+
+        _fireRateCounter = _fireRate;
 
         if (_lookingArrow)
         {
