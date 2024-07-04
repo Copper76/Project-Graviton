@@ -35,7 +35,6 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.AltFire.performed += _gravityGun.AltFire;
         playerInputActions.Player.DilateTime.performed += _timeDilationField.ResizeTimeDilationField;
         playerInputActions.Player.ToggleTimeField.performed += _timeDilationField.ToggleTimeDilationField;
-        
     }
 
     private void OnDisable()

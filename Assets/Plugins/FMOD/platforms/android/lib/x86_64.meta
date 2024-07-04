@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Plugins/FMOD/platforms/android/lib/x86_64.meta
 guid: 43f99b9bbab58de44a95559f9c854b90
+========
+guid: 8105cca2fc4eb2e488e010278c3ea1bf
+>>>>>>>> Bill:Assets/Plugins/FMOD/lib/win/x86_64.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

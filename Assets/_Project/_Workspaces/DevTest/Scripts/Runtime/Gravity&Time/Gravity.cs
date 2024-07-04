@@ -44,14 +44,19 @@ public class Gravity : MonoBehaviour
             //Debug.Log("The gravitational force is: " + force);
             //_rb.AddForce(force, ForceMode.Impulse);
             _rb.velocity = Vector3.ClampMagnitude(_rb.velocity + gravityDir * gravityStrength * _relativeTime.FixedDeltaTime() * _normalMass, maxSpeed);
-
-            //_rb.velocity = Vector3.ClampMagnitude(_rb.velocity, 30.0f); Maybe?
         }
     }
 
     public void SetGravityDir(Vector3 dir)
     {
+        if (gravityDir == dir) return;
+
         gravityDir = dir;
+        if (!_rb.isKinematic)
+        {
+            _rb.velocity = Vector3.zero; //reset velocity?
+            _rb.angularVelocity = Vector3.zero;
+        }
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/ShapeBeginMove", GetComponent<Transform>().position);
     }
 
@@ -95,4 +100,8 @@ public class Gravity : MonoBehaviour
         _extendCollider.enabled = false;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Play collision sound
+    }
 }
