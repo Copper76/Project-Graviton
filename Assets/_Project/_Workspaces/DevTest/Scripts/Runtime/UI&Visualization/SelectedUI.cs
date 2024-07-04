@@ -42,15 +42,14 @@ public class SelectedUI : MonoBehaviour
     /// <summary>
     /// Invisible other gizmo direction UI
     /// </summary>
-    public Vector3 OnDirectionPicked(GameObject dirObject, bool opposite)
+    public Vector3 OnDirectionPicked(int dirIndex)
     {
         Debug.Log("Called");
-        int selectedDirectionIndex = 0;
         Debug.Log(_materials.Length);
         //set unselect axis invisible
         for (int i = 0; i < dirTransform.Length; i++)
         {
-            if (dirTransform[i].gameObject != dirObject)
+            if (dirIndex != i)
             {
                 UnHighlightArrow(i);
                 GhostArrow(i);
@@ -59,11 +58,10 @@ public class SelectedUI : MonoBehaviour
             {
                 HighlightArrow(i);
                 ResetGhostArrow(i);
-                selectedDirectionIndex = i;
             }
         }
 
-        switch ((Direction)selectedDirectionIndex)
+        switch ((Direction)dirIndex)
         {
             case Direction.PosX:
                 return Vector3.right;

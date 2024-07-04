@@ -1745,6 +1745,7 @@ GameObject:
   - component: {fileID: 4989708701944575206}
   - component: {fileID: 7002893217218159434}
   - component: {fileID: 6715548668684022222}
+  - component: {fileID: 9023363725200363348}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1910,8 +1911,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: {x: 15, y: 15}
-  tiltAngle: 1.5
-  tiltSmooth: 5
   arialTerminalVelocity: {x: 6, y: 12}
   groundTerminalVelocity: 6
   groundMoveForce: 200
@@ -2053,6 +2052,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9023363725200363348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767542945320513159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c56ca503a8d6a6429d37046e99470b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRange: 5
+  interactionRadius: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

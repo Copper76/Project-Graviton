@@ -29,7 +29,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float coyoteTime;
     [SerializeField] private float jumpBufferTime;
     [Range(0f, 1f)] [SerializeField] private float slopeJumpNormalBias;
-    
+
+    private bool _readyToJump = false;
     private float _coyoteTimeCounter;
     private float _jumpBufferCounter;
     
@@ -38,16 +39,6 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float slopeDetectionRange;
     [SerializeField] private float maxSlopeAngle;
-
-    [Header("Camera Shake")]
-    [SerializeField] private float cameraShakeMultiplier = 1.0f;
-    [SerializeField] private float cameraSmoothSpeed = 1.0f;
-    [SerializeField] private AnimationCurve cameraShakeCurve;
-    [SerializeField] private Vector3[] _cameraShakeTargets = new Vector3[] { new Vector3(-2.0f, -1.0f, 0.0f), Vector3.up, new Vector3(2.0f, -1.0f, 0.0f), Vector3.up };
-    private Vector3 _cameraOffset;
-    private Vector3 _cameraTargetPosition = Vector3.zero;
-    private int _nextCameraShakeIndex = 0;
-    private float _cameraShakeTime = 0.0f;
 
     private bool _isGrounded;
     private bool _isOnSlope;
@@ -61,7 +52,7 @@ public class PlayerMovementController : MonoBehaviour
     private Vector2 _lookDirection;
     private Vector2 _mouseCameraRotation = Vector2.zero;
 
-    private const float Epsilon = 1e-6f;
+    private const float Epsilon = 1e-3f;
 
     private void Awake()
     {
@@ -70,7 +61,6 @@ public class PlayerMovementController : MonoBehaviour
 
     void Start()
     {
-        _cameraOffset = Camera.main.transform.localPosition;
         InitializeComponents();
         LockCursor();
     }
@@ -78,6 +68,7 @@ public class PlayerMovementController : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+        Jump();
         Damping();
         EnforceTerminalVelocity();
     }
@@ -90,7 +81,6 @@ public class PlayerMovementController : MonoBehaviour
         ReadInput();
         JumpCheck();
         Look();
-        CameraShake();
     }
 
     private void InitializeComponents()
@@ -128,6 +118,17 @@ public class PlayerMovementController : MonoBehaviour
 
     private void DetectGround()
     {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundDetectionRange, groundLayer))
+        {
+            _isGrounded = true;
+            transform.parent = hit.transform;
+        }
+        else
+        {
+            _isGrounded = false;
+            transform.parent = null;
+        }
         _isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDetectionRange, groundLayer);
         Debug.DrawRay(transform.position, Vector3.down * groundDetectionRange, Color.green, Time.fixedDeltaTime);
     }
@@ -136,7 +137,6 @@ public class PlayerMovementController : MonoBehaviour
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, slopeDetectionRange, groundLayer))
-        //if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, groundLayer))
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
 
@@ -176,9 +176,9 @@ public class PlayerMovementController : MonoBehaviour
         if (_isSteepSlope) return;
         
         Vector3 normalizedMoveDirection = new Vector3(_moveDirection.x, 0f, _moveDirection.y).normalized;
-        float forceStrength = _isGrounded ? groundMoveForce : airMoveForce; //TODO set air relative to ground
+        float forceStrength = _isGrounded ? groundMoveForce : airMoveForce;
         
-        _moveForce = transform.TransformDirection(normalizedMoveDirection * forceStrength * Time.fixedDeltaTime); // Made this global
+        _moveForce = transform.TransformDirection(normalizedMoveDirection * forceStrength * Time.fixedDeltaTime);
 
         SlopeCompensation();
 
@@ -191,9 +191,9 @@ public class PlayerMovementController : MonoBehaviour
         {
             _moveForce = Vector3.ProjectOnPlane(_moveForce, _slopeNormal);
 
-            //Vector3 slopeParallelGravity = Vector3.Project(Physics.gravity, _slopeNormal);
+            Vector3 slopeParallelGravity = Vector3.Project(Physics.gravity, _slopeNormal);
 
-            //_rb.AddForce(-slopeParallelGravity, ForceMode.Acceleration); // removed negative sign
+            _rb.AddForce(-slopeParallelGravity, ForceMode.Acceleration);
         }
     }
 
@@ -204,7 +204,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if (_coyoteTimeCounter > 0f && _jumpBufferCounter > 0f)
         {
-            Jump();
+            _readyToJump = true;
             _jumpBufferCounter = 0f;
         }
 
@@ -243,10 +243,13 @@ public class PlayerMovementController : MonoBehaviour
     public void Jump()
     {
         if (_isSteepSlope) return;
+        if (!_readyToJump) return;
+
         Vector3 slopeJumpDirection = Vector3.Lerp(Vector3.up, _slopeNormal, slopeJumpNormalBias);
         Vector3 jumpDirection = _isOnSlope ? slopeJumpDirection : Vector3.up;
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
         _rb.AddForce(jumpDirection * initialJumpSpeed, ForceMode.VelocityChange);
+        _readyToJump = false;
     }
 
     private void Look()
@@ -260,29 +263,5 @@ public class PlayerMovementController : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0.0f, _mouseCameraRotation.y, 0);
         _cameraTransform.rotation = Quaternion.Euler(_mouseCameraRotation.x, _mouseCameraRotation.y, 0.0f);
-    }
-
-    private void CameraShake()
-    {
-        if (_moveDirection == Vector2.zero)
-        {
-            _cameraTargetPosition = _cameraOffset;
-            _nextCameraShakeIndex = 0;
-            _cameraShakeTime = 0.0f;
-        }
-
-        if (Vector3.Distance(Camera.main.transform.localPosition, _cameraTargetPosition) < Epsilon)
-        {
-            Camera.main.transform.localPosition = _cameraTargetPosition;
-            _nextCameraShakeIndex = (_nextCameraShakeIndex + 1) % _cameraShakeTargets.Length;
-            _cameraTargetPosition = _cameraShakeTargets[_nextCameraShakeIndex] * cameraShakeMultiplier + _cameraOffset;
-            _cameraShakeTime = 0.0f;
-        }
-        else
-        {
-            _cameraShakeTime += Time.deltaTime * cameraSmoothSpeed;
-            float curveValue = cameraShakeCurve.Evaluate(_cameraShakeTime);
-            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, _cameraTargetPosition, curveValue);
-        }
     }
 }

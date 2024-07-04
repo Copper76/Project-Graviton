@@ -93,20 +93,15 @@ public class Visualization : MonoBehaviour
 
         _currUI.gameObject.SetActive(true);
         _currUI.ResizeUI(GetTargetBoundInfo());
-
-        //TEST
-        //_currUI.GetComponent<SelectedUI>().TestDirection();
     }
 
     public void OnDeSelect()
     {
-        //_currTarget = null;
-        //_currUI.transform.localScale = Vector3.one;
         _currUI.gameObject.SetActive(false);
     }
 
-    public Vector3 GetArrowDir(GameObject dirObject, bool opposite = false)
+    public Vector3 GetArrowDir(int dirIndex)
     {
-        return _currUI.OnDirectionPicked(dirObject, opposite);
+        return _currUI.OnDirectionPicked(dirIndex);
     }
 }

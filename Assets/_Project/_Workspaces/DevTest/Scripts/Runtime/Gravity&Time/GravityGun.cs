@@ -42,7 +42,11 @@ public class GravityGun : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, noArrowMask) && hit.collider.gameObject.TryGetComponent<Gravity>(out Gravity hitGravityComponet))
         {
-            if (_lookingObject == hitGravityComponet) return;
+            if (_lookingObject == hitGravityComponet)
+            {
+                _lookingObject.ResizeSphereCollider(hit.distance);
+                return;
+            }
 
             if (_lookingObject != null)
             {
@@ -52,10 +56,11 @@ public class GravityGun : MonoBehaviour
             _lookingObject = hitGravityComponet;
             _lookingObject.LookAtObject();
             _visualization.OnSelect(_lookingObject.transform);
+            _lookingObject.ResizeSphereCollider(hit.distance);
         }
         else
         {
-            if (_lookingObject != null)
+            if (_lookingObject != null && Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
             {
                 _lookingObject.LookAwayFromObject();
                 _visualization.OnDeSelect();
@@ -73,7 +78,7 @@ public class GravityGun : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
         {
             Debug.Log(hit.collider.gameObject);
-            _lookingObject.SetGravityDir(_visualization.GetArrowDir(hit.collider.gameObject));
+            _lookingObject.SetGravityDir(_visualization.GetArrowDir(hit.transform.GetComponent<GravityDirection>().GetPositiveDirIndex()));
         }
     }
 
@@ -85,7 +90,7 @@ public class GravityGun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
         {
-            _lookingObject.SetGravityDir(_visualization.GetArrowDir(hit.collider.gameObject, true) * -1.0f);
+            _lookingObject.SetGravityDir(_visualization.GetArrowDir(hit.transform.GetComponent<GravityDirection>().GetNegativeDirIndex()));
         }
     }
 }
