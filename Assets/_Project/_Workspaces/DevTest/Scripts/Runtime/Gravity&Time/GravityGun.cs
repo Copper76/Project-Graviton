@@ -11,6 +11,7 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private LayerMask noArrowMask;
 
     private Gravity _lookingObject;
+    private GameObject _lookingArrow;
     private Visualization _visualization;
 
     [SerializeField] private float _fireRate = 1.0f;
@@ -45,6 +46,15 @@ public class GravityGun : MonoBehaviour
         RaycastHit hit;
         Debug.DrawRay(transform.position, transform.forward * weaponRange, Color.green);
 
+        if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
+        {
+            _lookingArrow = hit.transform.gameObject;
+        }
+        else
+        {
+            _lookingArrow = null;
+        }
+
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, noArrowMask) && hit.collider.gameObject.TryGetComponent<Gravity>(out Gravity hitGravityComponet))
         {
             if (_lookingObject == hitGravityComponet) return;
@@ -61,7 +71,7 @@ public class GravityGun : MonoBehaviour
         }
         else
         {
-            if (_lookingObject != null && Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
+            if (_lookingObject != null && _lookingArrow == null)
             {
                 _lookingObject.LookAwayFromObject();
                 _visualization.OnDeSelect();
@@ -74,10 +84,10 @@ public class GravityGun : MonoBehaviour
     {
         if (_fireRateCounter > 0.0f) return;
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
+        //RaycastHit hit;
+        if (_lookingArrow)
         {
-            Vector3 gravityDir = hit.transform.GetComponent<GravityDirection>().GetPositiveDir();
+            Vector3 gravityDir = _lookingArrow.GetComponent<GravityDirection>().GetPositiveDir();
             _lookingObject.SetGravityDir(gravityDir);
             _visualization.UpdateArrowVisual(gravityDir);
         }
@@ -87,10 +97,10 @@ public class GravityGun : MonoBehaviour
     {
         if (_fireRateCounter > 0.0f) return;
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
+        //RaycastHit hit;
+        if (_lookingArrow)
         {
-            Vector3 gravityDir = hit.transform.GetComponent<GravityDirection>().GetNegativeDir();
+            Vector3 gravityDir = _lookingArrow.GetComponent<GravityDirection>().GetNegativeDir();
             _lookingObject.SetGravityDir(gravityDir);
             _visualization.UpdateArrowVisual(gravityDir);
         }
