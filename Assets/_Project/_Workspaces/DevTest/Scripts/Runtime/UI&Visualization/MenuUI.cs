@@ -35,6 +35,8 @@ public class MenuUI : MonoBehaviour
     private UIButton _creditButton;
     private UIButton _exitButton;
     private UIButton _creditsBackButton;
+    
+    private SceneController _sceneController;
 
 
     private void Awake()
@@ -54,6 +56,8 @@ public class MenuUI : MonoBehaviour
         _creditsScreenRoot = _creditsScreenUIDocument.rootVisualElement;
         _creditsBackButton = _creditsScreenRoot.Q<UIButton>("CreditBackButton");
         _creditsScreenRoot.style.display = DisplayStyle.None;
+
+        _sceneController = FindObjectOfType<SceneController>();
 
     }
 
@@ -80,6 +84,7 @@ public class MenuUI : MonoBehaviour
     void OnStartButtonClicked()
     {
         Debug.Log("Start button clicked");
+        _sceneController.LoadNextScene(0.1f);
     }
 
     void OnCreditButtonClicked()

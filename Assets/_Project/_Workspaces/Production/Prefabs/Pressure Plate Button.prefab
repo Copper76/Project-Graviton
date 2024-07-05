@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b9c179b3e37f546aad53e16b135505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plateDepression: 0.9
+  plateDepression: 0.05
   depressionSpeed: 3
   depressionCurve:
     serializedVersion: 2
@@ -94,14 +94,13 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   plateTransform: {fileID: 2965080182542548160}
-  singleUse: 0
   triggersOnExit: 1
   triggeredEvents:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Door, Assembly-CSharp
-        m_MethodName: ToggleDoor
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -111,6 +110,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _rigidbodyCount: 0
 --- !u!1001 &2965814283048235934
 PrefabInstance:
   m_ObjectHideFlags: 0

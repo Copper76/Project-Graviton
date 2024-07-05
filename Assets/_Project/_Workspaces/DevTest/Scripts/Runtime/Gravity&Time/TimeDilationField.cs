@@ -28,6 +28,9 @@ public class TimeDilationField : MonoBehaviour
         _meshRenderer = GetComponent<MeshRenderer>();
         TimeFieldSound = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/TimeField/TimeField");
         TimeFieldSound.setParameterByName("FieldOff", 60.0f);
+
+        _active = false;
+        _meshRenderer.material = inactiveMaterial;
     }
 
     public void Update()
@@ -102,9 +105,6 @@ public class TimeDilationField : MonoBehaviour
         }
 
     }
-       
-
-
 
     public void OnTriggerEnter(Collider other)
     {

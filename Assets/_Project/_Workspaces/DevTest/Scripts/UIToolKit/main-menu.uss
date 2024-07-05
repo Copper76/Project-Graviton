@@ -1,0 +1,124 @@
+.main-menu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0, 0, 0);
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out-cubic;
+}
+
+.main-menu-buttons {
+    width: 220px;
+}
+
+.button-main-menu {
+    padding-top: 16px;
+    padding-right: 40px;
+    padding-bottom: 16px;
+    padding-left: 40px;
+    font-size: 32px;
+    color: rgb(0, 0, 0);
+    margin-right: 100px;
+    flex-grow: 1;
+}
+
+.button {
+    padding-top: 16px;
+    padding-right: 40px;
+    padding-bottom: 16px;
+    padding-left: 40px;
+}
+
+.main-menu--hidden {
+    display: none;
+}
+
+.CreditTitleContainer {
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    width: 100px;
+    height: 100px;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-self: center;
+    background-color: rgba(233, 39, 39, 0.57);
+}
+
+.CreditSectionHolder {
+    -unity-text-align: upper-center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.Credit-List {
+}
+
+.CreditSection {
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+}
+
+.button-main-menu {
+    background-image: url("project://database/Assets/External%20Assets/kenney_ui-pack/PNG/Extra/Double/input_rectangle.png?fileID=2800000&guid=7460e88ee6e50cd429a6b660b5fa2dbf&type=3#input_rectangle");
+    -unity-background-image-tint-color: rgb(255, 189, 102);
+    background-color: rgba(255, 32, 36, 0);
+    transition-property: all, opacity, -unity-background-image-tint-color;
+    transition-duration: 0s, 0.1s, 0.1s;
+    transition-timing-function: ease, ease, ease;
+    transition-delay: 0s, 0s, 0s;
+}
+
+.pause-UI-text {
+}
+
+.pause-section {
+    margin-top: 0.5%;
+    margin-right: 0.5%;
+    margin-bottom: 0.5%;
+    margin-left: 0.5%;
+}
+
+.pause-menu-list {
+    margin-right: -135px;
+    margin-left: -135px;
+    margin-bottom: 0;
+    padding-bottom: 1%;
+    padding-top: 1px;
+}
+
+.button:hover {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.button-main-start {
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(32, 229, 246);
+    width: 400px;
+}
+
+.button-main-start:hover {
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(6, 93, 207);
+}
+
+.button-main-credit {
+    -unity-background-image-tint-color: rgb(255, 189, 102);
+    width: 220px;
+}
+
+.button-main-credit:hover {
+    -unity-background-image-tint-color: rgb(255, 146, 32);
+}
+
+.button-main-exit:hover {
+    -unity-background-image-tint-color: rgb(255, 102, 196);
+}
+
+.button-main-exit {
+    -unity-background-image-tint-color: rgb(255, 32, 159);
+    width: 220px;
+}

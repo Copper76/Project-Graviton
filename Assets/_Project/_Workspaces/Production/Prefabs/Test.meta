@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Project/_Workspaces/Production/Prefabs/Test.meta
 guid: d25a4129d2c7b9048841c35be31cdc04
 folderAsset: yes
+========
+guid: 93e4f6c21579d3f49beafee94240cfe4
+>>>>>>>> Lucy:Assets/Plugins/fmodstudio20111.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
