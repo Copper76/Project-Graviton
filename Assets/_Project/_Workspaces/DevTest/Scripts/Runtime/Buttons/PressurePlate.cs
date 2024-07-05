@@ -21,6 +21,7 @@ public class PressurePlate : MonoBehaviour
     private float _depressionTime;
     private List<Rigidbody> _rigidbodies;
 
+
     private void Start()
     {
         _initialPosition = plateTransform.localPosition;
