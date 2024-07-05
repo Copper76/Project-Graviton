@@ -9,18 +9,14 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public PlayerInputActions playerInputActions;
     private GravityGun _gravityGun;
     private TimeDilationField _timeDilationField;
+    private PlayerInteractionController _interactionController;
 
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
         _gravityGun = FindObjectOfType<GravityGun>();
         _timeDilationField = FindObjectOfType<TimeDilationField>();
-    }
-
-    private void Start()
-    {
-        //_gravityGun = FindObjectOfType<GravityGun>();
-        //_timeDilationField = FindObjectOfType<TimeDilationField>();
+        _interactionController = FindAnyObjectByType<PlayerInteractionController>();
     }
 
     private void OnEnable()
@@ -34,19 +30,42 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.DilateTime.Enable();
         playerInputActions.Player.ToggleTimeField.Enable();
 
-        playerInputActions.Player.Fire.performed += _gravityGun.Fire;
-        playerInputActions.Player.AltFire.performed += _gravityGun.AltFire;
-        playerInputActions.Player.DilateTime.performed += _timeDilationField.ResizeTimeDilationField;
-        playerInputActions.Player.ToggleTimeField.performed += _timeDilationField.ToggleTimeDilationField;
-        
+        if (_interactionController != null)
+        {
+            playerInputActions.Player.Interact.performed += _interactionController.Interact;
+        }
+
+        if (_gravityGun != null)
+        {
+            playerInputActions.Player.Fire.performed += _gravityGun.Fire;
+            playerInputActions.Player.AltFire.performed += _gravityGun.AltFire;
+        }
+
+        if (_timeDilationField != null)
+        {
+            playerInputActions.Player.DilateTime.performed += _timeDilationField.ResizeTimeDilationField;
+            playerInputActions.Player.ToggleTimeField.performed += _timeDilationField.ToggleTimeDilationField;
+        }
     }
 
     private void OnDisable()
     {
-        playerInputActions.Player.Fire.performed -= _gravityGun.Fire;
-        playerInputActions.Player.AltFire.performed -= _gravityGun.AltFire;
-        playerInputActions.Player.DilateTime.performed -= _timeDilationField.ResizeTimeDilationField;
-        playerInputActions.Player.ToggleTimeField.performed -= _timeDilationField.ToggleTimeDilationField;
+        if (_interactionController != null)
+        {
+            playerInputActions.Player.Interact.performed -= _interactionController.Interact;
+        }
+
+        if (_gravityGun != null)
+        {
+            playerInputActions.Player.Fire.performed -= _gravityGun.Fire;
+            playerInputActions.Player.AltFire.performed -= _gravityGun.AltFire;
+        }
+
+        if (_timeDilationField != null)
+        {
+            playerInputActions.Player.DilateTime.performed -= _timeDilationField.ResizeTimeDilationField;
+            playerInputActions.Player.ToggleTimeField.performed -= _timeDilationField.ToggleTimeDilationField;
+        }
 
         playerInputActions.Player.Look.Disable();
         playerInputActions.Player.Interact.Disable();

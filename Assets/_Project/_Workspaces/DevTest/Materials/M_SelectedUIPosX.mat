@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_SelectedUIPosZ
+  m_Name: M_SelectedUIPosX
   m_Shader: {fileID: -6465566751694194690, guid: f768ca903bd553747818e88e3cd46719,
     type: 3}
   m_Parent: {fileID: 0}

@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Alt Fire",
+                    "type": "Button",
+                    "id": "fe4062cc-903f-4a6f-a271-c12b5ca04a9a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Dilate Time",
                     "type": "Value",
                     "id": "4018b1b3-9fb8-4f1e-9af5-8a86db2f23e9",
@@ -63,15 +72,6 @@
                     "name": "Toggle Time Field",
                     "type": "Button",
                     "id": "41e14852-a591-45b6-a958-3f49f145c793",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Alt Fire",
-                    "type": "Button",
-                    "id": "fe4062cc-903f-4a6f-a271-c12b5ca04a9a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",

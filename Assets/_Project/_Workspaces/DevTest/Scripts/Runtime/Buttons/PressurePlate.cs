@@ -10,7 +10,6 @@ public class PressurePlate : MonoBehaviour
     [SerializeField] private AnimationCurve depressionCurve;
     [SerializeField] private Transform plateTransform;
 
-    [SerializeField] private bool singleUse = false;
     [SerializeField] private bool triggersOnExit;
     [SerializeField] private UnityEvent triggeredEvents;
 
@@ -31,6 +30,7 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/ButtonsAndPressurePlates/PressurePadOn", GetComponent<Transform>().position);
         if (other.GetComponent<Rigidbody>() == null) return;
 
         if (_rigidbodyCount == 0)
@@ -61,7 +61,6 @@ public class PressurePlate : MonoBehaviour
     private void Interact()
     {
         triggeredEvents.Invoke();
-        if (singleUse) Destroy(this);
     }
 
     private void SetDepressionDepth(bool isDepressed)

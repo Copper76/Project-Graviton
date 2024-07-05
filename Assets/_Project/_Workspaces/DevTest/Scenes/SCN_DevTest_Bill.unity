@@ -1708,6 +1708,7 @@ GameObject:
   - component: {fileID: 2538864104421959866}
   - component: {fileID: 7014909988003546798}
   - component: {fileID: 7014909988003546799}
+  - component: {fileID: 7014909988003546800}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1910,8 +1911,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: {x: 15, y: 15}
-  tiltAngle: 1.5
-  tiltSmooth: 5
   arialTerminalVelocity: {x: 6, y: 12}
   groundTerminalVelocity: 6
   groundMoveForce: 200
@@ -1955,6 +1954,7 @@ MonoBehaviour:
   noArrowMask:
     serializedVersion: 2
     m_Bits: 191
+  _fireRate: 1
 --- !u!114 &7014909988003546799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1971,6 +1971,19 @@ MonoBehaviour:
     type: 3}
   mainCamera: {fileID: 0}
   initialScale: 1
+--- !u!114 &7014909988003546800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5422034761888841432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c56ca503a8d6a6429d37046e99470b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRange: 5
 --- !u!33 &7340153279072509323
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2056,12 +2069,12 @@ MeshRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 6715154958393591037}
   - {fileID: 1752063472}
   - {fileID: 1230973252}
   - {fileID: 516420802}
   - {fileID: 1250435599}
   - {fileID: 1378749693}
-  - {fileID: 6715154958393591037}
   - {fileID: 1620629238}
   - {fileID: 1723034515}
   - {fileID: 1747895300}
