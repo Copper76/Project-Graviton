@@ -41,8 +41,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float maxSlopeAngle;
 
     [Header("Footstep")]
-    //[FMODUnity.EventRef]
-    //public string inputSound;
+    private float _footStepInterval = 0.3f;
+    private float _nextFootStep;
 
     private bool _isGrounded;
     private bool _isOnSlope;
@@ -58,6 +58,9 @@ public class PlayerMovementController : MonoBehaviour
 
     private const float Epsilon = 1e-3f;
 
+    [SerializeField] private string bgmName;
+    private FMOD.Studio.EventInstance MainMenuMusic;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -67,6 +70,12 @@ public class PlayerMovementController : MonoBehaviour
     {
         InitializeComponents();
         LockCursor();
+
+        if (bgmName != "")
+        {
+            MainMenuMusic = FMODUnity.RuntimeManager.CreateInstance(bgmName);
+            MainMenuMusic.start();
+        }
     }
 
     void FixedUpdate()
@@ -184,7 +193,12 @@ public class PlayerMovementController : MonoBehaviour
         
         Vector3 normalizedMoveDirection = new Vector3(_moveDirection.x, 0f, _moveDirection.y).normalized;
         float forceStrength = _isGrounded ? groundMoveForce : airMoveForce;
-        
+        if ((_isOnSlope || _isGrounded) && Time.time > _nextFootStep)
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Footsteps", transform.position);
+            _nextFootStep = Time.time + _footStepInterval;
+        }
+
         _moveForce = transform.TransformDirection(normalizedMoveDirection * forceStrength * Time.fixedDeltaTime);
 
         SlopeCompensation();

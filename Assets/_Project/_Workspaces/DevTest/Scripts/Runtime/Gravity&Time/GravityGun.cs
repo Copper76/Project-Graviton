@@ -90,6 +90,7 @@ public class GravityGun : MonoBehaviour
 
         if (_lookingArrow)
         {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/GunHitsShape", _lookingArrow.transform.position);
             Vector3 gravityDir = _lookingArrow.GetComponent<GravityDirection>().GetPositiveDir();
             _lookingObject.SetGravityDir(gravityDir);
             _visualization.UpdateArrowVisual(gravityDir);
@@ -106,6 +107,7 @@ public class GravityGun : MonoBehaviour
 
         if (_lookingArrow)
         {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/GunHitsShape", _lookingArrow.transform.position);
             Vector3 gravityDir = _lookingArrow.GetComponent<GravityDirection>().GetNegativeDir();
             _lookingObject.SetGravityDir(gravityDir);
             _visualization.UpdateArrowVisual(gravityDir);

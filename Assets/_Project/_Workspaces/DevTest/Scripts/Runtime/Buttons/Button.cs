@@ -27,7 +27,7 @@ public class Button : MonoBehaviour, IInteractable
     public void Interact()
     {
         triggeredEvents.Invoke();
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/ButtonPushed", GetComponent<Transform>().position);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/ButtonPushed", transform.position);
     }
 
     public void OnHoverExit()

@@ -2104,6 +2104,7 @@ MonoBehaviour:
     m_Bits: 8
   slopeDetectionRange: 1.5
   maxSlopeAngle: 45
+  bgmName: event:/Music/MainMenuMusicLoop
 --- !u!4 &2200114342575045263
 Transform:
   m_ObjectHideFlags: 0

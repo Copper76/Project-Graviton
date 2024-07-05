@@ -102,6 +102,6 @@ public class Gravity : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Play collision sound
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/ShapeCollision", transform.position);
     }
 }

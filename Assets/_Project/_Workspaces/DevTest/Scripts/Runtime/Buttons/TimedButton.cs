@@ -43,7 +43,7 @@ public class TimedButton : MonoBehaviour, IInteractable
         if (_resetTimer  <= 0)
         {
             triggeredEvents.Invoke();
-            //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/ButtonsAndPressurePlates/ButtonPushed", GetComponent<Transform>().position);
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/GeneralEnvironment/ButtonPushed", transform.position);
             _resetTimer = resetTime;
 
             StartCoroutine(CounterInteract());
@@ -55,7 +55,6 @@ public class TimedButton : MonoBehaviour, IInteractable
         yield return new WaitForSeconds(resetTime);
 
         triggeredEvents.Invoke();
-        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/ButtonsAndPressurePlates/ButtonPushed", GetComponent<Transform>().position);
     }
 
     public void OnHoverExit()
