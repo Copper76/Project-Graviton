@@ -85,6 +85,7 @@ public class GravityGun : MonoBehaviour
     {
         if (_fireRateCounter > 0.0f) return;
 
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/GravityGunFiring", GetComponent<Transform>().position);
         _fireRateCounter = _fireRate;
 
         if (_lookingArrow)
@@ -96,9 +97,11 @@ public class GravityGun : MonoBehaviour
     }
 
     public void AltFire(InputAction.CallbackContext context)
-    {
+    { 
+
         if (_fireRateCounter > 0.0f) return;
 
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/GravityGunFiring", GetComponent<Transform>().position);
         _fireRateCounter = _fireRate;
 
         if (_lookingArrow)

@@ -31,12 +31,12 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/ButtonsAndPressurePlates/PressurePadOn", GetComponent<Transform>().position);
         if (!other.TryGetComponent<Rigidbody>(out Rigidbody body)) return;
 
         if (_rigidbodies.Count == 0)
         {
             Interact();
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/ButtonsAndPressurePlates/PressurePadOn", GetComponent<Transform>().position);
         }
 
         _rigidbodies.Add(body);
