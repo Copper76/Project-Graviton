@@ -18,7 +18,7 @@ public class PressurePlate : MonoBehaviour
     private Vector3 _currentStartPosition;
 
     private float _depressionTime;
-    private int _rigidbodyCount;
+    [SerializeField] private int _rigidbodyCount;
 
     private void Start()
     {
@@ -32,6 +32,8 @@ public class PressurePlate : MonoBehaviour
     {
         //FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/ButtonsAndPressurePlates/PressurePadOn", GetComponent<Transform>().position);
         if (other.GetComponent<Rigidbody>() == null) return;
+
+        Debug.Log(other.name);
 
         if (_rigidbodyCount == 0)
         {
