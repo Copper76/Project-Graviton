@@ -27,8 +27,11 @@ public class UIManager : MonoBehaviour
     {
         bool value = !_pauseMenuUI.activeSelf;
         _pauseMenuUI.SetActive(value);
+
         if (value) _inputManager.DisablePlayerInteraction();
         else _inputManager.EnablePlayerInteraction();
+
+        Time.timeScale = 1 - Time.timeScale;
     }
 
 
