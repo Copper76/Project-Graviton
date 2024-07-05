@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Project/_Workspaces/Production/Scenes/Levels/SCN_Level_1_REMAKE.unity
+    path: Assets/_Project/_Workspaces/Production/Scenes/Levels/SCN_Level_1.unity
     guid: c129049b69ad4e44e866f3a6b97db6ef
   - enabled: 1
     path: Assets/_Project/_Workspaces/Production/Scenes/Levels/SCN_Level_2.unity
