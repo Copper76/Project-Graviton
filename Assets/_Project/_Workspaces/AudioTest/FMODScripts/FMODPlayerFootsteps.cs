@@ -21,10 +21,10 @@ public class FMODPlayerFootsteps : MonoBehaviour
             playerismoving = false;
         }
 
-//        if 
-//        {
-//            playerismoving = false;
-//        }
+//      if 
+//      {
+//            
+//      }
 
 
 

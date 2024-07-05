@@ -68,6 +68,8 @@ public class GravityGun : MonoBehaviour
     {
         if (_fireRateCounter > 0.0f) return;
 
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/GravityGunFiring", GetComponent<Transform>().position);
+
         Debug.Log("Fired");
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, arrowMask))
@@ -78,8 +80,11 @@ public class GravityGun : MonoBehaviour
     }
 
     public void AltFire(InputAction.CallbackContext context)
-    {
+    { 
+
         if (_fireRateCounter > 0.0f) return;
+
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/GravityGunFiring", GetComponent<Transform>().position);
 
         Debug.Log("Alt Fired");
         RaycastHit hit;
