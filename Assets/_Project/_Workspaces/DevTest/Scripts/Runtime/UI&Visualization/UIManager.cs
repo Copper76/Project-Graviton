@@ -9,10 +9,9 @@ public class UIManager : MonoBehaviour
 
     private InputManager _inputManager;
 
-    private void Awake()
+    private void Start()
     {
         _inputManager = FindObjectOfType<InputManager>();
-        _pauseMenuUI.SetActive(false);
     }
     public void ActiveHUD()
     {

@@ -25,7 +25,6 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         EnablePlayerInteraction();
-        playerInputActions.Player.Pause.Enable();
 
         if (_interactionController != null)
         {
@@ -92,5 +91,7 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.AltFire.Enable();
         playerInputActions.Player.DilateTime.Enable();
         playerInputActions.Player.ToggleTimeField.Enable();
+        playerInputActions.Player.Pause.Enable();
+
     }
 }
