@@ -9,11 +9,14 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public PlayerInputActions playerInputActions;
     private GravityGun _gravityGun;
     private TimeDilationField _timeDilationField;
+    private UIManager _uiManager;
+
 
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
         _gravityGun = FindObjectOfType<GravityGun>();
+        _uiManager = FindObjectOfType<UIManager>();
         _timeDilationField = FindObjectOfType<TimeDilationField>();
     }
 
@@ -25,20 +28,16 @@ public class InputManager : MonoBehaviour
 
     private void OnEnable()
     {
-        playerInputActions.Player.Look.Enable();
-        playerInputActions.Player.Interact.Enable();
-        playerInputActions.Player.Move.Enable();
-        playerInputActions.Player.Jump.Enable();
-        playerInputActions.Player.Fire.Enable();
-        playerInputActions.Player.AltFire.Enable();
-        playerInputActions.Player.DilateTime.Enable();
-        playerInputActions.Player.ToggleTimeField.Enable();
+        EnablePlayerInteraction();
+        playerInputActions.Player.Pause.Enable();
 
         playerInputActions.Player.Fire.performed += _gravityGun.Fire;
         playerInputActions.Player.AltFire.performed += _gravityGun.AltFire;
         playerInputActions.Player.DilateTime.performed += _timeDilationField.ResizeTimeDilationField;
         playerInputActions.Player.ToggleTimeField.performed += _timeDilationField.ToggleTimeDilationField;
-        
+
+
+        playerInputActions.Player.Pause.performed += _uiManager.SetPauseMenu;
     }
 
     private void OnDisable()
@@ -47,7 +46,13 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.AltFire.performed -= _gravityGun.AltFire;
         playerInputActions.Player.DilateTime.performed -= _timeDilationField.ResizeTimeDilationField;
         playerInputActions.Player.ToggleTimeField.performed -= _timeDilationField.ToggleTimeDilationField;
+        playerInputActions.Player.Pause.performed -= _uiManager.SetPauseMenu;
 
+        DisablePlayerInteraction();
+    }
+
+    public void DisablePlayerInteraction()
+    {
         playerInputActions.Player.Look.Disable();
         playerInputActions.Player.Interact.Disable();
         playerInputActions.Player.Move.Disable();
@@ -57,5 +62,15 @@ public class InputManager : MonoBehaviour
         playerInputActions.Player.DilateTime.Disable();
         playerInputActions.Player.ToggleTimeField.Disable();
     }
-
+    public void EnablePlayerInteraction()
+    {
+        playerInputActions.Player.Look.Enable();
+        playerInputActions.Player.Interact.Enable();
+        playerInputActions.Player.Move.Enable();
+        playerInputActions.Player.Jump.Enable();
+        playerInputActions.Player.Fire.Enable();
+        playerInputActions.Player.AltFire.Enable();
+        playerInputActions.Player.DilateTime.Enable();
+        playerInputActions.Player.ToggleTimeField.Enable();
+    }
 }
