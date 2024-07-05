@@ -40,6 +40,10 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float slopeDetectionRange;
     [SerializeField] private float maxSlopeAngle;
 
+    [Header("Footstep")]
+    //[FMODUnity.EventRef]
+    //public string inputSound;
+
     private bool _isGrounded;
     private bool _isOnSlope;
     private bool _isSteepSlope;
@@ -79,6 +83,7 @@ public class PlayerMovementController : MonoBehaviour
         DetectSlope();
         
         ReadInput();
+        PlayFootStep();
         JumpCheck();
         Look();
     }
@@ -266,5 +271,13 @@ public class PlayerMovementController : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0.0f, _mouseCameraRotation.y, 0);
         _cameraTransform.rotation = Quaternion.Euler(_mouseCameraRotation.x, _mouseCameraRotation.y, 0.0f);
+    }
+
+    private void PlayFootStep()
+    {
+        if ((_isGrounded || _isOnSlope) && _moveDirection != Vector2.zero && !_isSteepSlope)
+        {
+            //FMODUnity.RuntimeManager.PlayOneShot(inputSound);
+        }
     }
 }
