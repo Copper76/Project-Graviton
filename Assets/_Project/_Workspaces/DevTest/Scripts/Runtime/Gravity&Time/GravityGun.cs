@@ -14,7 +14,7 @@ public class GravityGun : MonoBehaviour
     private GameObject _lookingArrow;
     private Visualization _visualization;
 
-    [SerializeField] private float _fireRate = 1.0f;
+    [SerializeField] private float _fireRate = 2.5f;
     private float _fireRateCounter = 0.0f;
 
     private void Awake()
