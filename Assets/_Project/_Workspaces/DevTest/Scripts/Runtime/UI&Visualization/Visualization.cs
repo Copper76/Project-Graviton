@@ -56,6 +56,8 @@ public class Visualization : MonoBehaviour
     {
         if (!_currUI.gameObject.activeSelf) return;
 
+        if (_currTarget == null) return;
+
         //update UI position
         _currUI.transform.position = _currTarget.transform.position;
 
