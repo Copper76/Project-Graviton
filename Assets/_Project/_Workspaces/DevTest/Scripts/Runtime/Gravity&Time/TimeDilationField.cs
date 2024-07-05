@@ -34,7 +34,6 @@ public class TimeDilationField : MonoBehaviour
     {
         UpdateTimeDilation();
         TimeFieldSound.setParameterByName("FieldSize", gameObject.transform.localScale.x);
-
     }
 
     private void UpdateTimeDilation()
@@ -43,6 +42,14 @@ public class TimeDilationField : MonoBehaviour
 
         float timeFieldRadius = transform.localScale.x * 0.5f;
         if (timeFieldRadius <= 0) return;
+
+        for (int i = _affectedObjects.Count - 1; i >= 0; i--)
+        {
+            if (_affectedObjects[i] == null)
+            {
+                _affectedObjects.RemoveAt(i);
+            }
+        }
 
         foreach (RelativeTime time in _affectedObjects)
         {
@@ -68,8 +75,6 @@ public class TimeDilationField : MonoBehaviour
             {
                 StopCoroutine(_stopCoroutine);
             }
-
-
              _stopCoroutine = StartCoroutine (StopAudio());
 
             _meshRenderer.material = inactiveMaterial;
@@ -77,17 +82,13 @@ public class TimeDilationField : MonoBehaviour
             {
                 time.SetTimeMultiplier(1.0f);
             }
-
         }
         else
         {
             TimeFieldSound.setParameterByName("FieldOff", 60.0f);
             TimeFieldSound.start();
 
-
-
             _meshRenderer.material = activeMaterial;
-
         }
     }
 

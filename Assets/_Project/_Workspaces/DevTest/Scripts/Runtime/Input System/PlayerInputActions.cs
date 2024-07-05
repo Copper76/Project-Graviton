@@ -55,6 +55,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Alt Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""fe4062cc-903f-4a6f-a271-c12b5ca04a9a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Dilate Time"",
                     ""type"": ""Value"",
                     ""id"": ""4018b1b3-9fb8-4f1e-9af5-8a86db2f23e9"",
@@ -85,15 +94,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Toggle Time Field"",
                     ""type"": ""Button"",
                     ""id"": ""41e14852-a591-45b6-a958-3f49f145c793"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Alt Fire"",
-                    ""type"": ""Button"",
-                    ""id"": ""fe4062cc-903f-4a6f-a271-c12b5ca04a9a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1018,11 +1018,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_AltFire = m_Player.FindAction("Alt Fire", throwIfNotFound: true);
         m_Player_DilateTime = m_Player.FindAction("Dilate Time", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_ToggleTimeField = m_Player.FindAction("Toggle Time Field", throwIfNotFound: true);
-        m_Player_AltFire = m_Player.FindAction("Alt Fire", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1099,11 +1099,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_AltFire;
     private readonly InputAction m_Player_DilateTime;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_ToggleTimeField;
-    private readonly InputAction m_Player_AltFire;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1111,11 +1111,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @AltFire => m_Wrapper.m_Player_AltFire;
         public InputAction @DilateTime => m_Wrapper.m_Player_DilateTime;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @ToggleTimeField => m_Wrapper.m_Player_ToggleTimeField;
-        public InputAction @AltFire => m_Wrapper.m_Player_AltFire;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1134,6 +1134,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @AltFire.started += instance.OnAltFire;
+            @AltFire.performed += instance.OnAltFire;
+            @AltFire.canceled += instance.OnAltFire;
             @DilateTime.started += instance.OnDilateTime;
             @DilateTime.performed += instance.OnDilateTime;
             @DilateTime.canceled += instance.OnDilateTime;
@@ -1146,9 +1149,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleTimeField.started += instance.OnToggleTimeField;
             @ToggleTimeField.performed += instance.OnToggleTimeField;
             @ToggleTimeField.canceled += instance.OnToggleTimeField;
-            @AltFire.started += instance.OnAltFire;
-            @AltFire.performed += instance.OnAltFire;
-            @AltFire.canceled += instance.OnAltFire;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1162,6 +1162,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @AltFire.started -= instance.OnAltFire;
+            @AltFire.performed -= instance.OnAltFire;
+            @AltFire.canceled -= instance.OnAltFire;
             @DilateTime.started -= instance.OnDilateTime;
             @DilateTime.performed -= instance.OnDilateTime;
             @DilateTime.canceled -= instance.OnDilateTime;
@@ -1174,9 +1177,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @ToggleTimeField.started -= instance.OnToggleTimeField;
             @ToggleTimeField.performed -= instance.OnToggleTimeField;
             @ToggleTimeField.canceled -= instance.OnToggleTimeField;
-            @AltFire.started -= instance.OnAltFire;
-            @AltFire.performed -= instance.OnAltFire;
-            @AltFire.canceled -= instance.OnAltFire;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1362,11 +1362,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnAltFire(InputAction.CallbackContext context);
         void OnDilateTime(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnToggleTimeField(InputAction.CallbackContext context);
-        void OnAltFire(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

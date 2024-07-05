@@ -33,8 +33,6 @@ public class Door : MonoBehaviour
     {
         DoorOpeningSound = FMODUnity.RuntimeManager.CreateInstance("event:/SFX/GeneralEnvironment/DoorOpening");
         DoorOpeningSound.setParameterByName("DoorFullClosed", 20f);
-        
-
 
         _closedPosition = transform.position;
         _openPosition = _closedPosition + offSet;
@@ -62,7 +60,6 @@ public class Door : MonoBehaviour
 
     public void ToggleDoor()
     {
-
         DoorOpeningSound.start();
         DoorOpeningSound.setParameterByName("DoorFullClosed", 20f);
 
@@ -70,19 +67,15 @@ public class Door : MonoBehaviour
         {
             StopCoroutine(_stopCoroutine);
         }
-
         _isOpen = !_isOpen;
         _doorMoving = true;
         _currentStartPosition = transform.position;
         _targetPosition = _isOpen ? _openPosition : _closedPosition;
         _animationTime = 0f;
-        
-
     }
 
     private void Update()
     {
-
         DoorOpeningSound.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject.transform));
    //     DoorOpeningSound.setParameterByName("TimeDilation", _relativeTime.GetTimeMultiplier());
 
@@ -93,8 +86,10 @@ public class Door : MonoBehaviour
 
             _stopCoroutine = StartCoroutine(StopAudio());
             _doorMoving = false;
-
             return;
+        }
+
+        //DoorOpeningSound.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject.transform));
 
         }
 

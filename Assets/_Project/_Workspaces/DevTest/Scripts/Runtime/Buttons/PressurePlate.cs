@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,39 +19,37 @@ public class PressurePlate : MonoBehaviour
     private Vector3 _currentStartPosition;
 
     private float _depressionTime;
-    private int _rigidbodyCount;
+    [SerializeField] private List<Rigidbody> _rigidbodies;
 
     private void Start()
     {
         _initialPosition = plateTransform.localPosition;
         _targetPosition = _initialPosition;
         _currentStartPosition = _initialPosition;
-        _rigidbodyCount = 0;
+        _rigidbodies = new List<Rigidbody>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.GetComponent<Rigidbody>() == null) return;
+        if (!other.TryGetComponent<Rigidbody>(out Rigidbody body)) return;
 
-        if (_rigidbodyCount == 0)
+        if (_rigidbodies.Count == 0)
         {
             Interact();
             FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/ButtonsAndPressurePlates/PressurePadOn", GetComponent<Transform>().position);
         }
 
-        _rigidbodyCount++;
+        _rigidbodies.Add(body);
         SetDepressionDepth(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Rigidbody>() == null) return;
+        if (!other.TryGetComponent<Rigidbody>(out Rigidbody body)) return;
 
-        _rigidbodyCount--;
-        if (_rigidbodyCount > 0) return;
+        _rigidbodies.Remove(body);
+        if (_rigidbodies.Count > 0) return;
 
-        _rigidbodyCount = 0;
         SetDepressionDepth(false);
 
         if (triggersOnExit)
@@ -73,6 +72,28 @@ public class PressurePlate : MonoBehaviour
     }
 
     private void Update()
+    {
+        CleanRigidbodies();
+        Depress();
+    }
+
+    private void CleanRigidbodies()
+    {
+        if (_rigidbodies.Count == 0) return;
+
+        _rigidbodies = _rigidbodies.Where(x => x != null).ToList();
+
+        if (_rigidbodies.Count > 0) return;
+
+        SetDepressionDepth(false);
+
+        if (triggersOnExit)
+        {
+            Interact();
+        }
+    }
+
+    private void Depress()
     {
         if (_depressionTime > 1f) return;
 

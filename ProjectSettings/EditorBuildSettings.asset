@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Project/_Workspaces/DevTest/Scenes/SCN_DevTest.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/_Project/_Workspaces/Production/Scenes/Levels/SCN_Level_1.unity
+    guid: 7bcc15ce1fb137a4c8d3f2281b6e3734
+  - enabled: 1
+    path: Assets/_Project/_Workspaces/Production/Scenes/Levels/SCN_Level_2.unity
+    guid: 40cde80395342124fb4a05e53816fae8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: d58cb7358c9035947815bd4d0ea6a6e0,
       type: 2}
