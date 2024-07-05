@@ -19,15 +19,8 @@
     padding-bottom: 16px;
     padding-left: 40px;
     font-size: 32px;
-    color: rgb(249, 206, 0);
-    -unity-slice-left: -1;
-    -unity-slice-top: -1;
-    -unity-slice-right: -1;
-    -unity-slice-bottom: -1;
-    width: 220px;
-    margin-right: 20px;
-    background-image: url("project://database/Assets/External%20Assets/kenney_ui-pack/PNG/Extra/Double/input_rectangle.png?fileID=2800000&guid=7460e88ee6e50cd429a6b660b5fa2dbf&type=3#input_rectangle");
-    -unity-background-image-tint-color: rgb(112, 169, 27);
+    color: rgb(0, 0, 0);
+    margin-right: 100px;
 }
 
 .button {
@@ -70,8 +63,8 @@
 
 .button-main-menu {
     background-image: url("project://database/Assets/External%20Assets/kenney_ui-pack/PNG/Extra/Double/input_rectangle.png?fileID=2800000&guid=7460e88ee6e50cd429a6b660b5fa2dbf&type=3#input_rectangle");
-    -unity-background-image-tint-color: rgb(112, 169, 27);
-    background-color: rgba(0, 41, 4, 0);
+    -unity-background-image-tint-color: rgb(255, 189, 102);
+    background-color: rgba(255, 32, 36, 0);
     transition-property: all, opacity, -unity-background-image-tint-color;
     transition-duration: 0s, 0.1s, 0.1s;
     transition-timing-function: ease, ease, ease;
@@ -97,5 +90,34 @@
 }
 
 .button:hover {
-    -unity-background-image-tint-color: rgb(18, 96, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.button-main-start {
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(32, 229, 246);
+    width: 400px;
+}
+
+.button-main-start:hover {
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(6, 93, 207);
+}
+
+.button-main-credit {
+    -unity-background-image-tint-color: rgb(255, 189, 102);
+    width: 220px;
+}
+
+.button-main-credit:hover {
+    -unity-background-image-tint-color: rgb(255, 146, 32);
+}
+
+.button-main-exit:hover {
+    -unity-background-image-tint-color: rgb(255, 102, 196);
+}
+
+.button-main-exit {
+    -unity-background-image-tint-color: rgb(255, 32, 159);
+    width: 220px;
 }

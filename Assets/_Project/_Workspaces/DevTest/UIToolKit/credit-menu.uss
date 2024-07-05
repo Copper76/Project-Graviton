@@ -44,3 +44,11 @@
     justify-content: flex-start;
     background-color: rgba(255, 30, 30, 0);
 }
+
+.button-credit-return {
+    -unity-background-image-tint-color: rgb(255, 189, 102);
+}
+
+.button-credit-return:hover {
+    -unity-background-image-tint-color: rgb(255, 146, 32);
+}

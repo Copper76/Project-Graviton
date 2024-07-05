@@ -142,6 +142,6 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="MainMenu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CreditBackButton" class="button-main-menu button" style="align-self: flex-end; width: 252px; transition-duration: 0s; background-color: rgb(0, 41, 4);" />
+        <ui:Button text="MainMenu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="CreditBackButton" class="button-main-menu button-credit-return" style="align-self: center; width: 252px; transition-duration: 0s;" />
     </ui:VisualElement>
 </ui:UXML>
