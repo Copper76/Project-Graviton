@@ -77,7 +77,7 @@ public class Door : MonoBehaviour
     private void Update()
     {
         DoorOpeningSound.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject.transform));
-   //     DoorOpeningSound.setParameterByName("TimeDilation", _relativeTime.GetTimeMultiplier());
+        //DoorOpeningSound.setParameterByName("TimeDilation", _relativeTime.GetTimeMultiplier());
 
 
         if (Vector3.Distance(transform.position, _targetPosition) < Epsilon && _doorMoving) 
@@ -87,10 +87,6 @@ public class Door : MonoBehaviour
             _stopCoroutine = StartCoroutine(StopAudio());
             _doorMoving = false;
             return;
-        }
-
-        //DoorOpeningSound.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject.transform));
-
         }
 
         float deltaTime = _useRelativeTime ? _relativeTime.DeltaTime() : Time.deltaTime;
