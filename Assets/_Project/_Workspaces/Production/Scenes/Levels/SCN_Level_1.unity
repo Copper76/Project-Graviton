@@ -206,7 +206,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 2
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -3230,12 +3230,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7091388894142690530, guid: 21cb1bfb70a40f74aaae304f70e5f79e,
+    - target: {fileID: 694432575752489401, guid: 21cb1bfb70a40f74aaae304f70e5f79e,
         type: 3}
       propertyPath: _pauseMenuUI
       value: 
       objectReference: {fileID: 1709212501}
-    - target: {fileID: 7091388894142690530, guid: 21cb1bfb70a40f74aaae304f70e5f79e,
+    - target: {fileID: 694432575752489401, guid: 21cb1bfb70a40f74aaae304f70e5f79e,
         type: 3}
       propertyPath: _gunPointerUI
       value: 
@@ -3304,8 +3304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f68bbde0c4ea3246b11bcd32b5b3531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunPointerUI: {fileID: 0}
-  _pauseMenuUI: {fileID: 0}
 --- !u!1 &1237277660
 GameObject:
   m_ObjectHideFlags: 0
@@ -4157,9 +4155,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e79b0bb075522864ab54ff889750546c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: db1a9a10d3dea2140bd4dd6426ab4b20, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0

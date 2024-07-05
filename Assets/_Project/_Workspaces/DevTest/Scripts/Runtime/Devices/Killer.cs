@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Killer : MonoBehaviour
 {
-    [SerializeField] private Vector3 spawnLocation;
+    [SerializeField] private Transform spawnTransform;
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == "Player")
         {
-            collider.transform.position = spawnLocation;
+            collider.transform.position = spawnTransform.position;
             collider.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
