@@ -20,6 +20,11 @@ public class SceneController : MonoBehaviour
         StartCoroutine(Co_LoadSceneByIndex(SceneManager.GetActiveScene().buildIndex - 1, delay));
     }
 
+    public void LoadMenu(float delay)
+    {
+        StartCoroutine(Co_LoadSceneByIndex(0, delay));
+    }
+
     private IEnumerator Co_LoadSceneByIndex(int sceneIndex, float delay)
     {
         yield return new WaitForSeconds(delay);

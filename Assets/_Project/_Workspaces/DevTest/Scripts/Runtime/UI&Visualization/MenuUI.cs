@@ -4,6 +4,8 @@ using UIButton = UnityEngine.UIElements.Button;
 
 public class MenuUI : MonoBehaviour
 {
+
+    private SceneController _sceneController;
     private static class UIClassNames
     {
         public const string MAIN_MENU = "main-menu";
@@ -45,6 +47,8 @@ public class MenuUI : MonoBehaviour
             return;
         }
 
+        _sceneController = FindObjectOfType<SceneController>();
+
         _root = _uiDocument.rootVisualElement;
         _mainMenu = _root.Q<VisualElement>(className: UIClassNames.MAIN_MENU);
         _startButton = _root.Q<UIButton>(UINames.START_BUTTON);
@@ -73,13 +77,11 @@ public class MenuUI : MonoBehaviour
         _creditsBackButton.clicked -= OnCreditsBackButtonClicked;
     }
 
-    private void Start()
-    {
-        //SetMainMenuVisibility(false);
-    }
+
     void OnStartButtonClicked()
     {
         Debug.Log("Start button clicked");
+        _sceneController.LoadNextScene(0.1f);
     }
 
     void OnCreditButtonClicked()

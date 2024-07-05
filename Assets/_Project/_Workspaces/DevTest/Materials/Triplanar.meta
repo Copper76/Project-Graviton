@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Project/_Workspaces/DevTest/Materials/Triplanar.meta
 guid: a581312b6a1337644ada5b466d99c489
+========
+guid: 1408f8a9662fd69459b26ef48d4236bb
+>>>>>>>> Lucy:Assets/UI Toolkit.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

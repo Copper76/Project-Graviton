@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Project/_Workspaces/DevTest/Scripts/Runtime/Devices.meta
 guid: e397f6b432a1e7e4297d1a140620ef88
+========
+guid: aa4b3225e29228c4eb0566dfd51d57b8
+>>>>>>>> Lucy:Assets/_Project/_Workspaces/DevTest/UIToolKit.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -1,8 +1,5 @@
 
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -17,8 +14,8 @@ public class SelectedUI : MonoBehaviour
     private Vector3[] _oriDirPos;
     private Material[] _materials;
 
-
     private Dictionary<Vector3, int> _dirIndexByVector;
+
 
     private void Awake()
     {

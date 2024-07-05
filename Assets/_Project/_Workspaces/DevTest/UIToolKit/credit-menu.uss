@@ -1,0 +1,54 @@
+.button:active {
+    scale: 0.95 0.95;
+}
+
+.credit-section-name {
+    align-items: stretch;
+    flex-direction: row;
+    align-self: center;
+    justify-content: flex-start;
+    width: 900px;
+    background-color: rgba(253, 0, 0, 0);
+}
+
+.credit-role {
+    align-items: flex-end;
+    align-self: center;
+    width: auto;
+    white-space: normal;
+    text-overflow: clip;
+    justify-content: flex-start;
+    -unity-slice-scale: 1px;
+    margin-right: 0;
+    background-color: rgba(0, 65, 255, 0);
+    max-width: 465px;
+    min-width: auto;
+}
+
+.credit-name {
+    align-items: center;
+    align-self: flex-start;
+    width: auto;
+    max-width: 400px;
+    justify-content: flex-start;
+    background-color: rgba(243, 49, 49, 0);
+}
+
+.unity-label {
+    color: rgb(255, 255, 255);
+}
+
+.credit-name-label {
+    align-self: flex-start;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-color: rgba(255, 30, 30, 0);
+}
+
+.button-credit-return {
+    -unity-background-image-tint-color: rgb(255, 189, 102);
+}
+
+.button-credit-return:hover {
+    -unity-background-image-tint-color: rgb(255, 146, 32);
+}
