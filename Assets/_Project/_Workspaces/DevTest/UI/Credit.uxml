@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Project/_Workspaces/DevTest/UIToolKit/credit-menu.uss?fileID=7433441132597879392&amp;guid=f26ff5ab2fe60df4191abf1613f7724d&amp;type=3#credit-menu" />
     <Style src="project://database/Assets/_Project/_Workspaces/DevTest/UIToolKit/main-menu.uss?fileID=7433441132597879392&amp;guid=79ee94520522b4d40b5304a7cd4b7481&amp;type=3#main-menu" />
-    <ui:VisualElement name="CreditScreenBackground" style="flex-grow: 1; background-color: rgb(104, 142, 124);">
-        <ui:VisualElement style="flex-grow: 0; height: 100%; align-self: auto;">
+    <ui:VisualElement name="CreditScreenBackground" style="flex-grow: 1; background-color: rgb(0, 0, 0);">
+        <ui:VisualElement style="flex-grow: 0; height: 100%; align-self: auto; background-color: rgba(0, 0, 0, 0);">
             <ui:VisualElement name="CreditTitleContainer" class="CreditTitleContainer" style="flex-grow: 0; width: auto; height: auto; background-color: rgba(233, 39, 39, 0);">
                 <ui:Label tabindex="-1" text="Thank you for playing!" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; font-size: 60px;" />
             </ui:VisualElement>
@@ -12,20 +12,28 @@
                         <ui:VisualElement name="SectionTitle" class="CreditSectionHolder">
                             <ui:Label tabindex="-1" text="Producer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 50px;" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Technical Producer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Creative Producer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="Weichu(Bill) Cao" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Henry Wilson" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Multiple Hat" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Producer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold; align-self: flex-end; align-items: flex-end;">
+                                <ui:Label tabindex="-1" text="Millie-Jo MacIver" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Technical Producer" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 40px; align-items: stretch;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="Henry Wilson" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Weichu(Bill) Cao" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
@@ -33,130 +41,101 @@
                         <ui:VisualElement name="SectionTitle" class="CreditSectionHolder">
                             <ui:Label tabindex="-1" text="Design" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 50px;" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Producer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Sound Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="George Pack" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Game/Level Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Henry Wilson" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Level Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Jack Mulford" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Narrative Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Millie-Jo MacIver" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="ProgramSection" class="CreditSection" style="flex-grow: 1; margin-top: 0; margin-bottom: 0; border-bottom-width: 0; border-top-width: 0;">
-                        <ui:VisualElement name="SectionTitle" class="CreditSectionHolder">
-                            <ui:Label tabindex="-1" text="Programming" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 50px;" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Programmer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Game Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="Cuneyd Kahraman" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Programmer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="Weichu(Bill) Cao" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Programmer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="Xinlu(Lucy) Chen" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Weichu (Bill) Cao" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="ListOnRight" style="flex-grow: 1; flex-direction: column; width: 800px; background-color: rgba(68, 107, 159, 0); align-items: center; justify-content: flex-start; align-self: flex-start;">
-                    <ui:VisualElement name="Section" class="CreditSection" style="flex-grow: 1; margin-top: 0; margin-bottom: 0;">
+                    <ui:VisualElement name="ProgramSection" class="CreditSection" style="flex-grow: 1; margin-top: 0; margin-bottom: 0; border-bottom-width: 0; border-top-width: 0;">
                         <ui:VisualElement name="SectionTitle" class="CreditSectionHolder">
-                            <ui:Label tabindex="-1" text="Writers" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 50px;" />
+                            <ui:Label tabindex="-1" text="Programming" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 50px;" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Narrative Designer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Generalist Programmer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px; align-self: auto;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Cuneyd Kahraman" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px; align-items: stretch; align-self: flex-start; justify-content: center;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="Programmer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
+                                <ui:Label tabindex="-1" text="Weichu(Bill) Cao" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px; align-items: stretch; align-self: flex-start; justify-content: center;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px; align-self: flex-start;">
+                                <ui:Label tabindex="-1" text="Programmer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
+                                <ui:Label tabindex="-1" text="Xinlu(Lucy) Chen" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px; align-self: flex-start; justify-content: center;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Section" class="CreditSection" style="flex-grow: 1;">
+                    <ui:VisualElement name="ArtSection" class="CreditSection" style="flex-grow: 1;">
                         <ui:VisualElement name="SectionTitle" class="CreditSectionHolder">
                             <ui:Label tabindex="-1" text="Arts" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 50px;" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Artist" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row; left: -100px;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
+                                <ui:Label tabindex="-1" text="3D Artist" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px; align-items: stretch; justify-content: flex-start;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Artist" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Artist" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Keelin Rose MacGregor" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="Section" class="CreditSection" style="flex-grow: 1;">
+                    <ui:VisualElement name="AudioSection" class="CreditSection" style="flex-grow: 1;">
                         <ui:VisualElement name="SectionTitle" class="CreditSectionHolder">
                             <ui:Label tabindex="-1" text="Audio" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 50px;" />
                         </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
+                        <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row; left: -100px;">
+                            <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px;">
                                 <ui:Label tabindex="-1" text="Composer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                        <ui:VisualElement name="SectionName" style="flex-grow: 0; flex-direction: row; align-self: center; align-items: stretch;">
-                            <ui:VisualElement name="Role" style="flex-grow: 1; padding-right: 20px;">
-                                <ui:Label tabindex="-1" text="Composer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
-                            </ui:VisualElement>
-                            <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
-                                <ui:Label tabindex="-1" text="FirstName LastName" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="Mia Sugunasingha" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
