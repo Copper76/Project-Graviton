@@ -98,7 +98,7 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="SectionName" class="credit-section-name" style="flex-grow: 0; flex-direction: row;">
                             <ui:VisualElement name="Role" class="credit-role" style="flex-grow: 1; padding-right: 20px; align-self: flex-start;">
-                                <ui:Label tabindex="-1" text="Programmer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
+                                <ui:Label tabindex="-1" text="UI Programmer" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 40px;" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Name" class="credit-name" style="flex-grow: 1; -unity-font-style: bold;">
                                 <ui:Label tabindex="-1" text="Xinlu(Lucy) Chen" parse-escape-sequences="true" display-tooltip-when-elided="true" class="credit-name-label" style="font-size: 40px; align-self: flex-start; justify-content: center;" />
