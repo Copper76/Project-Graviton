@@ -58,7 +58,12 @@ public class MenuUI : MonoBehaviour
         _creditsScreenRoot.style.display = DisplayStyle.None;
 
         _sceneController = FindObjectOfType<SceneController>();
+    }
 
+    private void Start()
+    {
+        UnityEngine.Cursor.visible = true;
+        UnityEngine.Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void OnEnable()
@@ -77,10 +82,6 @@ public class MenuUI : MonoBehaviour
         _creditsBackButton.clicked -= OnCreditsBackButtonClicked;
     }
 
-    private void Start()
-    {
-        //SetMainMenuVisibility(false);
-    }
     void OnStartButtonClicked()
     {
         Debug.Log("Start button clicked");
